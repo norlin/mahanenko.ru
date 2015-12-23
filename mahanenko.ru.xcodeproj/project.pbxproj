@@ -15,6 +15,7 @@
 		973D59E91C2A5FCE001CB704 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 973D59E71C2A5FCE001CB704 /* LaunchScreen.storyboard */; };
 		973D59F41C2A5FCE001CB704 /* mahanenko_ruTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59F31C2A5FCE001CB704 /* mahanenko_ruTests.swift */; };
 		973D59FF1C2A5FCE001CB704 /* mahanenko_ruUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59FE1C2A5FCE001CB704 /* mahanenko_ruUITests.swift */; };
+		973D5A0E1C2A60FA001CB704 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D5A0D1C2A60FA001CB704 /* Menu.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		973D59FA1C2A5FCE001CB704 /* mahanenko.ruUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mahanenko.ruUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		973D59FE1C2A5FCE001CB704 /* mahanenko_ruUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mahanenko_ruUITests.swift; sourceTree = "<group>"; };
 		973D5A001C2A5FCE001CB704 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		973D5A0D1C2A60FA001CB704 /* Menu.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,7 +101,9 @@
 		973D59DB1C2A5FCE001CB704 /* mahanenko.ru */ = {
 			isa = PBXGroup;
 			children = (
+				973D5A0C1C2A60E7001CB704 /* Model */,
 				973D59DC1C2A5FCE001CB704 /* AppDelegate.swift */,
+				973D5A0F1C2A626B001CB704 /* Resources */,
 				973D59DE1C2A5FCE001CB704 /* MasterViewController.swift */,
 				973D59E01C2A5FCE001CB704 /* DetailViewController.swift */,
 				973D59E21C2A5FCE001CB704 /* Main.storyboard */,
@@ -126,6 +130,21 @@
 				973D5A001C2A5FCE001CB704 /* Info.plist */,
 			);
 			path = mahanenko.ruUITests;
+			sourceTree = "<group>";
+		};
+		973D5A0C1C2A60E7001CB704 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				973D5A0D1C2A60FA001CB704 /* Menu.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		973D5A0F1C2A626B001CB704 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -261,6 +280,7 @@
 			files = (
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
 				973D59DF1C2A5FCE001CB704 /* MasterViewController.swift in Sources */,
+				973D5A0E1C2A60FA001CB704 /* Menu.swift in Sources */,
 				973D59DD1C2A5FCE001CB704 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
