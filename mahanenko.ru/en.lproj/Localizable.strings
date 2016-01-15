@@ -1,0 +1,12 @@
+/* menu item – About author */
+"menu.item.about" = "About";
+
+/* menu item – Login */
+"menu.item.login" = "Login";
+
+/* menu section – Main */
+"menu.section.main" = "Main";
+
+/* menu section – User */
+"menu.section.user" = "User";
+

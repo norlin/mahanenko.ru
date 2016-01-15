@@ -24,11 +24,11 @@ class Menu {
     
     init(){
         list = [
-            MenuSection(title: "Основное", items: [
-                MenuItem(title: "Главная", url: NSURL(string: "/main")!, icon: nil)
+            MenuSection(title: NSLocalizedString("menu.section.main", comment: "menu section – Main"), items: [
+                MenuItem(title: NSLocalizedString("menu.item.about", comment: "menu item – About author"), url: NSURL(string: "/about")!, icon: nil)
             ]),
-            MenuSection(title: "Пользователь", items: [
-                MenuItem(title: "Войти", url: NSURL(string: "/login")!, icon: nil)
+            MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
+                MenuItem(title: NSLocalizedString("menu.item.login", comment: "menu item – Login"), url: NSURL(string: "/login")!, icon: nil)
             ]),
         ]
         // TODO: read list from the file
