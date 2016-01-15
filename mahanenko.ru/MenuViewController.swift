@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  MenuViewController.swift
 //  mahanenko.ru
 //
 //  Created by norlin on 23/12/15.
@@ -8,18 +8,14 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MenuViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     var menu = Menu.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-//        self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
-//        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-//        self.navigationItem.rightBarButtonItem = addButton
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		973D59DD1C2A5FCE001CB704 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59DC1C2A5FCE001CB704 /* AppDelegate.swift */; };
-		973D59DF1C2A5FCE001CB704 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59DE1C2A5FCE001CB704 /* MasterViewController.swift */; };
+		973D59DF1C2A5FCE001CB704 /* MenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59DE1C2A5FCE001CB704 /* MenuViewController.swift */; };
 		973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 973D59E01C2A5FCE001CB704 /* DetailViewController.swift */; };
 		973D59E41C2A5FCE001CB704 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 973D59E21C2A5FCE001CB704 /* Main.storyboard */; };
 		973D59E61C2A5FCE001CB704 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 973D59E51C2A5FCE001CB704 /* Assets.xcassets */; };
@@ -42,7 +42,7 @@
 /* Begin PBXFileReference section */
 		973D59D91C2A5FCE001CB704 /* mahanenko.ru.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mahanenko.ru.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		973D59DC1C2A5FCE001CB704 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		973D59DE1C2A5FCE001CB704 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		973D59DE1C2A5FCE001CB704 /* MenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuViewController.swift; sourceTree = "<group>"; };
 		973D59E01C2A5FCE001CB704 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		973D59E31C2A5FCE001CB704 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		973D59E51C2A5FCE001CB704 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -117,17 +117,10 @@
 		973D59DB1C2A5FCE001CB704 /* mahanenko.ru */ = {
 			isa = PBXGroup;
 			children = (
-				975905001C491A3600A6345B /* Localizable.strings */,
-				975904F01C491A3500A6345B /* InfoPlist.strings */,
+				975905051C492D2F00A6345B /* View */,
 				973D5A0C1C2A60E7001CB704 /* Model */,
 				973D59DC1C2A5FCE001CB704 /* AppDelegate.swift */,
 				973D5A0F1C2A626B001CB704 /* Resources */,
-				973D59DE1C2A5FCE001CB704 /* MasterViewController.swift */,
-				973D59E01C2A5FCE001CB704 /* DetailViewController.swift */,
-				973D59E21C2A5FCE001CB704 /* Main.storyboard */,
-				973D59E51C2A5FCE001CB704 /* Assets.xcassets */,
-				973D59E71C2A5FCE001CB704 /* LaunchScreen.storyboard */,
-				973D59EA1C2A5FCE001CB704 /* Info.plist */,
 			);
 			path = mahanenko.ru;
 			sourceTree = "<group>";
@@ -163,8 +156,23 @@
 		973D5A0F1C2A626B001CB704 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				973D59E21C2A5FCE001CB704 /* Main.storyboard */,
+				973D59E51C2A5FCE001CB704 /* Assets.xcassets */,
+				973D59E71C2A5FCE001CB704 /* LaunchScreen.storyboard */,
+				973D59EA1C2A5FCE001CB704 /* Info.plist */,
+				975905001C491A3600A6345B /* Localizable.strings */,
+				975904F01C491A3500A6345B /* InfoPlist.strings */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		975905051C492D2F00A6345B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				973D59DE1C2A5FCE001CB704 /* MenuViewController.swift */,
+				973D59E01C2A5FCE001CB704 /* DetailViewController.swift */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,7 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
-				973D59DF1C2A5FCE001CB704 /* MasterViewController.swift in Sources */,
+				973D59DF1C2A5FCE001CB704 /* MenuViewController.swift in Sources */,
 				973D5A0E1C2A60FA001CB704 /* Menu.swift in Sources */,
 				973D59DD1C2A5FCE001CB704 /* AppDelegate.swift in Sources */,
 			);
