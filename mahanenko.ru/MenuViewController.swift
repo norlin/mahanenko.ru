@@ -11,7 +11,7 @@ import UIKit
 class MenuViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
-    var menu = Menu.sharedInstance()
+    let menu = Menu.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,6 +20,8 @@ class MenuViewController: UITableViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
+        
+        self.performSegueWithIdentifier("showDetail", sender: self)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -36,8 +38,14 @@ class MenuViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                let item = menu.getItem(indexPath)
+            var index: NSIndexPath!
+            if let _ = sender as? MenuViewController {
+                index = menu.defaultIndex
+            } else if let indexPath = self.tableView.indexPathForSelectedRow {
+                index = indexPath
+            }
+            if index != nil {
+                let item = menu.getItem(index)
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
                 controller.detailItem = item
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()

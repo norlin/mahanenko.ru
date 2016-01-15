@@ -21,11 +21,13 @@ struct MenuItem {
 
 class Menu {
     let list: [MenuSection]
+    let defaultIndex = NSIndexPath(forRow: 1, inSection: 0)
     
     init(){
         list = [
             MenuSection(title: NSLocalizedString("menu.section.main", comment: "menu section – Main"), items: [
-                MenuItem(title: NSLocalizedString("menu.item.about", comment: "menu item – About author"), url: NSURL(string: "/about")!, icon: nil)
+                MenuItem(title: NSLocalizedString("menu.item.about", comment: "menu item – About author"), url: NSURL(string: "/about")!, icon: nil),
+                MenuItem(title: NSLocalizedString("menu.item.news", comment: "menu item – ANews"), url: NSURL(string: "/news")!, icon: nil)
             ]),
             MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
                 MenuItem(title: NSLocalizedString("menu.item.login", comment: "menu item – Login"), url: NSURL(string: "/login")!, icon: nil)
