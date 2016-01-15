@@ -8,10 +8,9 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, DetailViewProtocol {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
-
 
     var detailItem: MenuItem? {
         didSet {

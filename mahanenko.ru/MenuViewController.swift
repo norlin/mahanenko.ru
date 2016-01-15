@@ -46,10 +46,23 @@ class MenuViewController: UITableViewController {
             }
             if index != nil {
                 let item = menu.getItem(index)
-                let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-                controller.detailItem = item
-                controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-                controller.navigationItem.leftItemsSupplementBackButton = true
+                var controller: DetailViewProtocol?
+                if (item.instance != nil) {
+                    controller = item.instance!
+                } else if let instance = self.storyboard?.instantiateViewControllerWithIdentifier(item.controller) as? DetailViewProtocol {
+                    controller = instance
+                    controller!.detailItem = item
+                    menu.setInstance(index, instance: controller!)
+                }
+                if controller != nil {
+                    let navigation = segue.destinationViewController as! UINavigationController
+                    navigation.setViewControllers([controller as! UIViewController], animated: false)
+                    
+                    if let destController = navigation.topViewController {
+                        destController.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
+                        destController.navigationItem.leftItemsSupplementBackButton = true
+                    }
+                }
             }
         }
     }

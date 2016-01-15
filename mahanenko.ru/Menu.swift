@@ -6,31 +6,48 @@
 //  Copyright © 2015 norlin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 struct MenuSection {
     let title: String
-    let items: [MenuItem]
+    var items: [MenuItem]
 }
 
 struct MenuItem {
     let title: String
     let url: NSURL
+    let controller: String
     let icon: String?
+    var instance: DetailViewProtocol?
 }
 
 class Menu {
-    let list: [MenuSection]
+    var list: [MenuSection]
     let defaultIndex = NSIndexPath(forRow: 1, inSection: 0)
     
     init(){
         list = [
             MenuSection(title: NSLocalizedString("menu.section.main", comment: "menu section – Main"), items: [
-                MenuItem(title: NSLocalizedString("menu.item.about", comment: "menu item – About author"), url: NSURL(string: "/about")!, icon: nil),
-                MenuItem(title: NSLocalizedString("menu.item.news", comment: "menu item – ANews"), url: NSURL(string: "/news")!, icon: nil)
+                MenuItem(
+                    title: NSLocalizedString("menu.item.about", comment: "menu item – About author"),
+                    url: NSURL(string: "/about")!,
+                    controller: "DetailViewController",
+                    icon: nil,
+                    instance: nil),
+                MenuItem(
+                    title: NSLocalizedString("menu.item.news", comment: "menu item – News"),
+                    url: NSURL(string: "/news")!,
+                    controller: "NewsViewController",
+                    icon: nil,
+                    instance: nil)
             ]),
             MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
-                MenuItem(title: NSLocalizedString("menu.item.login", comment: "menu item – Login"), url: NSURL(string: "/login")!, icon: nil)
+                MenuItem(
+                    title: NSLocalizedString("menu.item.login", comment: "menu item – Login"),
+                    url: NSURL(string: "/login")!,
+                    controller: "DetailViewController",
+                    icon: nil,
+                    instance: nil)
             ]),
         ]
         // TODO: read list from the file
@@ -47,6 +64,10 @@ class Menu {
     func getItem(indexPath: NSIndexPath) -> MenuItem {
         let section = self.getSection(indexPath)
         return section.items[indexPath.row]
+    }
+    
+    func setInstance(indexPath: NSIndexPath, instance: DetailViewProtocol) {
+        list[indexPath.section].items[indexPath.row].instance = instance
     }
 
     class func sharedInstance() -> Menu {
