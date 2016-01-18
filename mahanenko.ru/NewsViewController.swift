@@ -35,17 +35,20 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         
-        let refreshControl = UIRefreshControl()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        
-        self.refreshControl = refreshControl
+        if let table = tableView as? TableView {
+            if let refreshControl = table.refreshControl {
+                refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+            }
+        }
     }
     
     func refresh(sender: AnyObject) {
+        guard let refreshControl = sender as? UIRefreshControl else {
+            return
+        }
         cells += 1
         tableView.reloadData()
-        self.refreshControl?.endRefreshing()
+        refreshControl.endRefreshing()
     }
 
     override func didReceiveMemoryWarning() {

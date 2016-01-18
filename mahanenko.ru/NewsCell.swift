@@ -20,8 +20,10 @@ class NewsCellView: UITableViewCell {
         newsDate.text = "\(item.date) \(index)"
         newsText.text = item.text
         
-        newsText.conten
-        
+        let sizeThatFits = newsText.sizeThatFits(CGSize(width: self.frame.width, height: 141))
+        newsText.frame.size = sizeThatFits
+//        print("\(newsText.sizeToFit()) \(sizeThatFits) \(newsText.frame.size)")
+            
         newsText.preferredMaxLayoutWidth = newsText.frame.width
     }
 }

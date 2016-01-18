@@ -74,24 +74,8 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="380"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nbq-5t-3i8" userLabel="Image">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="184"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="184" id="gPJ-Wm-sVn"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jaz-vC-zpB" userLabel="Date">
-                                            <rect key="frame" x="0.0" y="341" width="375" height="39"/>
-                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="39" id="Jqo-fH-5DJ"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
-                                            <rect key="frame" x="8" y="192" width="359" height="141"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
+                                            <rect key="frame" x="8" y="231" width="359" height="102"/>
                                             <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
 
 P.S.: Встречаем новую обложку! Как Вам?</string>
@@ -99,21 +83,48 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-Sj-J2i" userLabel="Date">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="39"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="gxW-HY-v9Z"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="WnX-Sj-J2i" firstAttribute="leading" secondItem="qvQ-jf-gl7" secondAttribute="leadingMargin" constant="8" id="DuQ-2e-cBE"/>
+                                                <constraint firstItem="WnX-Sj-J2i" firstAttribute="top" secondItem="qvQ-jf-gl7" secondAttribute="top" id="Fks-Bq-pVD"/>
+                                                <constraint firstAttribute="bottom" secondItem="WnX-Sj-J2i" secondAttribute="bottom" id="cTa-Kg-grH"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="WnX-Sj-J2i" secondAttribute="trailing" constant="8" id="oec-w1-LpC"/>
+                                            </constraints>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nbq-5t-3i8" userLabel="Image">
+                                            <rect key="frame" x="0.0" y="39" width="375" height="184"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="184" id="gPJ-Wm-sVn"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstAttribute="bottom" secondItem="jaz-vC-zpB" secondAttribute="bottom" id="F7B-AD-3eb"/>
-                                        <constraint firstAttribute="trailing" secondItem="jaz-vC-zpB" secondAttribute="trailing" id="Lz4-MP-sMg"/>
+                                        <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
+                                        <constraint firstItem="qvQ-jf-gl7" firstAttribute="top" secondItem="A97-L8-HC3" secondAttribute="top" id="Iaz-aZ-Pe4"/>
+                                        <constraint firstItem="qvQ-jf-gl7" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="NuB-lk-6HU"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="Nbq-5t-3i8" secondAttribute="bottom" constant="8" id="R38-yA-cJW"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ya3-m0-9s9" secondAttribute="trailing" id="VLq-tW-LEg"/>
-                                        <constraint firstItem="Nbq-5t-3i8" firstAttribute="top" secondItem="A97-L8-HC3" secondAttribute="top" id="W2d-CI-KUv"/>
                                         <constraint firstItem="Nbq-5t-3i8" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="W8t-J6-7IO"/>
+                                        <constraint firstItem="Nbq-5t-3i8" firstAttribute="top" secondItem="qvQ-jf-gl7" secondAttribute="bottom" id="bkx-b0-aGY"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leadingMargin" id="eFP-Ek-qNb"/>
                                         <constraint firstAttribute="trailing" secondItem="Nbq-5t-3i8" secondAttribute="trailing" id="oYl-ze-3AY"/>
-                                        <constraint firstItem="jaz-vC-zpB" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="uqn-Ml-uyj"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="newsDate" destination="jaz-vC-zpB" id="wWH-qJ-8LR"/>
+                                    <outlet property="newsDate" destination="WnX-Sj-J2i" id="aMm-fk-3TR"/>
                                     <outlet property="newsImage" destination="Nbq-5t-3i8" id="Xox-J8-WwJ"/>
                                     <outlet property="newsText" destination="Ya3-m0-9s9" id="iem-4H-gpx"/>
                                     <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" action="showDetailViewController:sender:" id="4hg-hc-hxj"/>
