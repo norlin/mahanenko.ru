@@ -15,10 +15,13 @@ class NewsCellView: UITableViewCell {
     @IBOutlet weak var newsText: UILabel!
     @IBOutlet weak var detailsButton: UIButton!
     
-    func configure(item: News){
+    func configure(item: News, index: Int){
         newsImage.image = item.images[0]
+        newsDate.text = "\(item.date) \(index)"
         newsText.text = item.text
+        
+        newsText.conten
+        
         newsText.preferredMaxLayoutWidth = newsText.frame.width
-        newsDate.text = item.date
     }
 }

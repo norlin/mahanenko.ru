@@ -21,6 +21,7 @@
 		9759050B1C49343A00A6345B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 975905081C49343A00A6345B /* Main.storyboard */; };
 		9759050D1C49374600A6345B /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9759050C1C49374600A6345B /* NewsViewController.swift */; };
 		9759050F1C493D3B00A6345B /* DetailViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9759050E1C493D3B00A6345B /* DetailViewProtocol.swift */; };
+		97AD4CE71C4D37730016F758 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD4CE61C4D37730016F758 /* TableView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		975905091C49343A00A6345B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9759050C1C49374600A6345B /* NewsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
 		9759050E1C493D3B00A6345B /* DetailViewProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewProtocol.swift; sourceTree = "<group>"; };
+		97AD4CE61C4D37730016F758 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,6 +176,7 @@
 				972E37F11C4CB3B90055AA66 /* News */,
 				973D59DE1C2A5FCE001CB704 /* MenuViewController.swift */,
 				9759050E1C493D3B00A6345B /* DetailViewProtocol.swift */,
+				97AD4CE61C4D37730016F758 /* TableView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -309,6 +312,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
+				97AD4CE71C4D37730016F758 /* TableView.swift in Sources */,
 				972E37F71C4CC0860055AA66 /* NewsDetailController.swift in Sources */,
 				9759050F1C493D3B00A6345B /* DetailViewProtocol.swift in Sources */,
 				972E37F91C4CC2860055AA66 /* News.swift in Sources */,

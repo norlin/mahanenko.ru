@@ -17,7 +17,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
-    var cells = 1
+    var cells = 5
     
     let news = [
         News(text: "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!\n\nP.S.: Встречаем новую обложку! Как Вам?", images: [
@@ -57,7 +57,9 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         if segue.identifier == "newsDetail" {
             let detailController = segue.destinationViewController as! NewsDetailController
             if let selectedRow = tableView.indexPathForSelectedRow {
-                detailController.news = news[selectedRow.row]
+//                let row = selectedRow.section
+                let row = 0
+                detailController.news = news[row]
             }
         }
     }
@@ -66,28 +68,53 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
 // UITableViewDataSource
 extension NewsViewController {
 
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return cells + 1
+    }
+
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cells
+        return 1
+    }
+    
+    override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        view.alpha = 0
+        return view
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section < cells {
+            return tableView.rowHeight
+        }
+        
+        return 41
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
+        if indexPath.section < cells {
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
+            
+    //        let news = self.news[indexPath.row]
+            let news = self.news[0]
+            cell.configure(news, index: indexPath.section)
+            
+            return cell
+        }
         
-        let news = self.news[indexPath.row]
-        cell.configure(news)
+        return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if indexPath.section < cells {
+            return
+        }
         
-        return cell
+        cells += 5
+        tableView.reloadData()
     }
 }
 
 // UITableViewDelegate
 extension NewsViewController {
-
-    override func scrollViewDidScroll(scrollView: UIScrollView) {
-//        super.scrollViewDidScroll(scrollView)
-        let scroll = scrollView.contentOffset.y + scrollView.frame.size.height
-        let height = max(scrollView.contentSize.height, scrollView.frame.height)
-        print("\(scroll) > \(height) == \(scroll > height)")
-    }
 
 }
