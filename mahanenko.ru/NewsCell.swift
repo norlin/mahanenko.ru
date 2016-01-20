@@ -8,12 +8,11 @@
 
 import UIKit
 
-class NewsCellView: UITableViewCell {
+class NewsCellView: TableCellView {
     
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var newsDate: UILabel!
     @IBOutlet weak var newsText: UILabel!
-    @IBOutlet weak var detailsButton: UIButton!
     
     func configure(item: News, index: Int){
         newsImage.image = item.images[0]
@@ -26,4 +25,5 @@ class NewsCellView: UITableViewCell {
             
         newsText.preferredMaxLayoutWidth = newsText.frame.width
     }
+    
 }
