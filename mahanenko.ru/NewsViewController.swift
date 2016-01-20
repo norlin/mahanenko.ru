@@ -35,7 +35,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
         
-        if let table = tableView as? TableView {
+        if let table = tableView as? RefreshTableView {
             if let refreshControl = table.refreshControl {
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
             }

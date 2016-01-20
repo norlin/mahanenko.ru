@@ -10,15 +10,8 @@ import UIKit
 
 class TableView: UITableView {
     let bgPattern = UIImage(named: "Background")!
-    var refreshControl: UIRefreshControl? {
-        didSet {
-            if (refreshControl != nil){
-                self.addSubview(refreshControl!)
-            }
-        }
-    }
-
-    func configure(){
+    
+    private func configure() {
         let bgView = UIView()
         backgroundView = bgView
         bgView.backgroundColor = UIColor(patternImage: self.bgPattern)
@@ -27,9 +20,6 @@ class TableView: UITableView {
         separatorStyle = .None
         sectionFooterHeight = 15
         sectionHeaderHeight = 0
-        
-        refreshControl = UIRefreshControl()
-        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
     }
 
     override init(frame: CGRect, style: UITableViewStyle) {
@@ -41,5 +31,24 @@ class TableView: UITableView {
         super.init(coder: aDecoder)
         configure()
     }
+}
+
+class RefreshTableView: TableView {
+    var refreshControl: UIRefreshControl? {
+        didSet {
+            if (refreshControl != nil){
+                self.addSubview(refreshControl!)
+            }
+        }
+    }
+
+    override private func configure() {
+        super.configure()
+        addRefreshControl()
+    }
     
+    func addRefreshControl(){
+        refreshControl = UIRefreshControl()
+        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+    }
 }
