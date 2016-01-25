@@ -21,6 +21,8 @@ class MenuViewController: UITableViewController {
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         }
         
+        tableView.backgroundView?.backgroundColor = UIColor(netHex: 0xFBFBFB)
+        
         self.performSegueWithIdentifier("showDetail", sender: self)
     }
 

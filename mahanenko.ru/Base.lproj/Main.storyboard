@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
@@ -83,7 +83,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-Sj-J2i" userLabel="Date">
@@ -92,16 +92,23 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                                         <constraint firstAttribute="height" constant="39" id="gxW-HY-v9Z"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
-                                            <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" red="0.95294117647058818" green="0.95294117647058818" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstItem="WnX-Sj-J2i" firstAttribute="leading" secondItem="qvQ-jf-gl7" secondAttribute="leadingMargin" constant="8" id="DuQ-2e-cBE"/>
                                                 <constraint firstItem="WnX-Sj-J2i" firstAttribute="top" secondItem="qvQ-jf-gl7" secondAttribute="top" id="Fks-Bq-pVD"/>
                                                 <constraint firstAttribute="bottom" secondItem="WnX-Sj-J2i" secondAttribute="bottom" id="cTa-Kg-grH"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="WnX-Sj-J2i" secondAttribute="trailing" constant="8" id="oec-w1-LpC"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqt-Lw-b16" userLabel="Bottom Border">
+                                            <rect key="frame" x="0.0" y="379" width="375" height="1"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="blz-Qe-nVV"/>
                                             </constraints>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nbq-5t-3i8" userLabel="Image">
@@ -119,8 +126,11 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ya3-m0-9s9" secondAttribute="trailing" id="VLq-tW-LEg"/>
                                         <constraint firstItem="Nbq-5t-3i8" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="W8t-J6-7IO"/>
                                         <constraint firstItem="Nbq-5t-3i8" firstAttribute="top" secondItem="qvQ-jf-gl7" secondAttribute="bottom" id="bkx-b0-aGY"/>
+                                        <constraint firstItem="bqt-Lw-b16" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="dyE-jS-p6i"/>
+                                        <constraint firstAttribute="trailing" secondItem="bqt-Lw-b16" secondAttribute="trailing" id="eA5-dx-4qc"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leadingMargin" id="eFP-Ek-qNb"/>
                                         <constraint firstAttribute="trailing" secondItem="Nbq-5t-3i8" secondAttribute="trailing" id="oYl-ze-3AY"/>
+                                        <constraint firstAttribute="bottom" secondItem="bqt-Lw-b16" secondAttribute="bottom" id="rrG-PN-HWG"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -153,7 +163,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                             <outlet property="delegate" destination="Ucw-9X-O6F" id="wX1-3e-wUZ"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="bQP-j9-44I"/>
                     <connections>
                         <outlet property="tableView" destination="Ac8-Q3-bdP" id="4yj-cy-GH0"/>
                     </connections>
@@ -228,7 +237,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="r7i-6Z-zg0" customClass="TableView" customModule="mahanenko_ru" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Arm-wq-HPj" style="IBUITableViewCellStyleDefault" id="WCw-Qf-5nD" customClass="TableCellView" customModule="mahanenko_ru" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="114" width="375" height="44"/>
