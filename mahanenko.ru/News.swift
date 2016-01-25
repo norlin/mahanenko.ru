@@ -12,4 +12,11 @@ struct News {
     let text: String
     let images: [UIImage]
     let date: String
+    let type: NewsFilterType
+}
+    
+enum NewsFilterType {
+    case All
+    case Shaman
+    case Galaktiona
 }
