@@ -13,10 +13,15 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var newsDate: UILabel!
     @IBOutlet weak var newsText: UILabel!
+    @IBOutlet weak var textToImage: NSLayoutConstraint!
     
     func configure(item: News, index: Int){
         if let images = item.images {
             newsImage.image = images[0]
+        }
+        
+        if textToImage != nil {
+            textToImage.active = item.images != nil
         }
         newsDate.text = "\(item.date) \(index)"
         newsText.text = item.description

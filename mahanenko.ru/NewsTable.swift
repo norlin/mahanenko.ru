@@ -27,6 +27,10 @@ extension NewsViewController {
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section < selectedNews.count {
+            let news = selectedNews[indexPath.section]
+            if news.images == nil {
+                return tableView.rowHeight - 176
+            }
             return tableView.rowHeight
         }
         

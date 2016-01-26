@@ -120,6 +120,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
+                                        <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="WnX-Sj-J2i" secondAttribute="bottom" priority="999" constant="8" id="5is-vF-A2J"/>
                                         <constraint firstItem="qvQ-jf-gl7" firstAttribute="top" secondItem="A97-L8-HC3" secondAttribute="top" id="Iaz-aZ-Pe4"/>
                                         <constraint firstItem="qvQ-jf-gl7" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="NuB-lk-6HU"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="Nbq-5t-3i8" secondAttribute="bottom" constant="8" id="R38-yA-cJW"/>
@@ -137,6 +138,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <outlet property="newsDate" destination="WnX-Sj-J2i" id="aMm-fk-3TR"/>
                                     <outlet property="newsImage" destination="Nbq-5t-3i8" id="Xox-J8-WwJ"/>
                                     <outlet property="newsText" destination="Ya3-m0-9s9" id="iem-4H-gpx"/>
+                                    <outlet property="textToImage" destination="R38-yA-cJW" id="MPf-2B-Jt1"/>
                                     <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" action="showDetailViewController:sender:" id="4hg-hc-hxj"/>
                                 </connections>
                             </tableViewCell>
