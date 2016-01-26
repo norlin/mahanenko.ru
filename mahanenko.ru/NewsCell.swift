@@ -15,14 +15,14 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var newsText: UILabel!
     
     func configure(item: News, index: Int){
-        newsImage.image = item.images[0]
+        if let images = item.images {
+            newsImage.image = images[0]
+        }
         newsDate.text = "\(item.date) \(index)"
-        newsText.text = item.text
+        newsText.text = item.description
         
         let sizeThatFits = newsText.sizeThatFits(CGSize(width: self.frame.width, height: 141))
         newsText.frame.size = sizeThatFits
-//        print("\(newsText.sizeToFit()) \(sizeThatFits) \(newsText.frame.size)")
-            
         newsText.preferredMaxLayoutWidth = newsText.frame.width
     }
     

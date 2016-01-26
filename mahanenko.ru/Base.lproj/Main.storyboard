@@ -183,46 +183,62 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="Scroll">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
                                 <rect key="frame" x="0.0" y="483" width="375" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="184" id="Ri7-yS-h62"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="375" height="42"/>
-                                <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3j9-ky-uxa" userLabel="TextScroll">
+                                <rect key="frame" x="0.0" y="64" width="375" height="419"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                                        <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News text" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cis-xl-MhC" userLabel="Text">
+                                        <rect key="frame" x="8" y="50" width="359" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
+                                    <constraint firstAttribute="trailing" secondItem="85f-aY-ROF" secondAttribute="trailing" id="1bK-JI-xSD"/>
+                                    <constraint firstItem="cis-xl-MhC" firstAttribute="leading" secondItem="3j9-ky-uxa" secondAttribute="leadingMargin" id="9Cg-x7-VOt"/>
+                                    <constraint firstItem="cis-xl-MhC" firstAttribute="top" secondItem="85f-aY-ROF" secondAttribute="bottom" constant="8" id="UNd-As-uop"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="cis-xl-MhC" secondAttribute="bottom" id="W7L-bs-oQS"/>
+                                    <constraint firstAttribute="trailingMargin" secondItem="cis-xl-MhC" secondAttribute="trailing" id="b1K-PE-8ps"/>
+                                    <constraint firstItem="85f-aY-ROF" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="top" id="g8U-uG-9HK"/>
+                                    <constraint firstItem="85f-aY-ROF" firstAttribute="leading" secondItem="3j9-ky-uxa" secondAttribute="leading" id="zFd-j3-aNy"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News text" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cis-xl-MhC" userLabel="Text">
-                                <rect key="frame" x="16" y="114" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="85f-aY-ROF" secondAttribute="trailing" id="07Y-DI-m19"/>
                             <constraint firstItem="HdQ-Ha-BO1" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="2Ty-Ug-WHv"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="9tM-YX-tfL"/>
+                            <constraint firstItem="85f-aY-ROF" firstAttribute="width" secondItem="tCy-QI-5RJ" secondAttribute="width" id="50x-cw-xhF"/>
+                            <constraint firstAttribute="trailing" secondItem="3j9-ky-uxa" secondAttribute="trailing" id="5J8-3z-cfs"/>
+                            <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="bottom" priority="999" identifier="textToBottom" id="8Qw-gO-ylj"/>
+                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="bottom" identifier="textToImage" id="Be8-Ft-Nkv"/>
                             <constraint firstAttribute="trailing" secondItem="HdQ-Ha-BO1" secondAttribute="trailing" id="FZ3-1j-6Ml"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="cis-xl-MhC" secondAttribute="trailing" id="NjM-dG-YYD"/>
-                            <constraint firstItem="cis-xl-MhC" firstAttribute="top" secondItem="85f-aY-ROF" secondAttribute="bottom" constant="8" id="lbv-qD-cVZ"/>
-                            <constraint firstItem="cis-xl-MhC" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leadingMargin" id="r8T-7F-eQV"/>
+                            <constraint firstItem="3j9-ky-uxa" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="TzW-xq-wPH"/>
+                            <constraint firstItem="3j9-ky-uxa" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="UH3-xv-LZA"/>
                             <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="HdQ-Ha-BO1" secondAttribute="bottom" id="vMI-L9-dCG"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="xWH-pZ-zG1"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="newsDate" destination="85f-aY-ROF" id="0Ij-Qz-QYv"/>
                         <outlet property="newsScroll" destination="HdQ-Ha-BO1" id="FPy-bw-MA6"/>
                         <outlet property="newsText" destination="cis-xl-MhC" id="qxy-z1-WaF"/>
+                        <outlet property="textScroll" destination="3j9-ky-uxa" id="NIX-hS-ODi"/>
+                        <outlet property="textToImage" destination="Be8-Ft-Nkv" id="2Gh-SA-5Zw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laO-RW-jdA" userLabel="First Responder" sceneMemberID="firstResponder"/>
