@@ -10,6 +10,7 @@ import UIKit
 
 class NewsDetailController: UIViewController {
     
+    @IBOutlet weak var newsDate: NewsDateLabel!
     @IBOutlet weak var newsText: UILabel!
     @IBOutlet weak var newsScroll: UIScrollView!
     
@@ -23,18 +24,36 @@ class NewsDetailController: UIViewController {
         self.configure()
     }
     
+    func getImageSize(size: CGSize, heigth: CGFloat) -> CGSize {
+        var result = CGSize()
+        result.height = heigth
+        
+        let scale = heigth / size.height
+        result.width = size.width * scale
+        
+        return result
+    }
+    
     func configure(){
         if let news = self.news {
+            newsDate.text = news.date
             newsText.text = news.text
-            newsText.preferredMaxLayoutWidth = newsText.frame.width
+            newsText.sizeToFit()
             
-            for (i, image) in news.images.enumerate() {
+            var width: CGFloat = 0
+            let height: CGFloat = newsScroll.frame.size.height
+            
+            for (image) in news.images {
                 let imageView = UIImageView(image: image)
-                imageView.frame.size = newsScroll.frame.size
-                newsScroll.addSubview(imageView)
-                imageView.frame.origin.x = CGFloat(i) * imageView.frame.width
+                imageView.frame.size = getImageSize(imageView.frame.size, heigth: height)
+                imageView.frame.origin.x = width
                 imageView.frame.origin.y = 0
+                newsScroll.addSubview(imageView)
+                width += imageView.frame.width + 5
             }
+            width -= 5
+            
+            newsScroll.contentSize = CGSize(width: width, height: height)
         }
     }
 }

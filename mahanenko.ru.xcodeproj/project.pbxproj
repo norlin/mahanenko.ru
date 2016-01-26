@@ -26,6 +26,7 @@
 		97AD4CE71C4D37730016F758 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97AD4CE61C4D37730016F758 /* TableView.swift */; };
 		97B10ADB1C57428000B2C3F5 /* NewsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADA1C57428000B2C3F5 /* NewsFilter.swift */; };
 		97B10ADD1C57428A00B2C3F5 /* NewsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADC1C57428A00B2C3F5 /* NewsTable.swift */; };
+		97B10ADF1C57496800B2C3F5 /* DateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADE1C57496800B2C3F5 /* DateLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		97AD4CE61C4D37730016F758 /* TableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		97B10ADA1C57428000B2C3F5 /* NewsFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFilter.swift; sourceTree = "<group>"; };
 		97B10ADC1C57428A00B2C3F5 /* NewsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTable.swift; sourceTree = "<group>"; };
+		97B10ADE1C57496800B2C3F5 /* DateLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +107,7 @@
 				9759050C1C49374600A6345B /* NewsViewController.swift */,
 				972E37F21C4CB3D20055AA66 /* NewsCell.swift */,
 				972E37F61C4CC0860055AA66 /* NewsDetailController.swift */,
+				97B10ADE1C57496800B2C3F5 /* DateLabel.swift */,
 			);
 			name = News;
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97B10ADF1C57496800B2C3F5 /* DateLabel.swift in Sources */,
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
 				97AD4CE71C4D37730016F758 /* TableView.swift in Sources */,
 				973294661C4F64E800908F81 /* HexColor.swift in Sources */,
