@@ -44,6 +44,11 @@ extension NewsViewController {
         let title = getTypeName(type)
         self.filterButton.title = title
         
+        guard let news = self.news else {
+            selectedNews = []
+            return
+        }
+        
         if type == .All {
             selectedNews = news
         } else {

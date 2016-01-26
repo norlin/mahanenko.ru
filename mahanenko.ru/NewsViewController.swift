@@ -20,27 +20,12 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         // Update the user interface for the detail item.
     }
     
-    let news = [
-        News(text: "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!\n\nP.S.: Встречаем новую обложку! Как Вам?",
-            images: [
-                UIImage(named: "NewsDummy")!,
-                UIImage(named: "NewsDummy2")!
-            ],
-            date: "15 Янв в 16:52",
-            type: .Shaman),
-            
-        News(text: "Галактиона ололо!",
-            images: [
-                UIImage(named: "NewsDummy")!,
-                UIImage(named: "NewsDummy2")!
-            ],
-            date: "14 Янв в 13:52",
-            type: .Galaktiona)
-        ]
+    let fetcher = NewsFetcher.sharedInstance()
+    var news: [News]?
     
     var filterButton: UIBarButtonItem!
     var filterOptions: UIAlertController?
-    var selectedNewsType: NewsFilterType = .All
+    var selectedNewsType: NewsFilterType!
     var selectedNews: [News]!
 
     override func viewDidLoad() {
@@ -57,8 +42,9 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         filterButton = UIBarButtonItem(title: "All", style: .Plain, target: self, action: "showFilter:")
         self.navigationItem.rightBarButtonItem = filterButton
         
+        news = fetcher.getNews()
         updateFilter()
-        selectedNews = news
+        setFilter(.All)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
