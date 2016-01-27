@@ -11,15 +11,16 @@ import UIKit
 class NewsDetailController: UIViewController {
     
     @IBOutlet weak var newsDate: NewsDateLabel!
-    @IBOutlet weak var newsText: UILabel!
+    @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var newsScroll: UIScrollView!
-    @IBOutlet weak var textScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
     var news: News?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        newsScroll.backgroundColor = UIColor.blackColor()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -40,8 +41,6 @@ class NewsDetailController: UIViewController {
         if let news = self.news {
             newsDate.text = news.date
             newsText.text = news.text
-            let sizeThatFits = newsText.sizeThatFits(textScroll.frame.size)
-            newsText.frame.size = sizeThatFits
             
             var width: CGFloat = 0
             let height: CGFloat = newsScroll.frame.size.height

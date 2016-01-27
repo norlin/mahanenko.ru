@@ -28,7 +28,7 @@ class NewsCellView: TableCellView {
         
         let sizeThatFits = newsText.sizeThatFits(CGSize(width: self.frame.width, height: 141))
         newsText.frame.size = sizeThatFits
-        newsText.preferredMaxLayoutWidth = newsText.frame.width
+        //newsText.preferredMaxLayoutWidth = newsText.frame.width
     }
     
 }

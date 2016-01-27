@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -56,7 +57,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="129"/>
+            <point key="canvasLocation" x="-45.5" y="1050.5"/>
         </scene>
         <!--News View Controller-->
         <scene sceneID="ZWT-1b-HI0">
@@ -74,15 +75,6 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="380"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
-                                            <rect key="frame" x="8" y="231" width="359" height="102"/>
-                                            <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
-
-P.S.: Встречаем новую обложку! Как Вам?</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                             <subviews>
@@ -91,7 +83,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="39" id="gxW-HY-v9Z"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                     <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -117,6 +109,15 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                                 <constraint firstAttribute="height" constant="184" id="gPJ-Wm-sVn"/>
                                             </constraints>
                                         </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
+                                            <rect key="frame" x="8" y="231" width="359" height="98"/>
+                                            <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?</string>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
@@ -152,7 +153,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Load more news" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CCi-do-s8Z">
                                             <rect key="frame" x="15" y="0.0" width="345" height="40.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -171,7 +172,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Kj-VY-vaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="703.5" y="914.5"/>
+            <point key="canvasLocation" x="506.5" y="202.5"/>
         </scene>
         <!--News Detail-->
         <scene sceneID="z8A-Y8-RjY">
@@ -185,67 +186,56 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="375" height="42"/>
+                                <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
                                 <rect key="frame" x="0.0" y="483" width="375" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="184" id="Ri7-yS-h62"/>
                                 </constraints>
                             </scrollView>
-                            <scrollView autoresizesSubviews="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3j9-ky-uxa" userLabel="TextScroll">
-                                <rect key="frame" x="0.0" y="64" width="375" height="419"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
-                                        <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="28"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="News text" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="cis-xl-MhC" userLabel="Text">
-                                        <rect key="frame" x="8" y="50" width="359" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="85f-aY-ROF" secondAttribute="trailing" id="1bK-JI-xSD"/>
-                                    <constraint firstItem="cis-xl-MhC" firstAttribute="leading" secondItem="3j9-ky-uxa" secondAttribute="leadingMargin" id="9Cg-x7-VOt"/>
-                                    <constraint firstItem="cis-xl-MhC" firstAttribute="top" secondItem="85f-aY-ROF" secondAttribute="bottom" constant="8" id="UNd-As-uop"/>
-                                    <constraint firstAttribute="bottomMargin" secondItem="cis-xl-MhC" secondAttribute="bottom" id="W7L-bs-oQS"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="cis-xl-MhC" secondAttribute="trailing" id="b1K-PE-8ps"/>
-                                    <constraint firstItem="85f-aY-ROF" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="top" id="g8U-uG-9HK"/>
-                                    <constraint firstItem="85f-aY-ROF" firstAttribute="leading" secondItem="3j9-ky-uxa" secondAttribute="leading" id="zFd-j3-aNy"/>
-                                </constraints>
-                            </scrollView>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
+                                <rect key="frame" x="16" y="106" width="343" height="377"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="HdQ-Ha-BO1" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="2Ty-Ug-WHv"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="width" secondItem="tCy-QI-5RJ" secondAttribute="width" id="50x-cw-xhF"/>
-                            <constraint firstAttribute="trailing" secondItem="3j9-ky-uxa" secondAttribute="trailing" id="5J8-3z-cfs"/>
-                            <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="bottom" priority="999" identifier="textToBottom" id="8Qw-gO-ylj"/>
-                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="top" secondItem="3j9-ky-uxa" secondAttribute="bottom" identifier="textToImage" id="Be8-Ft-Nkv"/>
+                            <constraint firstItem="85f-aY-ROF" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="5S5-9N-aXn"/>
                             <constraint firstAttribute="trailing" secondItem="HdQ-Ha-BO1" secondAttribute="trailing" id="FZ3-1j-6Ml"/>
-                            <constraint firstItem="3j9-ky-uxa" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="TzW-xq-wPH"/>
-                            <constraint firstItem="3j9-ky-uxa" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="UH3-xv-LZA"/>
+                            <constraint firstItem="85f-aY-ROF" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="HKz-W3-vvR"/>
+                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="top" secondItem="8Ul-L4-Res" secondAttribute="bottom" identifier="textToImages" id="PYX-bz-6Ub"/>
+                            <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="8Ul-L4-Res" secondAttribute="bottomMargin" priority="999" identifier="textToBottom" id="Q0x-7T-xIs"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="8Ul-L4-Res" secondAttribute="trailing" id="hQd-XJ-RMA"/>
+                            <constraint firstItem="8Ul-L4-Res" firstAttribute="top" secondItem="85f-aY-ROF" secondAttribute="bottom" id="m0Z-m3-o49"/>
+                            <constraint firstAttribute="trailing" secondItem="85f-aY-ROF" secondAttribute="trailing" id="o9n-yL-Uj1"/>
                             <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="HdQ-Ha-BO1" secondAttribute="bottom" id="vMI-L9-dCG"/>
+                            <constraint firstItem="8Ul-L4-Res" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leadingMargin" id="yuL-lK-TjL"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="newsDate" destination="85f-aY-ROF" id="0Ij-Qz-QYv"/>
                         <outlet property="newsScroll" destination="HdQ-Ha-BO1" id="FPy-bw-MA6"/>
-                        <outlet property="newsText" destination="cis-xl-MhC" id="qxy-z1-WaF"/>
-                        <outlet property="textScroll" destination="3j9-ky-uxa" id="NIX-hS-ODi"/>
-                        <outlet property="textToImage" destination="Be8-Ft-Nkv" id="2Gh-SA-5Zw"/>
+                        <outlet property="newsText" destination="8Ul-L4-Res" id="sf5-Nk-b3G"/>
+                        <outlet property="textToImage" destination="PYX-bz-6Ub" id="3CP-Wo-9si"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laO-RW-jdA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1351.5" y="914.5"/>
+            <point key="canvasLocation" x="1056.5" y="202.5"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -260,7 +250,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cZU-Oi-B1e" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-856" y="-330"/>
+            <point key="canvasLocation" x="-692.5" y="-218.5"/>
         </scene>
         <!--Menu-->
         <scene sceneID="smW-Zh-WAh">
@@ -303,7 +293,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rux-fX-hf1" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="709" y="-630"/>
+            <point key="canvasLocation" x="506.5" y="-630.5"/>
         </scene>
         <!--Detail Navigation-->
         <scene sceneID="r7l-gg-dq7">
@@ -319,10 +309,10 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-45" y="129"/>
+            <point key="canvasLocation" x="-45.5" y="202.5"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>
