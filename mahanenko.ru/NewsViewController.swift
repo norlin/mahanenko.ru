@@ -16,10 +16,12 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
+    let NEWS_ROW_HEIGHT: CGFloat = 196
     func configureView() {
         // Update the user interface for the detail item.
     }
     
+    let sizer = Sizer.sharedInstance()
     let fetcher = NewsFetcher.sharedInstance()
     var news: [News]?
     
@@ -38,6 +40,9 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
             }
         }
+        
+        let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
+        tableView.rowHeight = NEWS_ROW_HEIGHT + imageHeight
         
         filterButton = UIBarButtonItem(title: "All", style: .Plain, target: self, action: "showFilter:")
         self.navigationItem.rightBarButtonItem = filterButton

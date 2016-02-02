@@ -29,7 +29,7 @@ extension NewsViewController {
         if indexPath.section < selectedNews.count {
             let news = selectedNews[indexPath.section]
             if news.images == nil {
-                return tableView.rowHeight - 176
+                return NEWS_ROW_HEIGHT
             }
             return tableView.rowHeight
         }

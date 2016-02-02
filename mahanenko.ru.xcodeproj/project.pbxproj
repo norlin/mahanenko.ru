@@ -27,6 +27,7 @@
 		97B10ADB1C57428000B2C3F5 /* NewsFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADA1C57428000B2C3F5 /* NewsFilter.swift */; };
 		97B10ADD1C57428A00B2C3F5 /* NewsTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADC1C57428A00B2C3F5 /* NewsTable.swift */; };
 		97B10ADF1C57496800B2C3F5 /* DateLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97B10ADE1C57496800B2C3F5 /* DateLabel.swift */; };
+		97E591AF1C607F3F0098C822 /* Sizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E591AE1C607F3F0098C822 /* Sizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		97B10ADA1C57428000B2C3F5 /* NewsFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsFilter.swift; sourceTree = "<group>"; };
 		97B10ADC1C57428A00B2C3F5 /* NewsTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTable.swift; sourceTree = "<group>"; };
 		97B10ADE1C57496800B2C3F5 /* DateLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateLabel.swift; sourceTree = "<group>"; };
+		97E591AE1C607F3F0098C822 /* Sizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				973294651C4F64E800908F81 /* HexColor.swift */,
+				97E591AE1C607F3F0098C822 /* Sizer.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 				97B10ADF1C57496800B2C3F5 /* DateLabel.swift in Sources */,
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
 				97AD4CE71C4D37730016F758 /* TableView.swift in Sources */,
+				97E591AF1C607F3F0098C822 /* Sizer.swift in Sources */,
 				973294661C4F64E800908F81 /* HexColor.swift in Sources */,
 				972E37F71C4CC0860055AA66 /* NewsDetailController.swift in Sources */,
 				9759050F1C493D3B00A6345B /* DetailViewProtocol.swift in Sources */,

@@ -51,7 +51,7 @@ class NewsFetcher {
             type: .Shaman
         ),
         News(
-            text: "Галактиона ололо!",
+            text: "Галактиона ололо! http://mahanenko.ru/ru/article/vyhod-galaktiony",
             images: [
                 UIImage(named: "NewsDummy")!,
                 UIImage(named: "NewsDummy2")!

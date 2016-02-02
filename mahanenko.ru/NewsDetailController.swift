@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsDetailController: UIViewController {
+    let sizer = Sizer.sharedInstance()
     
     @IBOutlet weak var newsDate: NewsDateLabel!
     @IBOutlet weak var newsText: UITextView!
@@ -20,21 +21,11 @@ class NewsDetailController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         newsScroll.backgroundColor = UIColor.blackColor()
-        
+        newsText.textContainerInset = view.layoutMargins
     }
     
     override func viewWillAppear(animated: Bool) {
         self.configure()
-    }
-    
-    func getImageSize(size: CGSize, heigth: CGFloat) -> CGSize {
-        var result = CGSize()
-        result.height = heigth
-        
-        let scale = heigth / size.height
-        result.width = size.width * scale
-        
-        return result
     }
     
     func configure(){
@@ -49,7 +40,7 @@ class NewsDetailController: UIViewController {
                 textToImage.active = true
                 for (image) in images {
                     let imageView = UIImageView(image: image)
-                    imageView.frame.size = getImageSize(imageView.frame.size, heigth: height)
+                    imageView.frame.size = sizer.getScale(imageView.frame.size, byHeight: height)
                     imageView.frame.origin.x = width
                     imageView.frame.origin.y = 0
                     newsScroll.addSubview(imageView)
