@@ -39,10 +39,10 @@ extension NewsViewController {
         if indexPath.section < selectedNews.count {
             let news = selectedNews[indexPath.section]
             let textHeight = getTextHeight(news)
-            if news.images == nil {
-                return NEWS_ROW_HEIGHT + textHeight
+            if news.hasImages {
+                return NEWS_ROW_HEIGHT + NEWS_IMAGE_HEIGHT + textHeight
             }
-            return NEWS_ROW_HEIGHT + NEWS_IMAGE_HEIGHT
+            return NEWS_ROW_HEIGHT + textHeight
         }
         
         return 41

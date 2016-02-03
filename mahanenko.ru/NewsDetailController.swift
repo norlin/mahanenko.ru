@@ -36,7 +36,8 @@ class NewsDetailController: UIViewController {
             var width: CGFloat = 0
             let height: CGFloat = newsScroll.frame.size.height
             
-            if let images = news.images {
+            
+            /*if let images = news.images {
                 textToImage.active = true
                 for (image) in images {
                     let imageView = UIImageView(image: image)
@@ -47,10 +48,10 @@ class NewsDetailController: UIViewController {
                     width += imageView.frame.width + 5
                 }
                 width -= 5
-            } else {
+            } else {*/
                 newsScroll.hidden = true
                 textToImage.active = false
-            }
+//            }
             
             newsScroll.contentSize = CGSize(width: width, height: height)
         }

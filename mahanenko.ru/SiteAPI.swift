@@ -29,6 +29,12 @@ class SiteAPI: HTTP {
         static let Description: String = "summary"
         static let Language: String = "language"
         static let Date: String = "created"
+        static var Image: String {
+            switch SiteAPI.sharedInstance().lang {
+            case .Russian: return "изображение"
+            case .English: return "image"
+            }
+        }
     }
     
     enum Lang {
@@ -38,11 +44,9 @@ class SiteAPI: HTTP {
     
     var lang:Lang = .Russian
     var langString: String {
-        get {
-            switch lang {
-            case .Russian: return "ru"
-            case .English: return "en"
-            }
+        switch lang {
+        case .Russian: return "ru"
+        case .English: return "en"
         }
     }
     
@@ -79,10 +83,8 @@ class SiteAPI: HTTP {
                     guard let date = item[Keys.Date] as? String else {
                         continue
                     }
-                    //guard let date = item[Keys.Date] as? String else {
-                    //    continue
-                    //}
-                    let newsItem = News(text: description, images: nil, date: date, type: .Shaman)
+                    let images = item[Keys.Image] as? [String]
+                    let newsItem = News(text: description, images: images, date: date, type: .Shaman)
                     news.append(newsItem)
                 }
                 

@@ -8,29 +8,54 @@
 
 import UIKit
 
-struct News {
+class News {
     let description: NSAttributedString
     let text: NSAttributedString
-    let images: [UIImage]?
+    var images: [UIImage]
+    let imageUrls: [String]?
     let date: String
     let type: NewsFilterType?
+    var hasImages: Bool {
+        return imageUrls != nil
+    }
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(text: NSAttributedString, images: [UIImage]?, date: String, type: NewsFilterType?) {
+    init(text: NSAttributedString, images: [String]?, date: String, type: NewsFilterType?) {
         self.description = text.attributedStringWith(font)
         self.text = self.description
-        self.images = images
+        self.imageUrls = images
+        self.images = []
         self.date = date
         self.type = type
     }
     
-    init(description: NSAttributedString, text: NSAttributedString, images: [UIImage]? = nil, date: String, type: NewsFilterType? = nil) {
+    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: String, type: NewsFilterType? = nil) {
         self.description = description.attributedStringWith(font)
         self.text = text.attributedStringWith(font)
-        self.images = images
+        self.imageUrls = images
+        self.images = []
         self.date = date
         self.type = type
+    }
+    
+    func fetchImage(index: Int, completion: (image: UIImage)->Void){
+        guard let urls = imageUrls else {
+            return
+        }
+        
+        if index >= urls.count {
+            return
+        }
+        let url = urls[index]
+        let imageURL = NSURL(string: url)
+        // TODO: move to bg thread
+        if let imageData = NSData(contentsOfURL: imageURL!) {
+            if let image = UIImage(data: imageData) {
+                self.images.append(image)
+                completion(image: image)
+            }
+        }
     }
 }
     
