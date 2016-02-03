@@ -31,7 +31,7 @@ class NewsDetailController: UIViewController {
     func configure(){
         if let news = self.news {
             newsDate.text = news.date
-            newsText.text = news.text
+            newsText.attributedText = news.text
             
             var width: CGFloat = 0
             let height: CGFloat = newsScroll.frame.size.height

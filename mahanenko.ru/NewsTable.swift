@@ -12,7 +12,10 @@ import UIKit
 extension NewsViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return selectedNews.count + 1
+        guard let items = selectedNews else {
+            return 0
+        }
+        return items.count// + 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -25,13 +28,21 @@ extension NewsViewController {
         return view
     }
     
+    func getTextHeight(news: News) -> CGFloat {
+        let text = UITextView()
+        text.attributedText = news.description
+        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 300))
+        return sizeThatFits.height
+    }
+    
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if indexPath.section < selectedNews.count {
             let news = selectedNews[indexPath.section]
+            let textHeight = getTextHeight(news)
             if news.images == nil {
-                return NEWS_ROW_HEIGHT
+                return NEWS_ROW_HEIGHT + textHeight
             }
-            return tableView.rowHeight
+            return NEWS_ROW_HEIGHT + NEWS_IMAGE_HEIGHT
         }
         
         return 41

@@ -55,7 +55,9 @@ extension NewsViewController {
             selectedNews = news.filter { return $0.type == type }
         }
         
-        self.tableView.reloadData()
+        dispatch_async(dispatch_get_main_queue()){
+            self.tableView.reloadData()
+        }
     }
     
     func createHandler(type: NewsFilterType) -> ((action: UIAlertAction) -> Void) {

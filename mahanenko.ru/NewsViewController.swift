@@ -16,7 +16,8 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
-    let NEWS_ROW_HEIGHT: CGFloat = 196
+    let NEWS_ROW_HEIGHT: CGFloat = 40
+    let NEWS_IMAGE_HEIGHT: CGFloat = 212
     func configureView() {
         // Update the user interface for the detail item.
     }
@@ -47,9 +48,11 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         filterButton = UIBarButtonItem(title: "All", style: .Plain, target: self, action: "showFilter:")
         self.navigationItem.rightBarButtonItem = filterButton
         
-        news = fetcher.getNews()
-        updateFilter()
-        setFilter(.All)
+        fetcher.getNews(){result, error in
+            self.news = result
+            self.updateFilter()
+            self.setFilter(.All)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
