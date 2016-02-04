@@ -30,7 +30,7 @@ class NewsDetailController: UIViewController {
     
     func configure(){
         if let news = self.news {
-            newsDate.text = news.date
+            newsDate.text = news.dateString
             newsText.attributedText = news.text
             
             var width: CGFloat = 0

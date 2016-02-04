@@ -80,9 +80,15 @@ class SiteAPI: HTTP {
                     guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
                         continue
                     }
-                    guard let date = item[Keys.Date] as? String else {
+                    guard let dateString = item[Keys.Date] as? String else {
                         continue
                     }
+                    let locale = NSLocale(localeIdentifier: "ru_RU")
+                    let formatter = NSDateFormatter()
+                    formatter.locale = locale
+                    formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
+                    formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
+                    let date = formatter.dateFromString(dateString)
                     let images = item[Keys.Image] as? [String]
                     let newsItem = News(text: description, images: images, date: date, type: .Shaman)
                     news.append(newsItem)

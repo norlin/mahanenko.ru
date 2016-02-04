@@ -9,19 +9,30 @@
 import UIKit
 
 class News {
+    let api = SiteAPI.sharedInstance()
     let description: NSAttributedString
     let text: NSAttributedString
     var images: [UIImage]
     let imageUrls: [String]?
-    let date: String
+    let date: NSDate?
     let type: NewsFilterType?
     var hasImages: Bool {
         return imageUrls != nil
     }
+    var dateString: String {
+        guard let date = date else {
+            return ""
+        }
+        let locale = NSLocale(localeIdentifier: "ru_RU")
+        let formatter = NSDateFormatter()
+        formatter.locale = locale
+        formatter.dateFormat = "dd MMMM yyyy, HH:mm"
+        return formatter.stringFromDate(date)
+    }
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(text: NSAttributedString, images: [String]?, date: String, type: NewsFilterType?) {
+    init(text: NSAttributedString, images: [String]?, date: NSDate?, type: NewsFilterType?) {
         self.description = text.attributedStringWith(font)
         self.text = self.description
         self.imageUrls = images
@@ -30,7 +41,7 @@ class News {
         self.type = type
     }
     
-    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: String, type: NewsFilterType? = nil) {
+    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: NSDate?, type: NewsFilterType? = nil) {
         self.description = description.attributedStringWith(font)
         self.text = text.attributedStringWith(font)
         self.imageUrls = images
@@ -49,11 +60,15 @@ class News {
         }
         let url = urls[index]
         let imageURL = NSURL(string: url)
-        // TODO: move to bg thread
-        if let imageData = NSData(contentsOfURL: imageURL!) {
-            if let image = UIImage(data: imageData) {
-                self.images.append(image)
-                completion(image: image)
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue) {
+            if let imageData = NSData(contentsOfURL: imageURL!) {
+                if let image = UIImage(data: imageData) {
+                    self.images.append(image)
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(image: image)
+                    }
+                }
             }
         }
     }
@@ -67,32 +82,6 @@ enum NewsFilterType {
 
 class NewsFetcher {
     var api = SiteAPI.sharedInstance()
-
-    /*let dummyNews = [
-        News(
-            text: "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!\n\nP.S.: Встречаем новую обложку! Как Вам?",
-            images: [
-                UIImage(named: "NewsDummy")!,
-                UIImage(named: "NewsDummy2")!
-            ],
-            date: "15 Янв в 16:52",
-            type: .Shaman
-        ),
-        News(
-            text: "Галактиона ололо! http://mahanenko.ru/ru/article/vyhod-galaktiony",
-            images: [
-                UIImage(named: "NewsDummy")!,
-                UIImage(named: "NewsDummy2")!
-            ],
-            date: "14 Янв в 13:52",
-            type: .Galaktiona
-        ),
-        News(
-            description: "Небольшой соц.опрос :) Какую книгу вы сейчас хотели бы читать?\nСразу скажу, все варианты будут идти без подписки с полной выкладкой текста на моем сайте и самиздате.",
-            text: "Небольшой соц.опрос :) Какую книгу вы сейчас хотели бы читать?\nСразу скажу, все варианты будут идти без подписки с полной выкладкой текста на моем сайте и самиздате.\n\nВАРИАНТЫ:\n\n1. Галактиона 2\nПродолжение приключений Хирурга в игровом мире Галактиона. Получит он чек, или нет? Сможет остановить нашествие врага?\n\n2. Темный Паладин (он же Судья) \nЛитРПГ в реальном мире. Попытка показать, что все наши сказки, страхи неизведанного и прочие вещи — отголоски второго мира, скрытого от обычных людей. Местами книга будет не совсем доброй.\n\n3. Лиара Арнейская\nКлассическое фэнтези. Приключения рыжеволосой стервы (в прямом смысле) в магическом мире. Никаких попаданцев и прочих вещей. Просто приключения.\n\n4. Вторжение\nПродолжение Барлионы с момента открытия нового материка. Прокачка с нуля нового героя в мире Барлионы. Битва с демонами и прочими тварями. Эпизодические встречи с героями Пути Шамана.",
-            date: "16 Янв в 15:45"
-        )
-    ]*/
 
     func getNews(completion: (result: [News]?, error: NSError?) -> Void) {
         api.getNewsList(completion)

@@ -53,7 +53,7 @@ extension NewsViewController {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
             
             let news = selectedNews[indexPath.section]
-            cell.configure(news, index: indexPath.section)
+            cell.configure(news)
             
             return cell
         }
