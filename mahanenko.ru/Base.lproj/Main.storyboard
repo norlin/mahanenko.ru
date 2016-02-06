@@ -73,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OuN-Y8-sVB" id="A97-L8-HC3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="369.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
@@ -97,8 +97,8 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="WnX-Sj-J2i" secondAttribute="trailing" constant="8" id="oec-w1-LpC"/>
                                             </constraints>
                                         </view>
-                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqt-Lw-b16" userLabel="Bottom Border">
-                                            <rect key="frame" x="0.0" y="379" width="375" height="1"/>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqt-Lw-b16" userLabel="Bottom Border">
+                                            <rect key="frame" x="0.0" y="369" width="375" height="1"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="blz-Qe-nVV"/>
@@ -182,6 +182,34 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Kj-VY-vaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="506.5" y="202.5"/>
+        </scene>
+        <!--Books View Controller-->
+        <scene sceneID="kBa-1m-eAc">
+            <objects>
+                <tableViewController storyboardIdentifier="BooksViewController" id="D1P-MZ-CMg" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pin-xs-wWm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bCc-PJ-rqc">
+                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bCc-PJ-rqc" id="jyf-6g-bg3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="D1P-MZ-CMg" id="Ed4-4e-lpe"/>
+                            <outlet property="delegate" destination="D1P-MZ-CMg" id="5ql-oK-88d"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Usk-zf-xYg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="506.5" y="1050.5"/>
         </scene>
         <!--News Detail-->
         <scene sceneID="z8A-Y8-RjY">
@@ -315,6 +343,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <connections>
                         <segue destination="JEX-9P-axG" kind="relationship" relationship="rootViewController" id="GKi-kA-LjT"/>
                         <segue destination="Ucw-9X-O6F" kind="show" id="bBx-7t-6Vz"/>
+                        <segue destination="D1P-MZ-CMg" kind="show" id="2Pb-K7-zNq"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
