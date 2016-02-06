@@ -23,12 +23,13 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
     }
     
     let sizer = Sizer.sharedInstance()
+    let api = SiteAPI.sharedInstance()
     let fetcher = NewsFetcher.sharedInstance()
     var news: [News]?
     
     var filterButton: UIBarButtonItem!
     var filterOptions: UIAlertController?
-    var selectedNewsType: NewsFilterType!
+    var selectedNewsType: String!
     var selectedNews: [News]!
 
     override func viewDidLoad() {
@@ -51,7 +52,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         fetcher.getNews(){result, error in
             self.news = result
             self.updateFilter()
-            self.setFilter(.All)
+            self.setFilter(nil)
         }
     }
     

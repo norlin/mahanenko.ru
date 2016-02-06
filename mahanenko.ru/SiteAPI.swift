@@ -55,46 +55,59 @@ class SiteAPI: HTTP {
         let methodUrl = Methods.NewsList
         let url = "\(baseUrl)\(methodUrl)"
         
-        self.get(url){result, error in
-            if error != nil {
-                completion(result: nil, error: error)
-                return
-            }
-            guard let result = result else {
-                let error = HTTP.Error("SiteAPI.getNewsList", code: 404, msg: "Can't fetch news list")
-                return completion(result: nil, error: error)
-            }
-            
-            var news = [News]()
-            if let list = result as? [[String: AnyObject]] {
-                for (item) in list {
-                    guard let descriptionHTML = item[Keys.Description] as? String else {
-                        continue
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue) {
+            self.get(url){result, error in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
                     }
-                    let data = descriptionHTML.dataUsingEncoding(NSUTF8StringEncoding)
-                    let opts:[String: AnyObject] = [
-                        NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                        NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-                        NSKernAttributeName: NSNull()
-                    ]
-                    guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
-                        continue
+                    return
+                }
+                guard let result = result else {
+                    let error = HTTP.Error("SiteAPI.getNewsList", code: 404, msg: "Can't fetch news list")
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
                     }
-                    guard let dateString = item[Keys.Date] as? String else {
-                        continue
-                    }
-                    let locale = NSLocale(localeIdentifier: "ru_RU")
-                    let formatter = NSDateFormatter()
-                    formatter.locale = locale
-                    formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
-                    formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
-                    let date = formatter.dateFromString(dateString)
-                    let images = item[Keys.Image] as? [String]
-                    let newsItem = News(text: description, images: images, date: date, type: .Shaman)
-                    news.append(newsItem)
+                    return
                 }
                 
-                completion(result: news, error: nil)
+                var news = [News]()
+                if let list = result as? [[String: AnyObject]] {
+                    for (item) in list {
+                        guard let descriptionHTML = item[Keys.Description] as? String else {
+                            continue
+                        }
+                        let data = descriptionHTML.dataUsingEncoding(NSUTF8StringEncoding)
+                        let opts:[String: AnyObject] = [
+                            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+                            NSKernAttributeName: NSNull()
+                        ]
+                        guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
+                            continue
+                        }
+                        guard let dateString = item[Keys.Date] as? String else {
+                            continue
+                        }
+                        let locale = NSLocale(localeIdentifier: "ru_RU")
+                        let formatter = NSDateFormatter()
+                        formatter.locale = locale
+                        formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
+                        formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
+                        let date = formatter.dateFromString(dateString)
+                        let images = item[Keys.Image] as? [String]
+                        
+                        let category = item[Keys.Category] as? [String]
+                        
+                        let newsItem = News(text: description, images: images, date: date, category: category==nil ? [] : category!)
+                        news.append(newsItem)
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: news, error: nil)
+                    }
+                }
             }
         }
     }

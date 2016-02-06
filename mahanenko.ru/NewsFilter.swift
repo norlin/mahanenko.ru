@@ -11,12 +11,15 @@ import UIKit
 // News Filter
 extension NewsViewController {
     
-    func getTypeName(type: NewsFilterType) -> String {
-        switch (type) {
-            case .All: return "All"
-            case .Shaman: return "Shaman"
-            case .Galaktiona: return "Galaktiona"
+    func getTypeName(type: String?) -> String {
+        guard let type = type else {
+            switch api.lang {
+                case .Russian: return "Все"
+                case .English: return "All"
+            }
         }
+        
+        return type
     }
     
     func updateFilter(){
@@ -27,7 +30,17 @@ extension NewsViewController {
         
         filterOptions = UIAlertController(title: "Select news category", message: "", preferredStyle: .ActionSheet)
         
-        let types:[NewsFilterType] = [.All, .Shaman, .Galaktiona]
+        var types:[String?] = [nil]
+        var typeNames = [String]()
+        
+        for (item) in news! {
+            for (type) in item.category {
+                if (!typeNames.contains(type)) {
+                    types.append(type)
+                    typeNames.append(type)
+                }
+            }
+        }
         
         for type in types {
             let title = getTypeName(type)
@@ -39,28 +52,29 @@ extension NewsViewController {
         
     }
     
-    func setFilter(type: NewsFilterType) {
-        selectedNewsType = type
-        let title = getTypeName(type)
-        self.filterButton.title = title
+    func setFilter(type: String?) {
+        selectedNewsType = getTypeName(type)
+        self.filterButton.title = selectedNewsType
         
         guard let news = self.news else {
             selectedNews = []
             return
         }
         
-        if type == .All {
-            selectedNews = news
+        if let type = type {
+            selectedNews = news.filter { return $0.category.contains(type) }
         } else {
-            selectedNews = news.filter { return $0.type == type }
+            selectedNews = news
         }
         
+        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
         dispatch_async(dispatch_get_main_queue()){
             self.tableView.reloadData()
+            self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
     
-    func createHandler(type: NewsFilterType) -> ((action: UIAlertAction) -> Void) {
+    func createHandler(type: String?) -> ((action: UIAlertAction) -> Void) {
         return {(action: UIAlertAction) in
             self.setFilter(type)
             self.dismissFilter(action)

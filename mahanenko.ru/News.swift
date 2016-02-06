@@ -15,7 +15,7 @@ class News {
     var images: [UIImage]
     let imageUrls: [String]?
     let date: NSDate?
-    let type: NewsFilterType?
+    let category: [String]
     var hasImages: Bool {
         return imageUrls != nil
     }
@@ -32,22 +32,22 @@ class News {
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(text: NSAttributedString, images: [String]?, date: NSDate?, type: NewsFilterType?) {
+    init(text: NSAttributedString, images: [String]?, date: NSDate?, category: [String]) {
         self.description = text.attributedStringWith(font)
         self.text = self.description
         self.imageUrls = images
         self.images = []
         self.date = date
-        self.type = type
+        self.category = category
     }
     
-    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: NSDate?, type: NewsFilterType? = nil) {
+    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
         self.description = description.attributedStringWith(font)
         self.text = text.attributedStringWith(font)
         self.imageUrls = images
         self.images = []
         self.date = date
-        self.type = type
+        self.category = category
     }
     
     func fetchImage(index: Int, completion: (image: UIImage)->Void){
@@ -56,6 +56,11 @@ class News {
         }
         
         if index >= urls.count {
+            return
+        }
+        
+        if index < images.count {
+            completion(image: images[index])
             return
         }
         let url = urls[index]

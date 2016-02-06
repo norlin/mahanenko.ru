@@ -16,6 +16,7 @@ class NewsCellView: TableCellView {
     
     func configure(item: News){
         if item.hasImages {
+            self.imageView?.image = nil
             item.fetchImage(0){image in
                 self.newsImage.image = image
             }

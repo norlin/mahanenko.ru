@@ -74,10 +74,14 @@ extension NewsViewController {
         guard let refreshControl = sender as? UIRefreshControl else {
             return
         }
-        tableView.reloadData()
         
-        updateFilter()
-        
-        refreshControl.endRefreshing()
+        fetcher.getNews(){result, error in
+            self.news = result
+            dispatch_async(dispatch_get_main_queue()){
+                self.updateFilter()
+                self.setFilter(nil)
+                refreshControl.endRefreshing()
+            }
+        }
     }
 }
