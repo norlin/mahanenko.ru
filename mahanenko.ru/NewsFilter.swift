@@ -30,7 +30,6 @@ extension NewsViewController {
         }
         
         filterOptions = UIAlertController(title: "Select news category", message: "", preferredStyle: .ActionSheet)
-        
         var types = Set<String>()
         if let news = self.news {
             for item in news {
@@ -47,6 +46,7 @@ extension NewsViewController {
         }
         
         filterOptions!.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: dismissFilter))
+
         
     }
     

@@ -17,7 +17,7 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
     func configure(item: News){
-        log.notice("switchLang")
+        log.notice("configure")
         if item.hasImages {
             self.imageView?.image = nil
             item.fetchImage(0){image in

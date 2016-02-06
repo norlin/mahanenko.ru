@@ -25,7 +25,15 @@ class Log {
         .Debug: 0
     ]
     
-    let verbose = Level.Notice
+    let levelIcon:[Level: String] = [
+        .Critical: "‼️",
+        .Error: "❗️",
+        .Warning: "❕",
+        .Notice: "💡",
+        .Debug: "❔"
+    ]
+    
+    let verbose = Level.Warning
     let id:String
     
     init(id: String){
@@ -46,7 +54,9 @@ class Log {
             return
         }
         
-        print("\(id).\(level): \(msg)")
+        let icon = levelIcon[level]!
+        
+        print("\(icon)\(id): \(msg)")
     }
 
 }
