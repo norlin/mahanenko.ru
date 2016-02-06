@@ -26,14 +26,12 @@ class MenuSection {
 
 class MenuItem {
     let title: String
-    let url: NSURL
     let controller: String
     let icon: String?
     var instance: DetailViewProtocol?
     
-    init(title: String, url: NSURL, controller: String, icon: String?, instance: DetailViewProtocol?){
+    init(title: String, controller: String, icon: String?, instance: DetailViewProtocol?){
         self.title = title
-        self.url = url
         self.controller = controller
         self.icon = icon
         self.instance = instance
@@ -50,28 +48,31 @@ class Menu {
     
     init(){
         list = [
-            MenuSection(title: NSLocalizedString("menu.section.main", comment: "menu section – Main"), items: [
+            MenuSection(title: NSLocalizedString("", comment: ""), items: [
                 MenuItem(
                     title: NSLocalizedString("menu.item.about", comment: "menu item – About author"),
-                    url: NSURL(string: "/about")!,
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil),
                 MenuItem(
                     title: NSLocalizedString("menu.item.news", comment: "menu item – News"),
-                    url: NSURL(string: "/news")!,
                     controller: "NewsViewController",
+                    icon: nil,
+                    instance: nil),
+                MenuItem(
+                    title: NSLocalizedString("books", comment: "menu item – Books"),
+                    controller: "BooksViewController",
                     icon: nil,
                     instance: nil)
             ]),
-            MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
+            /*MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
                 MenuItem(
                     title: NSLocalizedString("menu.item.login", comment: "menu item – Login"),
                     url: NSURL(string: "/login")!,
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil)
-            ]),
+            ]),*/
         ]
         // TODO: read list from the file
     }
