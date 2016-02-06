@@ -8,6 +8,11 @@
 
 import UIKit
 
+enum Lang {
+    case Russian
+    case English
+}
+
 class SiteAPI: HTTP {
     struct Constants {
         static let BaseURL: String = "http://mahanenko.ru/%@/api"
@@ -37,16 +42,29 @@ class SiteAPI: HTTP {
         }
     }
     
-    enum Lang {
-        case Russian
-        case English
-    }
-    
     var lang:Lang = .Russian
     var langString: String {
         switch lang {
         case .Russian: return "ru"
         case .English: return "en"
+        }
+    }
+    var langName: String {
+        switch lang {
+        case .Russian: return "Русский"
+        case .English: return "English"
+        }
+    }
+    var oppositeLangName: String {
+        switch lang {
+        case .Russian: return "English"
+        case .English: return "Русский"
+        }
+    }
+    var localeIdentifier: String {
+        switch lang {
+        case .Russian: return "ru_RU"
+        case .English: return "en_EN"
         }
     }
     
@@ -90,7 +108,8 @@ class SiteAPI: HTTP {
                         guard let dateString = item[Keys.Date] as? String else {
                             continue
                         }
-                        let locale = NSLocale(localeIdentifier: "ru_RU")
+                        
+                        let locale = NSLocale(localeIdentifier: self.localeIdentifier)
                         let formatter = NSDateFormatter()
                         formatter.locale = locale
                         formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
@@ -114,6 +133,14 @@ class SiteAPI: HTTP {
     
     func getBaseUrl() -> String {
         return String(format: Constants.BaseURL, arguments: [langString])
+    }
+    
+    func switchLang(){
+        if lang == .Russian {
+            lang = .English
+        } else {
+            lang = .Russian
+        }
     }
     
     override class func sharedInstance() -> SiteAPI {

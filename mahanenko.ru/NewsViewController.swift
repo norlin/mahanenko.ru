@@ -16,11 +16,19 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
+    func configureView(){
+        filterButton = UIBarButtonItem(title: getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+        self.navigationItem.rightBarButtonItem = filterButton
+        
+        fetcher.getNews(){result, error in
+            self.news = result
+            self.updateFilter()
+            self.setFilter(nil)
+        }
+    }
+    
     let NEWS_ROW_HEIGHT: CGFloat = 40
     let NEWS_IMAGE_HEIGHT: CGFloat = 212
-    func configureView() {
-        // Update the user interface for the detail item.
-    }
     
     let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
@@ -31,6 +39,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
     var filterOptions: UIAlertController?
     var selectedNewsType: String!
     var selectedNews: [News]!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,14 +55,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = NEWS_ROW_HEIGHT + imageHeight
         
-        filterButton = UIBarButtonItem(title: "All", style: .Plain, target: self, action: "showFilter:")
-        self.navigationItem.rightBarButtonItem = filterButton
-        
-        fetcher.getNews(){result, error in
-            self.news = result
-            self.updateFilter()
-            self.setFilter(nil)
-        }
+//        self.configureView()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

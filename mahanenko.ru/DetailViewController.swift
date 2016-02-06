@@ -19,7 +19,7 @@ class DetailViewController: UIViewController, DetailViewProtocol {
         }
     }
 
-    func configureView() {
+    func configureView() -> Void {
         // Update the user interface for the detail item.
         if let detail = self.detailItem {
             if let label = self.detailDescriptionLabel {

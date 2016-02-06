@@ -8,17 +8,40 @@
 
 import UIKit
 
-struct MenuSection {
+class MenuSection {
     let title: String
     var items: [MenuItem]
+    
+    init(title: String, items: [MenuItem]){
+        self.title = title
+        self.items = items
+    }
+    
+    func clearInstances(){
+        for item in items {
+            item.clearInstance()
+        }
+    }
 }
 
-struct MenuItem {
+class MenuItem {
     let title: String
     let url: NSURL
     let controller: String
     let icon: String?
     var instance: DetailViewProtocol?
+    
+    init(title: String, url: NSURL, controller: String, icon: String?, instance: DetailViewProtocol?){
+        self.title = title
+        self.url = url
+        self.controller = controller
+        self.icon = icon
+        self.instance = instance
+    }
+    
+    func clearInstance(){
+        instance = nil
+    }
 }
 
 class Menu {
@@ -68,6 +91,12 @@ class Menu {
     
     func setInstance(indexPath: NSIndexPath, instance: DetailViewProtocol) {
         list[indexPath.section].items[indexPath.row].instance = instance
+    }
+    
+    func clearAll(){
+        for section in list {
+            section.clearInstances()
+        }
     }
 
     class func sharedInstance() -> Menu {

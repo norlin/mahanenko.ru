@@ -12,6 +12,7 @@ class MenuViewController: UITableViewController {
 
     var detailViewController: DetailViewController? = nil
     let menu = Menu.sharedInstance()
+    let api = SiteAPI.sharedInstance()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +23,8 @@ class MenuViewController: UITableViewController {
         }
         
         tableView.backgroundView?.backgroundColor = UIColor(netHex: 0xFBFBFB)
+
+        updateLangControl()
         
         self.performSegueWithIdentifier("showDetail", sender: self)
     }
@@ -33,6 +36,17 @@ class MenuViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func updateLangControl(){
+        let langSelect = UIBarButtonItem(title: api.oppositeLangName, style: .Plain, target: self, action: "switchLang:")
+        self.navigationItem.rightBarButtonItem = langSelect
+    }
+    
+    func switchLang(sender: AnyObject?){
+        api.switchLang()
+        updateLangControl()
+        menu.clearAll()
     }
 
     // MARK: - Segues
