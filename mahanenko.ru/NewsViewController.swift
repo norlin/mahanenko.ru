@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsViewController: UITableViewController, DetailViewProtocol {
+    let log = Log(id: "NewsViewController")
     var detailItem: MenuItem? {
         didSet {
             // Update the view.
@@ -42,6 +43,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
 
 
     override func viewDidLoad() {
+        log.notice("viewDidLoad")
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         self.configureView()
@@ -59,6 +61,7 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        log.notice("prepareForSegue")
         if segue.identifier == "newsDetail" {
             let detailController = segue.destinationViewController as! NewsDetailController
             if let selectedRow = tableView.indexPathForSelectedRow {

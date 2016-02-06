@@ -23,6 +23,7 @@ extension NewsViewController {
     }
     
     func updateFilter(){
+        log.notice("updateFilter")
         if filterOptions != nil {
             filterOptions?.removeFromParentViewController()
             filterOptions = nil
@@ -50,6 +51,7 @@ extension NewsViewController {
     }
     
     func setFilter(type: String?) {
+        log.notice("setFilter")
         selectedNewsType = getTypeName(type)
         self.filterButton.title = selectedNewsType
         

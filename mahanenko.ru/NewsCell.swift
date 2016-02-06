@@ -9,12 +9,15 @@
 import UIKit
 
 class NewsCellView: TableCellView {
+    let log = Log(id: "NewsCellView")
+    
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var newsDate: UILabel!
     @IBOutlet weak var newsText: UILabel!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
     func configure(item: News){
+        log.notice("switchLang")
         if item.hasImages {
             self.imageView?.image = nil
             item.fetchImage(0){image in

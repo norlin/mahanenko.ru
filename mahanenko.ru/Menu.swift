@@ -60,7 +60,7 @@ class Menu {
                     icon: nil,
                     instance: nil),
                 MenuItem(
-                    title: NSLocalizedString("books", comment: "menu item – Books"),
+                    title: NSLocalizedString("menu.item.books", comment: "menu item – Books"),
                     controller: "BooksViewController",
                     icon: nil,
                     instance: nil)

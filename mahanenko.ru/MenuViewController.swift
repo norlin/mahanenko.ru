@@ -9,12 +9,14 @@
 import UIKit
 
 class MenuViewController: UITableViewController {
+    let log = Log(id: "MenuViewController")
 
     var detailViewController: DetailViewController? = nil
     let menu = Menu.sharedInstance()
     let api = SiteAPI.sharedInstance()
 
     override func viewDidLoad() {
+        log.notice("viewDidLoad")
         super.viewDidLoad()
 
         if let split = self.splitViewController {
@@ -25,25 +27,29 @@ class MenuViewController: UITableViewController {
         tableView.backgroundView?.backgroundColor = UIColor(netHex: 0xFBFBFB)
 
         updateLangControl()
-        
+
         self.performSegueWithIdentifier("showDetail", sender: self)
     }
 
     override func viewWillAppear(animated: Bool) {
+        log.notice("viewWillAppear")
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
+        log.notice("didReceiveMemoryWarning")
         super.didReceiveMemoryWarning()
     }
     
     func updateLangControl(){
+        log.notice("updateLangControl")
         let langSelect = UIBarButtonItem(title: api.oppositeLangName, style: .Plain, target: self, action: "switchLang:")
         self.navigationItem.rightBarButtonItem = langSelect
     }
     
     func switchLang(sender: AnyObject?){
+        log.notice("switchLang")
         api.switchLang()
         updateLangControl()
         menu.clearAll()
@@ -52,6 +58,7 @@ class MenuViewController: UITableViewController {
     // MARK: - Segues
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        log.notice("prepareForSegue")
         if segue.identifier == "showDetail" {
             var index: NSIndexPath!
             if let _ = sender as? MenuViewController {

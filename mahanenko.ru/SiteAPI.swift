@@ -14,6 +14,7 @@ enum Lang {
 }
 
 class SiteAPI: HTTP {
+    let log = Log(id: "SiteAPI")
     struct Constants {
         static let BaseURL: String = "http://mahanenko.ru/%@/api"
         static let ApiKey = "12342352453"
@@ -42,11 +43,22 @@ class SiteAPI: HTTP {
         }
     }
     
-    var lang:Lang = .Russian
+    var lang:Lang {
+        didSet {
+            NSUserDefaults.standardUserDefaults().setObject([langString, oppositeLangString], forKey: "AppleLanguages")
+            NSUserDefaults.standardUserDefaults().synchronize()
+        }
+    }
     var langString: String {
         switch lang {
         case .Russian: return "ru"
         case .English: return "en"
+        }
+    }
+    var oppositeLangString: String {
+        switch lang {
+        case .Russian: return "en"
+        case .English: return "ru"
         }
     }
     var langName: String {
@@ -68,7 +80,26 @@ class SiteAPI: HTTP {
         }
     }
     
+    override init() {
+        log.notice("init")
+        let systemLang = NSUserDefaults.standardUserDefaults().valueForKey("AppleLanguages")
+        if let langs = systemLang {
+            let preferredLang = langs[0] as! String
+            switch preferredLang {
+            case "en":
+                self.lang = .English
+            default:
+                self.lang = .Russian
+            }
+        } else {
+            self.lang = .Russian
+        }
+        
+        super.init()
+    }
+    
     func getNewsList(completion: (result: [News]?, error: NSError?) -> Void) {
+        log.notice("getNewsList")
         let baseUrl = getBaseUrl()
         let methodUrl = Methods.NewsList
         let url = "\(baseUrl)\(methodUrl)"
@@ -136,6 +167,7 @@ class SiteAPI: HTTP {
     }
     
     func switchLang(){
+        log.notice("switchLang")
         if lang == .Russian {
             lang = .English
         } else {
