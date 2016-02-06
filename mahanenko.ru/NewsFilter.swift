@@ -30,18 +30,15 @@ extension NewsViewController {
         
         filterOptions = UIAlertController(title: "Select news category", message: "", preferredStyle: .ActionSheet)
         
-        var types:[String?] = [nil]
-        var typeNames = [String]()
-        
-        for (item) in news! {
-            for (type) in item.category {
-                if (!typeNames.contains(type)) {
-                    types.append(type)
-                    typeNames.append(type)
-                }
+        var types = Set<String>()
+        if let news = self.news {
+            for item in news {
+                types.unionInPlace(item.category)
             }
         }
-        
+
+        // create item with type == nil (for "all news", no filter selection)
+        filterOptions!.addAction(UIAlertAction(title: getTypeName(nil), style: .Default, handler: createHandler(nil)))
         for type in types {
             let title = getTypeName(type)
             let handler = createHandler(type)
