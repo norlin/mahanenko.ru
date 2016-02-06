@@ -23,7 +23,7 @@ class News {
         guard let date = date else {
             return ""
         }
-        let locale = NSLocale(localeIdentifier: "ru_RU")
+        let locale = NSLocale(localeIdentifier: api.localeIdentifier)
         let formatter = NSDateFormatter()
         formatter.locale = locale
         formatter.dateFormat = "dd MMMM yyyy, HH:mm"
