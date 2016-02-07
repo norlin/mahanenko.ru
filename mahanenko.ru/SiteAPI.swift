@@ -102,6 +102,13 @@ class SiteAPI: HTTP {
         case .English: return "en_EN"
         }
     }
+    var bookSeriaOther: String {
+        switch lang {
+        case .Russian: return "Без серии"
+        case .English: return "Other"
+        }
+    }
+
     
     override init() {
         log.notice("init")
@@ -328,7 +335,7 @@ class SiteAPI: HTTP {
         let seria = item[Keys.Seria] as? String
         let state = item[Keys.State] as? String
         
-        return Book(id: id, title: title, summary: description, seria: seria, image: image, image3d: image3d, date: date, state: state)
+        return Book(id: id, title: title, summary: description, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state)
     }
 
     // Common

@@ -21,7 +21,8 @@ class BookCellView: TableCellView {
     func configure(item: Book){
         log.notice("configure")
         
-        self.title.text = item.title
+        title.text = item.title
+        summary.attributedText = item.summary.attributedStringWith(BOOK_FONT)
         
         /*if item.hasImages {
             self.imageView?.image = nil
