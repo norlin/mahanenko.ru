@@ -183,10 +183,10 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             </objects>
             <point key="canvasLocation" x="506.5" y="202.5"/>
         </scene>
-        <!--Books View Controller-->
+        <!--Books-->
         <scene sceneID="kBa-1m-eAc">
             <objects>
-                <tableViewController storyboardIdentifier="BooksViewController" id="D1P-MZ-CMg" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="BooksViewController" title="Books" id="D1P-MZ-CMg" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="380" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pin-xs-wWm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -202,7 +202,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2X-pL-okg" userLabel="Header View">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKH-Ow-Gq1" userLabel="Date">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Нуб цвета хаки" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKH-Ow-Gq1" userLabel="Title">
                                                     <rect key="frame" x="16" y="0.0" width="343" height="39"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="39" id="AC4-PL-TJW"/>

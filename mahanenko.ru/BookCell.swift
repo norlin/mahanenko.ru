@@ -16,13 +16,11 @@ class BookCellView: TableCellView {
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
-    let BOOK_FONT = UIFont(name: "Helvetica Neue", size: 16)!
-    
     func configure(item: Book){
         log.notice("configure")
         
         title.text = item.title
-        summary.attributedText = item.summary.attributedStringWith(BOOK_FONT)
+        summary.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
         
         /*if item.hasImages {
             self.imageView?.image = nil

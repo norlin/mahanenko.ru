@@ -29,7 +29,7 @@ class NewsViewController: ItemsListViewController {
     func getTextHeight(item: FilterableItem) -> CGFloat {
         let text = UITextView()
         let news = item as! News
-        text.attributedText = news.summary
+        text.attributedText = news.summary.attributedStringWith(Constants.TEXT_FONT)
         let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 300))
         return sizeThatFits.height
     }

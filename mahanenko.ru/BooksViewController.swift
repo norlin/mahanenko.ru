@@ -17,9 +17,9 @@ class BooksViewController: ItemsListViewController {
 
     func getTextHeight(item: FilterableItem) -> CGFloat {
         let text = UITextView()
-        let news = item as! Book
-        text.attributedText = news.summary
-        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 300))
+        let book = item as! Book
+        text.attributedText = book.summary.attributedStringWith(Constants.TEXT_FONT)
+        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 500))
         return sizeThatFits.height
     }
     
