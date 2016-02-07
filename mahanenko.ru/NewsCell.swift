@@ -16,6 +16,8 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var newsText: UILabel!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
+    let NEWS_FONT = UIFont(name: "Helvetica Neue", size: 16)!
+    
     func configure(item: News){
         log.notice("configure")
         if item.hasImages {
@@ -27,7 +29,7 @@ class NewsCellView: TableCellView {
         
         textToImage?.active = item.hasImages
         newsDate.text = "\(item.dateString)"
-        newsText.attributedText = item.description
+        newsText.attributedText = item.description.attributedStringWith(NEWS_FONT)
     }
     
 }

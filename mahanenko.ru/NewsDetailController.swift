@@ -17,6 +17,8 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var newsScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
+    let NEWS_FONT = UIFont(name: "Helvetica Neue", size: 16)!
+    
     var news: News?
     
     override func viewDidLoad() {
@@ -34,6 +36,7 @@ class NewsDetailController: UIViewController {
         if let news = self.news {
             newsDate.text = news.dateStringShort
             if news.text == nil {
+                newsText.text = "Loading..."
                 news.fetchFull({ (error) -> Void in
                     if error != nil {
                         self.log.error("fetchFull error: \(error)")
@@ -55,7 +58,7 @@ class NewsDetailController: UIViewController {
             return
         }
         
-        newsText.attributedText = news.text
+        newsText.attributedText = news.text?.attributedStringWith(NEWS_FONT)
         
         var width: CGFloat = 0
         let height: CGFloat = newsScroll.frame.size.height

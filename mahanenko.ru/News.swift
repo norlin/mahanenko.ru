@@ -48,11 +48,9 @@ class News {
         return formatter.stringFromDate(date)
     }
     
-    let font = UIFont(name: "Helvetica Neue", size: 16)!
-    
     init(id: String, description: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
         self.id = id
-        self.description = description.attributedStringWith(font)
+        self.description = description
         self.text = nil
         self.imageUrls = images
         self.images = []
@@ -103,7 +101,7 @@ class News {
                 return
             }
             
-            self.text = result.text.attributedStringWith(self.font)
+            self.text = result.text
             if let urls = result.imageUrls {
                 self.imageUrls = urls
             }
