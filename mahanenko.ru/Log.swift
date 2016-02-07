@@ -33,7 +33,7 @@ class Log {
         .Debug: "❔"
     ]
     
-    let verbose = Level.Warning
+    let verbose = Level.Debug
     let id:String
     
     init(id: String){

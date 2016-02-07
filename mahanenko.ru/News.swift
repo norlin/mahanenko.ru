@@ -9,11 +9,14 @@
 import UIKit
 
 class News {
+    let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()
+    
+    let id: String
     let description: NSAttributedString
-    let text: NSAttributedString
+    var text: NSAttributedString?
     var images: [UIImage]
-    let imageUrls: [String]?
+    var imageUrls: [String]?
     let date: NSDate?
     let category: [String]
     var hasImages: Bool {
@@ -32,18 +35,24 @@ class News {
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(text: NSAttributedString, images: [String]?, date: NSDate?, category: [String]) {
-        self.description = text.attributedStringWith(font)
-        self.text = self.description
+    init(id: String, description: NSAttributedString, images: [String]?, date: NSDate?, category: [String]) {
+        self.id = id
+        self.description = description.attributedStringWith(font)
+        self.text = nil
         self.imageUrls = images
         self.images = []
         self.date = date
         self.category = category
     }
     
-    init(description: NSAttributedString, text: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
+    init(id: String, description: NSAttributedString, text: NSAttributedString?, images: [String]? = nil, date: NSDate?, category: [String] = []) {
+        self.id = id
         self.description = description.attributedStringWith(font)
-        self.text = text.attributedStringWith(font)
+        if let text = text {
+            self.text = text.attributedStringWith(font)
+        } else {
+            self.text = nil
+        }
         self.imageUrls = images
         self.images = []
         self.date = date
@@ -76,6 +85,31 @@ class News {
                 }
             }
         }
+    }
+    
+    func fetchFull(completion:(error: NSError?)->Void){
+        log.notice("fetchFull \(self.id)")
+        api.getNewsItem(self.id) { (result, error) -> Void in
+            if error != nil {
+                self.log.error("fetchFull error: \(error)")
+                completion(error: error)
+                return
+            }
+            
+            guard let result = result else {
+                self.log.error("fetchFull error: no result found")
+                completion(error: NSError(domain: "fetchFull error: no result found", code: 404, userInfo: nil))
+                return
+            }
+            
+            self.text = result.text
+            if let urls = result.imageUrls {
+                self.imageUrls = urls
+            }
+            
+            completion(error: nil)
+        }
+
     }
 }
     

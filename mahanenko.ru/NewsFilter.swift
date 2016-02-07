@@ -54,12 +54,10 @@ extension NewsViewController {
         log.notice("setFilter")
         selectedNewsType = getTypeName(type)
         self.filterButton.title = selectedNewsType
-        
         guard let news = self.news else {
             selectedNews = []
             return
         }
-        
         if let type = type {
             selectedNews = news.filter { return $0.category.contains(type) }
         } else {
@@ -69,7 +67,9 @@ extension NewsViewController {
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
         dispatch_async(dispatch_get_main_queue()){
             self.tableView.reloadData()
-            self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+            if self.tableView.numberOfSections > 0 {
+                self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+            }
         }
     }
     

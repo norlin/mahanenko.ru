@@ -9,6 +9,7 @@
 import UIKit
 
 class NewsDetailController: UIViewController {
+    let log = Log(id: "NewsDetailController")
     let sizer = Sizer.sharedInstance()
     
     @IBOutlet weak var newsDate: NewsDateLabel!
@@ -29,31 +30,50 @@ class NewsDetailController: UIViewController {
     }
     
     func configure(){
+        log.notice("configure")
         if let news = self.news {
             newsDate.text = news.dateString
-            newsText.attributedText = news.text
-            
-            var width: CGFloat = 0
-            let height: CGFloat = newsScroll.frame.size.height
-            
-            
-            /*if let images = news.images {
-                textToImage.active = true
-                for (image) in images {
-                    let imageView = UIImageView(image: image)
-                    imageView.frame.size = sizer.getScale(imageView.frame.size, byHeight: height)
-                    imageView.frame.origin.x = width
-                    imageView.frame.origin.y = 0
-                    newsScroll.addSubview(imageView)
-                    width += imageView.frame.width + 5
-                }
-                width -= 5
-            } else {*/
-                newsScroll.hidden = true
-                textToImage.active = false
-//            }
-            
-            newsScroll.contentSize = CGSize(width: width, height: height)
+            if news.text == nil {
+                news.fetchFull({ (error) -> Void in
+                    if error != nil {
+                        self.log.error("fetchFull error: \(error)")
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.updateNewsItem()
+                    }
+                })
+            }
         }
+    }
+    
+    func updateNewsItem(){
+        guard let news = self.news else {
+            return
+        }
+        
+        newsText.attributedText = news.text
+        
+        var width: CGFloat = 0
+        let height: CGFloat = newsScroll.frame.size.height
+        
+        
+        /*if let images = news.images {
+            textToImage.active = true
+            for (image) in images {
+                let imageView = UIImageView(image: image)
+                imageView.frame.size = sizer.getScale(imageView.frame.size, byHeight: height)
+                imageView.frame.origin.x = width
+                imageView.frame.origin.y = 0
+                newsScroll.addSubview(imageView)
+                width += imageView.frame.width + 5
+            }
+            width -= 5
+        } else {*/
+            newsScroll.hidden = true
+            textToImage.active = false
+//            }
+        
+        newsScroll.contentSize = CGSize(width: width, height: height)
     }
 }
