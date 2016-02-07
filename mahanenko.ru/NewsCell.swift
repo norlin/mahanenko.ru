@@ -29,7 +29,7 @@ class NewsCellView: TableCellView {
         
         textToImage?.active = item.hasImages
         newsDate.text = "\(item.dateString)"
-        newsText.attributedText = item.description.attributedStringWith(NEWS_FONT)
+        newsText.attributedText = item.summary.attributedStringWith(NEWS_FONT)
     }
     
 }

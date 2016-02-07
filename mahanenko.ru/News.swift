@@ -13,17 +13,16 @@ struct NewsFull {
     let imageUrls: [String]?
 }
 
-class News {
+class News: FilterableItem {
     let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()
     
     let id: String
-    let description: NSAttributedString
+    let summary: NSAttributedString
     var text: NSAttributedString?
     var images: [UIImage]
     var imageUrls: [String]?
     let date: NSDate?
-    let category: [String]
     var hasImages: Bool {
         return imageUrls != nil
     }
@@ -48,9 +47,15 @@ class News {
         return formatter.stringFromDate(date)
     }
     
-    init(id: String, description: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
+    let category: [String]
+    override var types: [String] { return self.category }
+    override func filter(type: String) -> Bool {
+        return self.category.contains(type)
+    }
+    
+    init(id: String, summary: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
         self.id = id
-        self.description = description
+        self.summary = summary
         self.text = nil
         self.imageUrls = images
         self.images = []
@@ -109,27 +114,5 @@ class News {
             completion(error: nil)
         }
 
-    }
-}
-    
-enum NewsFilterType {
-    case All
-    case Shaman
-    case Galaktiona
-}
-
-class NewsFetcher {
-    var api = SiteAPI.sharedInstance()
-
-    func getNews(completion: (result: [News]?, error: NSError?) -> Void) {
-        api.getNewsList(completion)
-    }
-
-    class func sharedInstance() -> NewsFetcher {
-        struct Singleton {
-            static var sharedInstance = NewsFetcher()
-        }
-        
-        return Singleton.sharedInstance
     }
 }

@@ -73,7 +73,7 @@
                                 <rect key="frame" x="0.0" y="28" width="375" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OuN-Y8-sVB" id="A97-L8-HC3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="369.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
@@ -187,17 +187,107 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
         <scene sceneID="kBa-1m-eAc">
             <objects>
                 <tableViewController storyboardIdentifier="BooksViewController" id="D1P-MZ-CMg" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pin-xs-wWm">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="380" sectionHeaderHeight="28" sectionFooterHeight="28" id="Pin-xs-wWm">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="bCc-PJ-rqc">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="BookCell" id="MuI-cb-mO2" userLabel="BookCell" customClass="BookCellView" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="92" width="375" height="380"/>
                                 <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bCc-PJ-rqc" id="jyf-6g-bg3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MuI-cb-mO2" id="IMx-Di-vXe">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="380"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="i2X-pL-okg" userLabel="Header View">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKH-Ow-Gq1" userLabel="Date">
+                                                    <rect key="frame" x="16" y="0.0" width="343" height="39"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="AC4-PL-TJW"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="zKH-Ow-Gq1" firstAttribute="leading" secondItem="i2X-pL-okg" secondAttribute="leadingMargin" constant="8" id="38Y-kF-nLg"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="zKH-Ow-Gq1" secondAttribute="trailing" constant="8" id="8Xi-2h-AcS"/>
+                                                <constraint firstItem="zKH-Ow-Gq1" firstAttribute="top" secondItem="i2X-pL-okg" secondAttribute="top" id="cMJ-i0-qvM"/>
+                                                <constraint firstAttribute="bottom" secondItem="zKH-Ow-Gq1" secondAttribute="bottom" id="ipn-bL-ljq"/>
+                                            </constraints>
+                                        </view>
+                                        <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6Jy-E5-yPC" userLabel="Bottom Border">
+                                            <rect key="frame" x="0.0" y="369" width="375" height="1"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="Fbg-kk-ZkH"/>
+                                            </constraints>
+                                        </view>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1sN-PO-smc" userLabel="Image">
+                                            <rect key="frame" x="0.0" y="39" width="375" height="212"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="1sN-PO-smc" secondAttribute="height" multiplier="326:184" id="xAM-Or-cvM"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vgi-Bb-4uP" userLabel="Text">
+                                            <rect key="frame" x="8" y="259" width="359" height="94"/>
+                                            <attributedString key="attributedText">
+                                                <fragment>
+                                                    <string key="content">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?</string>
+                                                    <attributes>
+                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                                    </attributes>
+                                                </fragment>
+                                            </attributedString>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="i2X-pL-okg" firstAttribute="top" secondItem="IMx-Di-vXe" secondAttribute="top" id="50c-xX-2HY"/>
+                                        <constraint firstItem="1sN-PO-smc" firstAttribute="leading" secondItem="IMx-Di-vXe" secondAttribute="leading" id="GAx-Bq-rYf"/>
+                                        <constraint firstAttribute="trailing" secondItem="6Jy-E5-yPC" secondAttribute="trailing" id="GTj-9b-iML"/>
+                                        <constraint firstAttribute="trailing" secondItem="i2X-pL-okg" secondAttribute="trailing" id="HNH-V0-ez0"/>
+                                        <constraint firstItem="Vgi-Bb-4uP" firstAttribute="leading" secondItem="IMx-Di-vXe" secondAttribute="leadingMargin" id="JiL-ah-i3e"/>
+                                        <constraint firstAttribute="bottom" secondItem="6Jy-E5-yPC" secondAttribute="bottom" id="LVc-FC-nbx"/>
+                                        <constraint firstItem="6Jy-E5-yPC" firstAttribute="leading" secondItem="IMx-Di-vXe" secondAttribute="leading" id="Omk-1q-XCF"/>
+                                        <constraint firstItem="1sN-PO-smc" firstAttribute="top" secondItem="i2X-pL-okg" secondAttribute="bottom" id="QcS-2W-Eam"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="Vgi-Bb-4uP" secondAttribute="trailing" id="cOy-tC-9sX"/>
+                                        <constraint firstAttribute="trailing" secondItem="1sN-PO-smc" secondAttribute="trailing" id="kgR-2a-96J"/>
+                                        <constraint firstItem="i2X-pL-okg" firstAttribute="leading" secondItem="IMx-Di-vXe" secondAttribute="leading" id="uUr-3K-m8N"/>
+                                        <constraint firstItem="Vgi-Bb-4uP" firstAttribute="top" secondItem="1sN-PO-smc" secondAttribute="bottom" constant="8" id="wAf-Hj-9Fq"/>
+                                        <constraint firstItem="Vgi-Bb-4uP" firstAttribute="top" secondItem="zKH-Ow-Gq1" secondAttribute="bottom" priority="999" constant="8" id="ynL-EP-MoT"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="bookImage" destination="1sN-PO-smc" id="5fj-bK-tUL"/>
+                                    <outlet property="summary" destination="Vgi-Bb-4uP" id="TCA-ss-3oY"/>
+                                    <outlet property="textToImage" destination="ynL-EP-MoT" id="36k-2c-1CO"/>
+                                    <outlet property="title" destination="zKH-Ow-Gq1" id="MkX-g8-Ckv"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MoreCell" textLabel="gJd-PV-3g5" rowHeight="41" style="IBUITableViewCellStyleDefault" id="JcI-3D-obO">
+                                <rect key="frame" x="0.0" y="472" width="375" height="41"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JcI-3D-obO" id="Dsu-i0-8S3">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Load more news" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gJd-PV-3g5">
+                                            <rect key="frame" x="15" y="0.0" width="345" height="40.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -265,8 +355,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <connections>
+                        <outlet property="imagesScroll" destination="HdQ-Ha-BO1" id="feT-jr-S7V"/>
                         <outlet property="newsDate" destination="85f-aY-ROF" id="0Ij-Qz-QYv"/>
-                        <outlet property="newsScroll" destination="HdQ-Ha-BO1" id="FPy-bw-MA6"/>
                         <outlet property="newsText" destination="8Ul-L4-Res" id="sf5-Nk-b3G"/>
                         <outlet property="textToImage" destination="PYX-bz-6Ub" id="3CP-Wo-9si"/>
                     </connections>
@@ -300,7 +390,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Arm-wq-HPj" style="IBUITableViewCellStyleDefault" id="WCw-Qf-5nD" customClass="TableCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="113.5" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>

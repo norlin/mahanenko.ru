@@ -8,54 +8,11 @@
 
 import UIKit
 
-class NewsViewController: UITableViewController, DetailViewProtocol {
-    let log = Log(id: "NewsViewController")
+class NewsViewController: ItemsListViewController {
+    override var log:Log { return Log(id: "NewsViewController") }
     
-    var detailItem: MenuItem? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
-    }
-    
-    func configureView(){
-        filterButton = UIBarButtonItem(title: getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
-        self.navigationItem.rightBarButtonItem = filterButton
-        
-        fetcher.getNews(){result, error in
-            self.news = result
-            self.updateFilter()
-            self.setFilter(nil)
-        }
-    }
-    
-    let NEWS_ROW_HEIGHT: CGFloat = 40
-    let NEWS_IMAGE_HEIGHT: CGFloat = 212
-    
-    let sizer = Sizer.sharedInstance()
-    let api = SiteAPI.sharedInstance()
-    let fetcher = NewsFetcher.sharedInstance()
-    var news: [News]?
-    
-    var filterButton: UIBarButtonItem!
-    var filterOptions: UIAlertController?
-    var selectedNewsType: String!
-    var selectedNews: [News]!
-
-
-    override func viewDidLoad() {
-        log.notice("viewDidLoad")
-        super.viewDidLoad()
-        
-        if let table = tableView as? RefreshTableView {
-            if let refreshControl = table.refreshControl {
-                refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-            }
-        }
-        
-        let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
-        tableView.rowHeight = NEWS_ROW_HEIGHT + imageHeight
-    }
+    override var ROW_HEIGHT: CGFloat { return 40 }
+    override var IMAGE_HEIGHT: CGFloat { return 212 }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -64,10 +21,57 @@ class NewsViewController: UITableViewController, DetailViewProtocol {
             let detailController = segue.destinationViewController as! NewsDetailController
             if let selectedRow = tableView.indexPathForSelectedRow {
                 let row = selectedRow.section
-                detailController.news = selectedNews[row]
+                detailController.news = (selected as! [News])[row]
             }
         }
     }
- 
+    
+    func getTextHeight(item: FilterableItem) -> CGFloat {
+        let text = UITextView()
+        let news = item as! News
+        text.attributedText = news.summary
+        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 300))
+        return sizeThatFits.height
+    }
+    
+    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath.section < selected.count {
+            let news = selected[indexPath.section] as! News
+            let textHeight = getTextHeight(news)
+            if news.hasImages {
+                return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
+            }
+            return ROW_HEIGHT + textHeight
+        }
+        
+        return 41
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        if indexPath.section < selected.count {
+            let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
+            
+            let item = selected[indexPath.section] as! News
+            cell.configure(item)
+            
+            return cell
+        }
+        
+        return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
+    }
+    
+    override func refresh(sender: AnyObject) {
+        log.notice("refresh")
+        api.getNewsList(){result, error in
+            self.items = result
+            dispatch_async(dispatch_get_main_queue()){
+                self.updateFilter()
+                self.setFilter(nil)
+                if let refreshControl = sender as? UIRefreshControl {
+                    refreshControl.endRefreshing()
+                }
+            }
+        }
+    }
 }
 

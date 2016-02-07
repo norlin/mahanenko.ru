@@ -44,7 +44,7 @@ class MenuItem {
 
 class Menu {
     var list: [MenuSection]
-    let defaultIndex = NSIndexPath(forRow: 1, inSection: 0)
+    let defaultIndex = NSIndexPath(forRow: 2, inSection: 0)
     
     init(){
         list = [

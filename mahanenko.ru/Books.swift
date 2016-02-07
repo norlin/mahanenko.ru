@@ -8,21 +8,31 @@
 
 import UIKit
 
-class Book {
+class Book: FilterableItem {
     let log = Log(id: "Book")
     let api = SiteAPI.sharedInstance()
     
     let id: String
+    var textId: String?
     let title: String
     let summary: NSAttributedString
     var image: UIImage?
-    let image_url: String
-    var image_3d: UIImage?
-    let image_3d_url: String
+    let imageUrl: String?
+    var image3d: UIImage?
+    let image3dUrl: String?
     let date: NSDate?
-    let seria: [String]
-    let state: String
-    let is_funfic: Bool
+    let state: String?
+    let seria: String?
+    override var types: [String] {
+        guard let seria = seria else {
+            return []
+        }
+        return [seria]
+    }
+        
+    override func filter(type: String) -> Bool {
+        return self.seria == type
+    }
 
     var dateString: String {
         guard let date = date else {
@@ -37,15 +47,16 @@ class Book {
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(id: String, title: String, summary: NSAttributedString, seria: [String], image: String, image_3d: String, date: NSDate, state: String, is_funfic: Bool) {
+    init(id: String, textId: String? = nil, title: String, summary: NSAttributedString, seria: String?, image: String?, image3d: String?, date: NSDate?, state: String?) {
         self.id = id
+        self.textId = textId
         self.title = title
         self.summary = summary.attributedStringWith(font)
         self.seria = seria
-        self.image_url = image
-        self.image_3d_url = image_3d
+        self.imageUrl = image
+        self.image3dUrl = image3d
         self.date = date
         self.state = state
-        self.is_funfic = is_funfic
     }
+
 }

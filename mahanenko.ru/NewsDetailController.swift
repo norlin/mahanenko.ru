@@ -14,7 +14,7 @@ class NewsDetailController: UIViewController {
     
     @IBOutlet weak var newsDate: NewsDateLabel!
     @IBOutlet weak var newsText: UITextView!
-    @IBOutlet weak var newsScroll: UIScrollView!
+    @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     
     let NEWS_FONT = UIFont(name: "Helvetica Neue", size: 16)!
@@ -23,7 +23,7 @@ class NewsDetailController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        newsScroll.backgroundColor = UIColor.blackColor()
+        imagesScroll.backgroundColor = UIColor.blackColor()
         newsText.textContainerInset = view.layoutMargins
     }
     
@@ -61,7 +61,7 @@ class NewsDetailController: UIViewController {
         newsText.attributedText = news.text?.attributedStringWith(NEWS_FONT)
         
         var width: CGFloat = 0
-        let height: CGFloat = newsScroll.frame.size.height
+        let height: CGFloat = imagesScroll.frame.size.height
         
         if let urls = news.imageUrls {
             log.notice("updateNewsItem: fetch images")
@@ -76,18 +76,18 @@ class NewsDetailController: UIViewController {
                     imageView.frame.origin.y = 0
                     width += imageView.frame.width + 5
                     dispatch_async(dispatch_get_main_queue()){
-                        self.newsScroll.addSubview(imageView)
-                        self.newsScroll.contentSize = CGSize(width: width-5, height: height)
+                        self.imagesScroll.addSubview(imageView)
+                        self.imagesScroll.contentSize = CGSize(width: width-5, height: height)
                     }
                 }
             }
         
             textToImage.active = true
-            newsScroll.hidden = false
+            imagesScroll.hidden = false
         } else {
             log.notice("updateNewsItem: hide images scroll")
             textToImage.active = false
-            newsScroll.hidden = true
+            imagesScroll.hidden = true
         }
     }
 }

@@ -1,15 +1,15 @@
 //
-//  NewsFilter.swift
+//  ItemsListFilter.swift
 //  mahanenko.ru
 //
-//  Created by norlin on 26/01/16.
+//  Created by norlin on 07/02/16.
 //  Copyright © 2016 norlin. All rights reserved.
 //
 
 import UIKit
 
-// News Filter
-extension NewsViewController {
+// Items Filter
+extension ItemsListViewController {
     
     func getTypeName(type: String?) -> String {
         guard let type = type else {
@@ -29,11 +29,11 @@ extension NewsViewController {
             filterOptions = nil
         }
         
-        filterOptions = UIAlertController(title: "Select news category", message: "", preferredStyle: .ActionSheet)
+        filterOptions = UIAlertController(title: "Select item category", message: "", preferredStyle: .ActionSheet)
         var types = Set<String>()
-        if let news = self.news {
-            for item in news {
-                types.unionInPlace(item.category)
+        if let items = self.items {
+            for item in items {
+                types.unionInPlace(item.types)
             }
         }
 
@@ -52,16 +52,16 @@ extension NewsViewController {
     
     func setFilter(type: String?) {
         log.notice("setFilter")
-        selectedNewsType = getTypeName(type)
-        self.filterButton.title = selectedNewsType
-        guard let news = self.news else {
-            selectedNews = []
+        selectedType = getTypeName(type)
+        self.filterButton.title = selectedType
+        guard let items = self.items else {
+            selected = []
             return
         }
         if let type = type {
-            selectedNews = news.filter { return $0.category.contains(type) }
+            selected = items.filter { return $0.filter(type) }
         } else {
-            selectedNews = news
+            selected = items
         }
         
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
@@ -96,3 +96,4 @@ extension NewsViewController {
         filter.dismissViewControllerAnimated(true, completion: nil)
     }
 }
+

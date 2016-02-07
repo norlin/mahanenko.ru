@@ -27,14 +27,17 @@ class SiteAPI: HTTP {
         static let NewsItem = "/article?args[0]=%@"
         static let BooksList = "/books"
         static let Book = "/book?args[0]=%@"
+        static let BookText = "/booktext?args[0]=%@"
     }
     
     struct Keys {
-        static let NewsId: String = "news_id"
-        static let Category: String = "category"
-        static let Description: String = "summary"
+        // Common
         static let Language: String = "language"
         static let Date: String = "created"
+        static let Description: String = "summary"
+        // News
+        static let NewsId: String = "news_id"
+        static let Category: String = "category"
         static var Image: String {
             switch SiteAPI.sharedInstance().lang {
             case .Russian: return "изображение"
@@ -46,6 +49,19 @@ class SiteAPI: HTTP {
             switch SiteAPI.sharedInstance().lang {
             case .Russian: return "текст"
             case .English: return "text"
+            }
+        }
+        //Books
+        static let BookId: String = "book_id"
+        static let BookTitle: String = "book_title"
+        static let Funfic: String = "is_funfic"
+        static let ImageFront: String = "image_front"
+        static let Image3d: String = "image_3d"
+        static let Seria: String = "book_seria"
+        static var State: String {
+            switch SiteAPI.sharedInstance().lang {
+            case .Russian: return "состояние"
+            case .English: return "state"
             }
         }
     }
@@ -105,6 +121,7 @@ class SiteAPI: HTTP {
         super.init()
     }
     
+    // News
     func getNewsList(completion: (result: [News]?, error: NSError?) -> Void) {
         log.notice("getNewsList")
         let baseUrl = getBaseUrl()
@@ -144,60 +161,6 @@ class SiteAPI: HTTP {
         }
     }
     
-    func parseNewsItem(item: [String: AnyObject]) -> News? {
-        guard let id = item[Keys.NewsId] as? String else {
-            return nil
-        }
-        // parse date
-        guard let dateString = item[Keys.Date] as? String else {
-            return nil
-        }
-        let locale = NSLocale(localeIdentifier: self.localeIdentifier)
-        let formatter = NSDateFormatter()
-        formatter.locale = locale
-        formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
-        formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
-        let date = formatter.dateFromString(dateString)
-        
-        // parse description
-        guard let descriptionHTML = item[Keys.Description] as? String else {
-            return nil
-        }
-        let data = descriptionHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
-            return nil
-        }
-        
-        let images = item[Keys.Image] as? [String]
-        
-        let category = item[Keys.Category] as? [String]
-        return News(id: id, description: description, images: images, date: date, category: category==nil ? [] : category!)
-    }
-    
-    func parseNewsItemFull(item: [String: AnyObject]) -> NewsFull? {
-        guard let textHTML = item[Keys.Text] as? String else {
-            return nil
-        }
-        
-        let textData = textHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let text = try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil) else {
-            return nil
-        }
-        
-        let images = item[Keys.Images] as? [String]
-        return NewsFull(text: text, imageUrls: images)
-    }
-
     func getNewsItem(id: String, completion: (result: NewsFull?, error: NSError?) -> Void) {
         log.notice("getNewsList")
         let baseUrl = getBaseUrl()
@@ -233,6 +196,142 @@ class SiteAPI: HTTP {
         }
     }
     
+    func parseNewsItem(item: [String: AnyObject]) -> News? {
+        guard let id = item[Keys.NewsId] as? String else {
+            return nil
+        }
+        // parse date
+        guard let dateString = item[Keys.Date] as? String else {
+            return nil
+        }
+        let locale = NSLocale(localeIdentifier: self.localeIdentifier)
+        let formatter = NSDateFormatter()
+        formatter.locale = locale
+        formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
+        formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
+        let date = formatter.dateFromString(dateString)
+        
+        // parse description
+        guard let summaryHTML = item[Keys.Description] as? String else {
+            return nil
+        }
+        let data = summaryHTML.dataUsingEncoding(NSUTF8StringEncoding)
+        let opts:[String: AnyObject] = [
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+            NSKernAttributeName: NSNull()
+        ]
+        guard let summary = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
+            return nil
+        }
+        
+        let images = item[Keys.Image] as? [String]
+        
+        let category = item[Keys.Category] as? [String]
+        return News(id: id, summary: summary, images: images, date: date, category: category==nil ? [] : category!)
+    }
+    
+    func parseNewsItemFull(item: [String: AnyObject]) -> NewsFull? {
+        // parse text html
+        guard let textHTML = item[Keys.Text] as? String else {
+            return nil
+        }
+        
+        let textData = textHTML.dataUsingEncoding(NSUTF8StringEncoding)
+        let opts:[String: AnyObject] = [
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+            NSKernAttributeName: NSNull()
+        ]
+        guard let text = try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil) else {
+            return nil
+        }
+        
+        let images = item[Keys.Images] as? [String]
+        return NewsFull(text: text, imageUrls: images)
+    }
+    
+    // Books
+    func getBooksList(completion: (result: [Book]?, error: NSError?) -> Void) {
+        log.notice("getBooksList")
+        let baseUrl = getBaseUrl()
+        let methodUrl = Methods.BooksList
+        let url = "\(baseUrl)\(methodUrl)"
+        
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue) {
+            self.get(url){result, error in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
+                    }
+                    return
+                }
+                guard let result = result else {
+                    let error = HTTP.Error("SiteAPI.getBooksList", code: 404, msg: "Can't fetch books list")
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
+                    }
+                    return
+                }
+                
+                var books = [Book]()
+                if let list = result as? [[String: AnyObject]] {
+                    for (item) in list {
+                        if let bookItem = self.parseBookItem(item) {
+                            books.append(bookItem)
+                        }
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: books, error: nil)
+                    }
+                }
+            }
+        }
+    }
+    
+    func parseBookItem(item: [String: AnyObject]) -> Book? {
+        guard let id = item[Keys.BookId] as? String else {
+            return nil
+        }
+        guard let title = item[Keys.BookTitle] as? String else {
+            return nil
+        }
+        // parse date
+        guard let dateString = item[Keys.Date] as? String else {
+            return nil
+        }
+        let locale = NSLocale(localeIdentifier: self.localeIdentifier)
+        let formatter = NSDateFormatter()
+        formatter.locale = locale
+        formatter.dateFormat = "EEEE, MMMM d, yyyy - HH:mm"
+        formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
+        let date = formatter.dateFromString(dateString)
+        
+        // parse description
+        guard let descriptionHTML = item[Keys.Description] as? String else {
+            return nil
+        }
+        let data = descriptionHTML.dataUsingEncoding(NSUTF8StringEncoding)
+        let opts:[String: AnyObject] = [
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+            NSKernAttributeName: NSNull()
+        ]
+        guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
+            return nil
+        }
+        
+        let image = item[Keys.ImageFront] as? String
+        let image3d = item[Keys.Image3d] as? String
+        let seria = item[Keys.Seria] as? String
+        let state = item[Keys.State] as? String
+        
+        return Book(id: id, title: title, summary: description, seria: seria, image: image, image3d: image3d, date: date, state: state)
+    }
+
+    // Common
     func getBaseUrl() -> String {
         return String(format: Constants.BaseURL, arguments: [langString])
     }
