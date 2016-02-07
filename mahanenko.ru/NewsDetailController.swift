@@ -32,7 +32,7 @@ class NewsDetailController: UIViewController {
     func configure(){
         log.notice("configure")
         if let news = self.news {
-            newsDate.text = news.dateString
+            newsDate.text = news.dateStringShort
             if news.text == nil {
                 news.fetchFull({ (error) -> Void in
                     if error != nil {
@@ -43,11 +43,14 @@ class NewsDetailController: UIViewController {
                         self.updateNewsItem()
                     }
                 })
+            } else {
+                self.updateNewsItem()
             }
         }
     }
     
     func updateNewsItem(){
+        log.notice("updateNewsItem")
         guard let news = self.news else {
             return
         }
@@ -57,23 +60,31 @@ class NewsDetailController: UIViewController {
         var width: CGFloat = 0
         let height: CGFloat = newsScroll.frame.size.height
         
-        
-        /*if let images = news.images {
-            textToImage.active = true
-            for (image) in images {
-                let imageView = UIImageView(image: image)
-                imageView.frame.size = sizer.getScale(imageView.frame.size, byHeight: height)
-                imageView.frame.origin.x = width
-                imageView.frame.origin.y = 0
-                newsScroll.addSubview(imageView)
-                width += imageView.frame.width + 5
+        if let urls = news.imageUrls {
+            log.notice("updateNewsItem: fetch images")
+            for (index, _) in urls.enumerate() {
+                let imageView = UIImageView(image: nil)
+                news.fetchImage(index){ image in
+                    self.log.notice("updateNewsItem: image fetched, \(index)")
+                    imageView.image = image
+                    let size = self.sizer.getScale(image.size, byHeight: height)
+                    imageView.frame.size = size
+                    imageView.frame.origin.x = width
+                    imageView.frame.origin.y = 0
+                    width += imageView.frame.width + 5
+                    dispatch_async(dispatch_get_main_queue()){
+                        self.newsScroll.addSubview(imageView)
+                        self.newsScroll.contentSize = CGSize(width: width-5, height: height)
+                    }
+                }
             }
-            width -= 5
-        } else {*/
-            newsScroll.hidden = true
-            textToImage.active = false
-//            }
         
-        newsScroll.contentSize = CGSize(width: width, height: height)
+            textToImage.active = true
+            newsScroll.hidden = false
+        } else {
+            log.notice("updateNewsItem: hide images scroll")
+            textToImage.active = false
+            newsScroll.hidden = true
+        }
     }
 }

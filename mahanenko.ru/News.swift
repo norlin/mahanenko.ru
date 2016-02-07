@@ -8,6 +8,11 @@
 
 import UIKit
 
+struct NewsFull {
+    let text: NSAttributedString
+    let imageUrls: [String]?
+}
+
 class News {
     let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()
@@ -32,27 +37,23 @@ class News {
         formatter.dateFormat = "dd MMMM yyyy, HH:mm"
         return formatter.stringFromDate(date)
     }
+    var dateStringShort: String {
+        guard let date = date else {
+            return ""
+        }
+        let locale = NSLocale(localeIdentifier: api.localeIdentifier)
+        let formatter = NSDateFormatter()
+        formatter.locale = locale
+        formatter.dateFormat = "dd MMM"
+        return formatter.stringFromDate(date)
+    }
     
     let font = UIFont(name: "Helvetica Neue", size: 16)!
     
-    init(id: String, description: NSAttributedString, images: [String]?, date: NSDate?, category: [String]) {
+    init(id: String, description: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
         self.id = id
         self.description = description.attributedStringWith(font)
         self.text = nil
-        self.imageUrls = images
-        self.images = []
-        self.date = date
-        self.category = category
-    }
-    
-    init(id: String, description: NSAttributedString, text: NSAttributedString?, images: [String]? = nil, date: NSDate?, category: [String] = []) {
-        self.id = id
-        self.description = description.attributedStringWith(font)
-        if let text = text {
-            self.text = text.attributedStringWith(font)
-        } else {
-            self.text = nil
-        }
         self.imageUrls = images
         self.images = []
         self.date = date
@@ -102,7 +103,7 @@ class News {
                 return
             }
             
-            self.text = result.text
+            self.text = result.text.attributedStringWith(self.font)
             if let urls = result.imageUrls {
                 self.imageUrls = urls
             }
