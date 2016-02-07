@@ -13,7 +13,7 @@ class BooksViewController: ItemsListViewController {
     override var log:Log { return Log(id: "BooksViewController") }
 
     override var ROW_HEIGHT: CGFloat { return 40 }
-    override var IMAGE_HEIGHT: CGFloat { return 212 }
+    override var IMAGE_HEIGHT: CGFloat { return 184 }
 
     func getTextHeight(item: FilterableItem) -> CGFloat {
         let text = UITextView()

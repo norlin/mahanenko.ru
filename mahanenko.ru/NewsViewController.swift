@@ -12,7 +12,7 @@ class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
     
     override var ROW_HEIGHT: CGFloat { return 40 }
-    override var IMAGE_HEIGHT: CGFloat { return 212 }
+    override var IMAGE_HEIGHT: CGFloat { return 184 }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")

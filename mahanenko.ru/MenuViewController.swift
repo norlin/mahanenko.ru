@@ -28,7 +28,7 @@ class MenuViewController: UITableViewController {
 
         updateLangControl()
 
-        self.performSegueWithIdentifier("showDetail", sender: self)
+        //self.performSegueWithIdentifier("showDetail", sender: self)
     }
 
     override func viewWillAppear(animated: Bool) {

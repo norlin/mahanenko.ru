@@ -11,7 +11,7 @@ import UIKit
 class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsListViewController") }
     var ROW_HEIGHT:CGFloat { return 40 }
-    var IMAGE_HEIGHT:CGFloat { return 212 }
+    var IMAGE_HEIGHT:CGFloat { return 184 }
     
     var detailItem: MenuItem? {
         didSet {
