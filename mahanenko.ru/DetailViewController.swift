@@ -13,19 +13,13 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
     var detailItem: MenuItem? {
-        didSet {
-            // Update the view.
-            self.configureView()
-        }
+        didSet {}
     }
 
     func configureView() -> Void {
-        // Update the user interface for the detail item.
-        if let detail = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.title
-            }
-        }
+        let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
+        let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
+        detailDescriptionLabel.text = "Version: \(version)\nBuild: \(build)"
     }
 
     override func viewDidLoad() {

@@ -68,11 +68,17 @@ class Menu {
             /*MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
                 MenuItem(
                     title: NSLocalizedString("menu.item.login", comment: "menu item – Login"),
-                    url: NSURL(string: "/login")!,
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil)
             ]),*/
+            MenuSection(title: NSLocalizedString("", comment: ""), items: [
+                MenuItem(
+                    title: NSLocalizedString("menu.item.info", comment: "menu item – Info"),
+                    controller: "DetailViewController",
+                    icon: nil,
+                    instance: nil)
+            ]),
         ]
         // TODO: read list from the file
     }

@@ -48,7 +48,6 @@ class BooksViewController: ItemsListViewController {
 
     override func refresh(sender: AnyObject) {
         api.getBooksList(){result, error in
-            self.log.debug("\(result), \(error)")
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
                 self.updateFilter()

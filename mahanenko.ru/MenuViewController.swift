@@ -73,6 +73,7 @@ class MenuViewController: UITableViewController {
                     controller = item.instance!
                 } else if let instance = self.storyboard?.instantiateViewControllerWithIdentifier(item.controller) as? DetailViewProtocol {
                     controller = instance
+                    (controller as! UIViewController).title = item.title
                     controller!.detailItem = item
                     menu.setInstance(index, instance: controller!)
                 }
