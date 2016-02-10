@@ -10,6 +10,10 @@ import UIKit
 
 class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsListViewController") }
+    let sizer = Sizer.sharedInstance()
+    let api = SiteAPI.sharedInstance()
+    private var filterDelegate: ItemsFilterDelegate!
+    
     var ROW_HEIGHT:CGFloat { return 40 }
     var IMAGE_HEIGHT:CGFloat { return 184 }
     
@@ -20,22 +24,22 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
-    func configureView(){
+    internal func configureView(){
         log.notice("configureView")
         
-        filterButton = UIBarButtonItem(title: getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+        if filterDelegate == nil {
+            filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
+            filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+        }
+            
         self.navigationItem.rightBarButtonItem = filterButton
         
         refresh(self)
     }
 
-    let sizer = Sizer.sharedInstance()
-    let api = SiteAPI.sharedInstance()
     var items: [FilterableItem]?
     
     var filterButton: UIBarButtonItem!
-    var filterOptions: UIAlertController?
-    var selectedType: String!
     var selected: [FilterableItem]!
 
     override func viewDidLoad() {
@@ -55,7 +59,29 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.warning("prepareForSegue is not defined!")
     }
+    
+    func updateFilter(){
+        self.filterDelegate.items = items
+        self.filterDelegate.updateFilter()
+    }
+    
+    func setFilter(type: String?){
+        self.filterDelegate.setFilter(type)
+    }
+    
+    func showFilter(sender: AnyObject){
+        filterDelegate.showFilter(self, sender: sender)
+    }
+    
+    func onSetFilter(selected: [FilterableItem], type: String) {
+        self.selected = selected
+        self.filterButton.title = type
+        
+        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        tableView.reloadData()
+        if tableView.numberOfSections > 0 {
+            tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+        }
+    }
  
 }
-
-

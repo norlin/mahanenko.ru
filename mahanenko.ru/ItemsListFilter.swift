@@ -8,8 +8,33 @@
 
 import UIKit
 
+protocol ItemsFilterDelegate {
+
+    var items: [FilterableItem]? { get set }
+    var selectedType: String! { get set }
+
+    func getTypeName(type: String?) -> String
+    func updateFilter()
+    func setFilter(type: String?)
+    func createHandler(type: String?) -> ((action: UIAlertAction) -> Void)
+    func showFilter(vc: UIViewController, sender: AnyObject)
+    func dismissFilter(action: UIAlertAction)
+}
+
 // Items Filter
-extension ItemsListViewController {
+class ItemsFilter: ItemsFilterDelegate {
+    let log = Log(id: "ItemsFilter")
+    let sizer = Sizer.sharedInstance()
+    let api = SiteAPI.sharedInstance()
+    var items: [FilterableItem]?
+    
+    var filterOptions: UIAlertController?
+    var selectedType: String!
+    var onSetFilter: ((selected: [FilterableItem], type: String)->Void)!
+    
+    init(onSetFilter: (selected: [FilterableItem], type: String)->Void){
+        self.onSetFilter = onSetFilter
+    }
     
     func getTypeName(type: String?) -> String {
         guard let type = type else {
@@ -53,7 +78,7 @@ extension ItemsListViewController {
     func setFilter(type: String?) {
         log.notice("setFilter")
         selectedType = getTypeName(type)
-        self.filterButton.title = selectedType
+        var selected: [FilterableItem]
         guard let items = self.items else {
             selected = []
             return
@@ -64,13 +89,7 @@ extension ItemsListViewController {
             selected = items
         }
         
-        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        dispatch_async(dispatch_get_main_queue()){
-            self.tableView.reloadData()
-            if self.tableView.numberOfSections > 0 {
-                self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-            }
-        }
+        onSetFilter(selected: selected, type: selectedType)
     }
     
     func createHandler(type: String?) -> ((action: UIAlertAction) -> Void) {
@@ -80,12 +99,12 @@ extension ItemsListViewController {
         }
     }
     
-    func showFilter(sender: AnyObject) {
+    func showFilter(vc: UIViewController, sender: AnyObject) {
         guard let filter = filterOptions else {
             return
         }
         
-        self.presentViewController(filter, animated: true, completion: nil)
+        vc.presentViewController(filter, animated: true, completion: nil)
     }
     
     func dismissFilter(action: UIAlertAction) {
@@ -95,5 +114,6 @@ extension ItemsListViewController {
         
         filter.dismissViewControllerAnimated(true, completion: nil)
     }
+    
 }
 
