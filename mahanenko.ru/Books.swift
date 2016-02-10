@@ -58,5 +58,38 @@ class Book: FilterableItem {
         self.date = date
         self.state = state
     }
+    
+    func fetchImage(need3d: Bool, completion: (image: UIImage)->Void){
+        if need3d && image3d != nil {
+            completion(image: image3d!)
+            return
+        }
+        
+        if !need3d && image != nil {
+            completion(image: image!)
+            return
+        }
+        
+        guard let url:String = need3d ? image3dUrl : imageUrl else {
+            return
+        }
+        let imageURL = NSURL(string: url)
+        
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue) {
+            if let imageData = NSData(contentsOfURL: imageURL!) {
+                if let image = UIImage(data: imageData) {
+                    if need3d {
+                        self.image3d = image
+                    } else {
+                        self.image = image
+                    }
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(image: image)
+                    }
+                }
+            }
+        }
+    }
 
 }

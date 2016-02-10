@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BookCellView: TableCellView {
+class BookCellView: CollectionCellView {
     let log = Log(id: "BookCellView")
 
     @IBOutlet weak var bookImage: UIImageView!
@@ -20,18 +20,15 @@ class BookCellView: TableCellView {
         log.notice("configure")
         
         title.text = item.title
-        summary.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
+        //summary.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
         
-        /*if item.hasImages {
-            self.imageView?.image = nil
-            item.fetchImage(0){image in
-                self.newsImage.image = image
-            }
+        self.bookImage?.image = nil
+        item.fetchImage(true){image in
+            self.bookImage.image = image
         }
-        
-        textToImage?.active = item.hasImages
-        newsDate.text = "\(item.dateString)"
-        newsText.attributedText = item.description.attributedStringWith(NEWS_FONT)*/
+
+        //newsDate.text = "\(item.dateString)"
+        //newsText.attributedText = item.description.attributedStringWith(NEWS_FONT)*/
     }
     
 }

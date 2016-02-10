@@ -9,52 +9,31 @@
 
 import UIKit
 
-class BooksViewController: ItemsListViewController {
+class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
-
-    override var ROW_HEIGHT: CGFloat { return 40 }
-    override var IMAGE_HEIGHT: CGFloat { return 184 }
-
-    func getTextHeight(item: FilterableItem) -> CGFloat {
-        let text = UITextView()
-        let book = item as! Book
-        text.attributedText = book.summary.attributedStringWith(Constants.TEXT_FONT)
-        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 500))
-        return sizeThatFits.height
-    }
     
-    override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section < selected.count {
-            let book = selected[indexPath.section] as! Book
-            let textHeight = getTextHeight(book)
-            return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
-        }
+    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BookCell", forIndexPath: indexPath) as! BookCellView
         
-        return 41
-    }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section < selected.count {
-            let cell = tableView.dequeueReusableCellWithIdentifier("BookCell", forIndexPath: indexPath) as! BookCellView
-            
-            let item = selected[indexPath.section] as! Book
-            cell.configure(item)
-            
-            return cell
-        }
+        let item = selected[indexPath.row] as! Book
+        cell.configure(item)
         
-        return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
+        return cell
     }
 
     override func refresh(sender: AnyObject) {
+        log.notice("refresh")
         api.getBooksList(){result, error in
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
+                self.log.debug("refresh ready")
                 self.updateFilter()
                 self.setFilter(nil)
+                self.log.debug("refresh ready 1")
                 if let refreshControl = sender as? UIRefreshControl {
                     refreshControl.endRefreshing()
                 }
+                self.log.debug("refresh ready 2")
             }
         }
     }

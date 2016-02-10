@@ -43,7 +43,7 @@ extension ItemsListViewController {
             return
         }
         
-        tableView.reloadData()
+        //tableView.reloadData()
     }
     
     func refresh(sender: AnyObject) {
