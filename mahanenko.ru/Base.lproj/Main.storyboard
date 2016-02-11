@@ -192,7 +192,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
         <scene sceneID="6R4-hU-XJl">
             <objects>
                 <collectionViewController storyboardIdentifier="BooksViewController" id="iJz-4F-63O" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="wMf-IC-nYc" customClass="CollectionView" customModule="mahanenko_ru" customModuleProvider="target">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="wMf-IC-nYc" customClass="RefreshCollectionView" customModule="mahanenko_ru" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="vzF-p7-AOj">

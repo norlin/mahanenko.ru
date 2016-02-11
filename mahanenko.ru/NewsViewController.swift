@@ -69,6 +69,7 @@ class NewsViewController: ItemsListViewController {
                 self.setFilter(nil)
                 if let refreshControl = sender as? UIRefreshControl {
                     refreshControl.endRefreshing()
+                    self.log.debug("refr control \(refreshControl.hidden)")
                 }
             }
         }

@@ -23,6 +23,9 @@ class BooksViewController: ItemsCollectionViewController {
 
     override func refresh(sender: AnyObject) {
         log.notice("refresh")
+        if let _ = sender as? UIRefreshControl {} else {
+            
+        }
         api.getBooksList(){result, error in
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
@@ -30,6 +33,7 @@ class BooksViewController: ItemsCollectionViewController {
                 self.setFilter(nil)
                 if let refreshControl = sender as? UIRefreshControl {
                     refreshControl.endRefreshing()
+                    self.log.debug("refr control \(refreshControl.hidden)")
                 }
             }
         }

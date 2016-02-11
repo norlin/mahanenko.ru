@@ -34,6 +34,7 @@ class TableView: UITableView {
 }
 
 class RefreshTableView: TableView {
+    var log:Log { return Log(id: "RefreshTableView") }
     var refreshControl: UIRefreshControl? {
         didSet {
             if (refreshControl != nil){
@@ -43,12 +44,13 @@ class RefreshTableView: TableView {
     }
 
     override private func configure() {
+        log.notice("configure")
         super.configure()
         addRefreshControl()
     }
     
     func addRefreshControl(){
-        refreshControl = UIRefreshControl()
+        refreshControl = RefreshControl()
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
     }
 }

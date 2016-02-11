@@ -17,9 +17,11 @@
 import UIKit
 
 class CollectionView: UICollectionView {
+    var log:Log { return Log(id: "CollectionView") }
     let bgPattern = UIImage(named: "Background")!
     
     private func configure() {
+        log.notice("configure")
         let bgView = UIView()
         backgroundView = bgView
         bgView.backgroundColor = UIColor(patternImage: self.bgPattern)
@@ -38,6 +40,7 @@ class CollectionView: UICollectionView {
 }
 
 class RefreshCollectionView: CollectionView {
+    override var log:Log { return Log(id: "RefreshCollectionView") }
     var refreshControl: UIRefreshControl? {
         didSet {
             if (refreshControl != nil){
@@ -45,14 +48,26 @@ class RefreshCollectionView: CollectionView {
             }
         }
     }
+    var loader: Loader? {
+        didSet {
+            if (loader != nil){
+                self.addSubview(loader!)
+            }
+        }
+    }
 
     override private func configure() {
+        log.notice("configure")
         super.configure()
         addRefreshControl()
     }
     
     func addRefreshControl(){
-        refreshControl = UIRefreshControl()
+        log.notice("addRefreshControl")
+        refreshControl = RefreshControl()
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        
+        loader = Loader(activityIndicatorStyle: .WhiteLarge)
+        loader!.frame = self.frame
     }
 }
