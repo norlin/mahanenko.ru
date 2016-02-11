@@ -203,36 +203,37 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="fOr-Lh-DaK" customClass="BookCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="187" height="210"/>
+                                <rect key="frame" x="0.0" y="64" width="187" height="230"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="187" height="210"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
-                                            <rect key="frame" x="8" y="181" width="171" height="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
+                                            <rect key="frame" x="0.0" y="8" width="187" height="187"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="21" id="DnF-Fi-U05"/>
+                                                <constraint firstAttribute="width" secondItem="I1E-W4-JnQ" secondAttribute="height" multiplier="1:1" id="IJo-Vh-ldp"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
+                                            <rect key="frame" x="8" y="195" width="171" height="27"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
-                                            <rect key="frame" x="8" y="8" width="171" height="165"/>
-                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <constraints>
-                                    <constraint firstAttribute="trailingMargin" secondItem="DTx-Mw-D9M" secondAttribute="trailing" id="1rZ-qE-1AN"/>
-                                    <constraint firstItem="DTx-Mw-D9M" firstAttribute="top" secondItem="I1E-W4-JnQ" secondAttribute="bottom" constant="8" id="5OE-xN-e92"/>
-                                    <constraint firstItem="I1E-W4-JnQ" firstAttribute="top" secondItem="fOr-Lh-DaK" secondAttribute="topMargin" id="Jni-NK-iv0"/>
-                                    <constraint firstItem="DTx-Mw-D9M" firstAttribute="bottom" secondItem="fOr-Lh-DaK" secondAttribute="bottomMargin" id="Sbf-tk-m19"/>
-                                    <constraint firstAttribute="trailingMargin" secondItem="I1E-W4-JnQ" secondAttribute="trailing" id="VrR-g2-6Q9"/>
-                                    <constraint firstItem="I1E-W4-JnQ" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leadingMargin" id="eTO-EY-kjt"/>
-                                    <constraint firstItem="DTx-Mw-D9M" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leadingMargin" id="rnc-JX-EJM"/>
+                                    <constraint firstAttribute="trailing" secondItem="DTx-Mw-D9M" secondAttribute="trailing" constant="8" id="1rZ-qE-1AN"/>
+                                    <constraint firstItem="DTx-Mw-D9M" firstAttribute="top" secondItem="I1E-W4-JnQ" secondAttribute="bottom" id="5OE-xN-e92"/>
+                                    <constraint firstItem="I1E-W4-JnQ" firstAttribute="top" secondItem="fOr-Lh-DaK" secondAttribute="top" constant="8" id="Jni-NK-iv0"/>
+                                    <constraint firstAttribute="trailing" secondItem="I1E-W4-JnQ" secondAttribute="trailing" id="VrR-g2-6Q9"/>
+                                    <constraint firstItem="I1E-W4-JnQ" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leading" id="eTO-EY-kjt"/>
+                                    <constraint firstAttribute="bottom" secondItem="DTx-Mw-D9M" secondAttribute="bottom" constant="8" id="pUq-Cg-Z0Y"/>
+                                    <constraint firstItem="DTx-Mw-D9M" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leading" constant="8" id="rnc-JX-EJM"/>
                                 </constraints>
+                                <size key="customSize" width="187" height="230"/>
                                 <connections>
                                     <outlet property="bookImage" destination="I1E-W4-JnQ" id="Dsr-Eq-kum"/>
                                     <outlet property="title" destination="DTx-Mw-D9M" id="ajI-pV-gei"/>

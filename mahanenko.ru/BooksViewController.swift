@@ -21,6 +21,28 @@ class BooksViewController: ItemsCollectionViewController {
         return cell
     }
     
+    func getTextHeight(item: FilterableItem, width: CGFloat) -> CGFloat {
+        let text = UILabel()
+        text.font = Constants.TEXT_FONT
+        text.lineBreakMode = .ByWordWrapping
+        text.numberOfLines = 0
+        let book = item as! Book
+        text.text = book.title
+        let sizeThatFits = text.sizeThatFits(CGSize(width: width-CGFloat(Constants.MARGIN*2), height: 300))
+        return sizeThatFits.height+CGFloat(Constants.MARGIN*2)
+    }
+    
+    override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let viewWidth = collectionView.contentSize.width
+        let cellSize = viewWidth / 2
+        
+        let textHeight = getTextHeight(selected[indexPath.row], width: cellSize)
+        log.debug("titleHeight \(textHeight)+\(cellSize)")
+        
+        collectionViewLayout
+        
+        return CGSize(width: cellSize, height: cellSize+textHeight)
+    }
     
     func update(completion: ()->Void) {
         api.getBooksList(){result, error in

@@ -9,4 +9,5 @@
 import UIKit
 struct Constants {
     static let TEXT_FONT = UIFont(name: "Helvetica Neue", size: 16)!
+    static let MARGIN = 8
 }

@@ -51,6 +51,10 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         log.notice("viewDidLoad")
         super.viewDidLoad()
         
+        let flowLayout = ItemsCollectionFlowLayout()
+        flowLayout.minimumInteritemSpacing = 0
+        self.collectionView?.collectionViewLayout = flowLayout
+        
         if let table = collectionView as? RefreshCollectionView {
             if let refreshControl = table.refreshControl {
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)

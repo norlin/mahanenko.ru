@@ -44,6 +44,7 @@
 		97E4CEDC1C667C7B00C0FE50 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E4CEDB1C667C7B00C0FE50 /* Log.swift */; };
 		97E4CEDF1C66842A00C0FE50 /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E4CEDE1C66842A00C0FE50 /* BooksViewController.swift */; };
 		97E591AF1C607F3F0098C822 /* Sizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E591AE1C607F3F0098C822 /* Sizer.swift */; };
+		97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		97E4CEDB1C667C7B00C0FE50 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		97E4CEDE1C66842A00C0FE50 /* BooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		97E591AE1C607F3F0098C822 /* Sizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizer.swift; sourceTree = "<group>"; };
+		97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -282,6 +284,7 @@
 				97E06B7A1C679B7A003DDB8D /* Items.swift */,
 				97A29B781C6B19CA00BD98DB /* ItemsCollectionViewController.swift */,
 				97A29B7A1C6B1A0200BD98DB /* ItemsCollection.swift */,
+				97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */,
 			);
 			name = ItemsList;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				97E4CEDF1C66842A00C0FE50 /* BooksViewController.swift in Sources */,
 				973294691C4F662700908F81 /* TableCellView.swift in Sources */,
 				973D59DF1C2A5FCE001CB704 /* MenuViewController.swift in Sources */,
+				97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */,
 				97264D751C6B96CB00942494 /* CollectionCellView.swift in Sources */,
 				972E37F31C4CB3D20055AA66 /* NewsCell.swift in Sources */,
 				973D5A0E1C2A60FA001CB704 /* Menu.swift in Sources */,

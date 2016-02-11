@@ -12,23 +12,36 @@ class BookCellView: CollectionCellView {
     let log = Log(id: "BookCellView")
 
     @IBOutlet weak var bookImage: UIImageView!
-    @IBOutlet weak var summary: UILabel!
     @IBOutlet weak var title: UILabel!
-    @IBOutlet weak var textToImage: NSLayoutConstraint!
+    
+    var loader: Loader!
     
     func configure(item: Book){
         log.notice("configure")
         
-        title.text = item.title
-        //summary.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
-        
-        self.bookImage?.image = nil
-        item.fetchImage(true){image in
-            self.bookImage.image = image
+        if loader == nil {
+            loader = Loader(activityIndicatorStyle: .White)
+            loader.frame = bookImage.frame
+            self.addSubview(loader)
+            self.bringSubviewToFront(loader)
+            
+            title.font = Constants.TEXT_FONT
         }
-
-        //newsDate.text = "\(item.dateString)"
-        //newsText.attributedText = item.description.attributedStringWith(NEWS_FONT)*/
+        
+        title.text = item.title
+        
+        if let image = item.image3d {
+            self.bookImage.image = image
+        } else {
+            loader.startAnimating()
+            self.bookImage?.hidden = true
+            
+            item.fetchImage(true){image in
+                self.bookImage.image = image
+                self.bookImage.hidden = false
+                self.loader.stopAnimating()
+            }
+        }
     }
     
 }
