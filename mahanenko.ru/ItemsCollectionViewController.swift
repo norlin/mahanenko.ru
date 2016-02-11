@@ -55,11 +55,13 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     }
     
     func updateFilter(){
+        log.notice("updateFilter")
         self.filterDelegate.items = items
         self.filterDelegate.updateFilter()
     }
     
     func setFilter(type: String?){
+        log.notice("setFilter")
         self.filterDelegate.setFilter(type)
     }
     
@@ -71,17 +73,12 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         log.notice("onSetFilter")
         self.selected = selected
         self.filterButton.title = type
-        log.debug("onSetFilter 1")
         
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        log.debug("onSetFilter 2")
         collectionView?.reloadData()
-        log.debug("onSetFilter 3")
         if collectionView?.numberOfItemsInSection(0) > 0 {
-            log.debug("onSetFilter 4")
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
-        log.debug("onSetFilter 5")
     }
  
 }

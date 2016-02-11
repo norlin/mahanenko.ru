@@ -78,19 +78,16 @@ class ItemsFilter: ItemsFilterDelegate {
     func setFilter(type: String?) {
         log.notice("setFilter")
         selectedType = getTypeName(type)
-        log.debug("setFilter 2")
         var selected: [FilterableItem]
         guard let items = self.items else {
             selected = []
             return
         }
-        log.debug("setFilter 2")
         if let type = type {
             selected = items.filter { return $0.filter(type) }
         } else {
             selected = items
         }
-        log.debug("setFilter 3")
         
         onSetFilter(selected: selected, type: selectedType)
     }

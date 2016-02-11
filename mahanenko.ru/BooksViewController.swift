@@ -26,14 +26,11 @@ class BooksViewController: ItemsCollectionViewController {
         api.getBooksList(){result, error in
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
-                self.log.debug("refresh ready")
                 self.updateFilter()
                 self.setFilter(nil)
-                self.log.debug("refresh ready 1")
                 if let refreshControl = sender as? UIRefreshControl {
                     refreshControl.endRefreshing()
                 }
-                self.log.debug("refresh ready 2")
             }
         }
     }
