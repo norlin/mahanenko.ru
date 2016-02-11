@@ -28,6 +28,12 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
             filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
         }
+        
+        if loader == nil {
+            loader = Loader(activityIndicatorStyle: .WhiteLarge)
+            loader.frame = self.view.frame
+            self.view.addSubview(loader)
+        }
             
         self.navigationItem.rightBarButtonItem = filterButton
         
@@ -38,6 +44,8 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     
     var filterButton: UIBarButtonItem!
     var selected: [FilterableItem]!
+    
+    var loader: Loader!
 
     override func viewDidLoad() {
         log.notice("viewDidLoad")
@@ -48,6 +56,8 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
             }
         }
+
+        self.view.bringSubviewToFront(loader)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

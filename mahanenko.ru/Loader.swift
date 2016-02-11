@@ -11,11 +11,19 @@ import UIKit
 class Loader: UIActivityIndicatorView {
     override init(activityIndicatorStyle style: UIActivityIndicatorViewStyle) {
         super.init(activityIndicatorStyle: style)
+        configure()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
+        configure()
     }
     required init(coder: NSCoder) {
         super.init(coder: coder)
+        configure()
+    }
+    
+    func configure(){
+        self.hidesWhenStopped = true
+        self.color = UIColor.blackColor()
     }
 }

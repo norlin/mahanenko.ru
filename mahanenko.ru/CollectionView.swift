@@ -48,13 +48,6 @@ class RefreshCollectionView: CollectionView {
             }
         }
     }
-    var loader: Loader? {
-        didSet {
-            if (loader != nil){
-                self.addSubview(loader!)
-            }
-        }
-    }
 
     override private func configure() {
         log.notice("configure")
@@ -66,8 +59,6 @@ class RefreshCollectionView: CollectionView {
         log.notice("addRefreshControl")
         refreshControl = RefreshControl()
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        
-        loader = Loader(activityIndicatorStyle: .WhiteLarge)
-        loader!.frame = self.frame
+        self.alwaysBounceVertical = true
     }
 }

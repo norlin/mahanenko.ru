@@ -24,12 +24,20 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         }
     }
     
+    var loader: Loader!
+    
     internal func configureView(){
         log.notice("configureView")
         
         if filterDelegate == nil {
             filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+        }
+        
+        if loader == nil {
+            loader = Loader(activityIndicatorStyle: .WhiteLarge)
+            loader.frame = self.view.frame
+            self.view.addSubview(loader)
         }
             
         self.navigationItem.rightBarButtonItem = filterButton
@@ -51,6 +59,8 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
             }
         }
+        
+        self.view.bringSubviewToFront(loader)
         
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = ROW_HEIGHT + imageHeight
