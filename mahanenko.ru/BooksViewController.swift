@@ -20,22 +20,37 @@ class BooksViewController: ItemsCollectionViewController {
         
         return cell
     }
-
-    override func refresh(sender: AnyObject) {
-        log.notice("refresh")
-        if let _ = sender as? UIRefreshControl {} else {
-            self.loader.startAnimating()
-        }
+    
+    
+    func update(completion: ()->Void) {
         api.getBooksList(){result, error in
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
+                completion()
+                
                 self.updateFilter()
                 self.setFilter(nil)
-                if let refreshControl = sender as? UIRefreshControl {
-                    refreshControl.endRefreshing()
-                }
-                self.loader.stopAnimating()
             }
+        }
+
+    }
+
+    func pullRefresh(sender: UIRefreshControl) {
+        log.notice("refresh")
+        update(){
+            sender.endRefreshing()
+        }
+    }
+    
+    override func refresh(sender: AnyObject) {
+        log.notice("refresh")
+        if let refreshControl = sender as? UIRefreshControl {
+            return pullRefresh(refreshControl)
+        }
+        
+        self.loader.startAnimating()
+        update(){
+            self.loader.stopAnimating()
         }
     }
 }

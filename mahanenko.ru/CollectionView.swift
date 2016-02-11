@@ -57,7 +57,7 @@ class RefreshCollectionView: CollectionView {
     
     func addRefreshControl(){
         log.notice("addRefreshControl")
-        refreshControl = RefreshControl()
+        refreshControl = UIRefreshControl()
         refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.alwaysBounceVertical = true
     }

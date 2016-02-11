@@ -60,24 +60,35 @@ class NewsViewController: ItemsListViewController {
         return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
     }
     
-    override func refresh(sender: AnyObject) {
-        log.notice("refresh")
-        if let _ = sender as? UIRefreshControl {} else {
-            self.tableView.scrollEnabled = false
-            self.loader.startAnimating()
-        }
+    func update(completion:()->Void) {
         api.getNewsList(){result, error in
             self.items = result
             dispatch_async(dispatch_get_main_queue()){
+                completion()
+
                 self.updateFilter()
                 self.setFilter(nil)
-                if let refreshControl = sender as? UIRefreshControl {
-                    refreshControl.endRefreshing()
-                }
-                
-                self.loader.stopAnimating()
-                self.tableView.scrollEnabled = true
             }
+        }
+    }
+    
+    func pullRefresh(sender: UIRefreshControl){
+        update(){
+            sender.endRefreshing()
+        }
+    }
+    
+    override func refresh(sender: AnyObject) {
+        log.notice("refresh")
+        if let refreshControl = sender as? UIRefreshControl {
+            return pullRefresh(refreshControl)
+        }
+        
+        tableView.scrollEnabled = false
+        loader.startAnimating()
+        update(){
+            self.loader.stopAnimating()
+            self.tableView.scrollEnabled = true
         }
     }
 }
