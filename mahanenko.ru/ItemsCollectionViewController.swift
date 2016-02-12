@@ -31,7 +31,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         
         if loader == nil {
             loader = Loader(activityIndicatorStyle: .WhiteLarge)
-            loader.frame = self.view.frame
+            loader.center = self.view.center
             self.view.addSubview(loader)
         }
             

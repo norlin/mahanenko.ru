@@ -131,10 +131,15 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="D5I-Uk-kOl" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                            <rect key="frame" x="177" y="135" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="WnX-Sj-J2i" secondAttribute="bottom" priority="999" constant="8" id="5is-vF-A2J"/>
+                                        <constraint firstItem="D5I-Uk-kOl" firstAttribute="centerY" secondItem="Nbq-5t-3i8" secondAttribute="centerY" id="9kp-gD-agT"/>
+                                        <constraint firstItem="D5I-Uk-kOl" firstAttribute="centerX" secondItem="Nbq-5t-3i8" secondAttribute="centerX" id="Doa-sb-sXE"/>
                                         <constraint firstItem="qvQ-jf-gl7" firstAttribute="top" secondItem="A97-L8-HC3" secondAttribute="top" id="Iaz-aZ-Pe4"/>
                                         <constraint firstItem="qvQ-jf-gl7" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="NuB-lk-6HU"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="Nbq-5t-3i8" secondAttribute="bottom" constant="8" id="R38-yA-cJW"/>
@@ -149,6 +154,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="loader" destination="D5I-Uk-kOl" id="hCu-kr-KBJ"/>
                                     <outlet property="newsDate" destination="WnX-Sj-J2i" id="aMm-fk-3TR"/>
                                     <outlet property="newsImage" destination="Nbq-5t-3i8" id="Xox-J8-WwJ"/>
                                     <outlet property="newsText" destination="Ya3-m0-9s9" id="iem-4H-gpx"/>
@@ -195,7 +201,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="wMf-IC-nYc" customClass="RefreshCollectionView" customModule="mahanenko_ru" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="vzF-p7-AOj">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="vzF-p7-AOj" customClass="ItemsCollectionFlowLayout" customModule="mahanenko_ru" customModuleProvider="target">
                             <size key="itemSize" width="187" height="210"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -221,6 +227,9 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                            <rect key="frame" x="83" y="92" width="20" height="20"/>
+                                        </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -228,14 +237,17 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstAttribute="trailing" secondItem="DTx-Mw-D9M" secondAttribute="trailing" constant="8" id="1rZ-qE-1AN"/>
                                     <constraint firstItem="DTx-Mw-D9M" firstAttribute="top" secondItem="I1E-W4-JnQ" secondAttribute="bottom" id="5OE-xN-e92"/>
                                     <constraint firstItem="I1E-W4-JnQ" firstAttribute="top" secondItem="fOr-Lh-DaK" secondAttribute="top" constant="8" id="Jni-NK-iv0"/>
+                                    <constraint firstItem="qZ8-wF-tyI" firstAttribute="centerY" secondItem="I1E-W4-JnQ" secondAttribute="centerY" id="Nzv-T8-xoN"/>
                                     <constraint firstAttribute="trailing" secondItem="I1E-W4-JnQ" secondAttribute="trailing" id="VrR-g2-6Q9"/>
                                     <constraint firstItem="I1E-W4-JnQ" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leading" id="eTO-EY-kjt"/>
+                                    <constraint firstItem="qZ8-wF-tyI" firstAttribute="centerX" secondItem="I1E-W4-JnQ" secondAttribute="centerX" id="i3Y-x1-gWG"/>
                                     <constraint firstAttribute="bottom" secondItem="DTx-Mw-D9M" secondAttribute="bottom" constant="8" id="pUq-Cg-Z0Y"/>
                                     <constraint firstItem="DTx-Mw-D9M" firstAttribute="leading" secondItem="fOr-Lh-DaK" secondAttribute="leading" constant="8" id="rnc-JX-EJM"/>
                                 </constraints>
                                 <size key="customSize" width="187" height="230"/>
                                 <connections>
                                     <outlet property="bookImage" destination="I1E-W4-JnQ" id="Dsr-Eq-kum"/>
+                                    <outlet property="loader" destination="qZ8-wF-tyI" id="1O7-Ra-KdV"/>
                                     <outlet property="title" destination="DTx-Mw-D9M" id="ajI-pV-gei"/>
                                 </connections>
                             </collectionViewCell>

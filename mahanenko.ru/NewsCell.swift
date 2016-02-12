@@ -15,13 +15,20 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var newsDate: UILabel!
     @IBOutlet weak var newsText: UILabel!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
+    @IBOutlet weak var loader: Loader!
     
     func configure(item: News){
-        log.notice("configure")
+        log.debug("configure")
+        
+        self.bringSubviewToFront(loader)
+        
+        self.newsImage.hidden = true
         if item.hasImages {
-            self.imageView?.image = nil
+            loader.startAnimating()
             item.fetchImage(0){image in
                 self.newsImage.image = image
+                self.loader.stopAnimating()
+                self.newsImage.hidden = false
             }
         }
         

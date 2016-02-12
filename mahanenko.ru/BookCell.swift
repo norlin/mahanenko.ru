@@ -13,34 +13,25 @@ class BookCellView: CollectionCellView {
 
     @IBOutlet weak var bookImage: UIImageView!
     @IBOutlet weak var title: UILabel!
-    
-    var loader: Loader!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
     func configure(item: Book){
-        log.notice("configure")
+        log.debug("configure")
         
-        if loader == nil {
-            loader = Loader(activityIndicatorStyle: .White)
-            loader.frame = bookImage.frame
-            self.addSubview(loader)
-            self.bringSubviewToFront(loader)
-            
-            title.font = Constants.TEXT_FONT
-        }
+        self.bringSubviewToFront(loader)
+        
+        // TODO: create default fonts for the app
+        title.font = Constants.TEXT_FONT
         
         title.text = item.title
         
-        if let image = item.image3d {
+        loader.startAnimating()
+        self.bookImage.hidden = true
+        
+        item.fetchImage(true){image in
             self.bookImage.image = image
-        } else {
-            loader.startAnimating()
-            self.bookImage?.hidden = true
-            
-            item.fetchImage(true){image in
-                self.bookImage.image = image
-                self.bookImage.hidden = false
-                self.loader.stopAnimating()
-            }
+            self.loader.stopAnimating()
+            self.bookImage.hidden = false
         }
     }
     
