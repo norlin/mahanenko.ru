@@ -24,10 +24,13 @@ class Loader: UIActivityIndicatorView {
     
     func configure(){
         self.hidesWhenStopped = true
-        self.color = UIColor.blackColor()
         
         switch self.activityIndicatorViewStyle {
-        default: break
+        case .Gray:
+            self.color = UIColor.whiteColor()
+            break
+        default:
+            self.color = UIColor.blackColor()
         }
     }
 }

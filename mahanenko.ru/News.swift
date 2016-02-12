@@ -92,7 +92,7 @@ class News: FilterableItem {
     }
     
     func fetchFull(completion:(error: NSError?)->Void){
-        log.notice("fetchFull \(self.id)")
+        log.debug("fetchFull \(self.id)")
         api.getNewsItem(self.id) { (result, error) -> Void in
             if error != nil {
                 self.log.error("fetchFull error: \(error)")

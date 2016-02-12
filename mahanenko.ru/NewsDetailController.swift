@@ -16,6 +16,7 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
+    @IBOutlet weak var loader: Loader!
     
     let NEWS_FONT = UIFont(name: "Helvetica Neue", size: 16)!
     
@@ -25,9 +26,8 @@ class NewsDetailController: UIViewController {
         super.viewDidLoad()
         imagesScroll.backgroundColor = UIColor.blackColor()
         newsText.textContainerInset = view.layoutMargins
-    }
-    
-    override func viewWillAppear(animated: Bool) {
+        view.bringSubviewToFront(loader)
+        
         self.configure()
     }
     
@@ -36,7 +36,8 @@ class NewsDetailController: UIViewController {
         if let news = self.news {
             newsDate.text = news.dateStringShort
             if news.text == nil {
-                newsText.text = "Loading..."
+                newsText.hidden = true
+                loader.startAnimating()
                 news.fetchFull({ (error) -> Void in
                     if error != nil {
                         self.log.error("fetchFull error: \(error)")
@@ -44,11 +45,15 @@ class NewsDetailController: UIViewController {
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.updateNewsItem()
+                        self.newsText.hidden = false
+                        self.loader.stopAnimating()
                     }
                 })
             } else {
                 self.updateNewsItem()
             }
+        } else {
+            log.warning("No news item found!")
         }
     }
     
@@ -58,26 +63,32 @@ class NewsDetailController: UIViewController {
             return
         }
         
-        newsText.attributedText = news.text?.attributedStringWith(NEWS_FONT)
-        
-        var width: CGFloat = 0
-        let height: CGFloat = imagesScroll.frame.size.height
+        newsText.text = news.text?.string
         
         if let urls = news.imageUrls {
-            log.notice("updateNewsItem: fetch images")
+            log.debug("updateNewsItem: fetch images")
+            let width = imagesScroll.frame.size.width
+            let height = imagesScroll.frame.size.height
+            let imageFrame = CGSize(width: width, height: height)
+            print("\(imageFrame)")
+            imagesScroll.contentSize = CGSize(width: CGFloat(urls.count) * width, height: height)
+            
             for (index, _) in urls.enumerate() {
-                let imageView = UIImageView(image: nil)
+                let imageView = UIImageView()
+                imageView.hidden = true
+                imageView.contentMode = .ScaleAspectFill
+                imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
+                imagesScroll.addSubview(imageView)
+                let loader = Loader(activityIndicatorStyle: .Gray)
+                loader.center = imageView.center
+                imagesScroll.addSubview(loader)
+                loader.startAnimating()
+                
                 news.fetchImage(index){ image in
-                    self.log.notice("updateNewsItem: image fetched, \(index)")
-                    imageView.image = image
-                    let size = self.sizer.getScale(image.size, byHeight: height)
-                    imageView.frame.size = size
-                    imageView.frame.origin.x = width
-                    imageView.frame.origin.y = 0
-                    width += imageView.frame.width + 5
                     dispatch_async(dispatch_get_main_queue()){
-                        self.imagesScroll.addSubview(imageView)
-                        self.imagesScroll.contentSize = CGSize(width: width-5, height: height)
+                        imageView.image = image
+                        imageView.hidden = false
+                        loader.stopAnimating()
                     }
                 }
             }
@@ -85,7 +96,7 @@ class NewsDetailController: UIViewController {
             textToImage.active = true
             imagesScroll.hidden = false
         } else {
-            log.notice("updateNewsItem: hide images scroll")
+            log.debug("updateNewsItem: hide images scroll")
             textToImage.active = false
             imagesScroll.hidden = true
         }
