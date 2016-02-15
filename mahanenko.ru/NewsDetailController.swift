@@ -10,7 +10,6 @@ import UIKit
 
 class NewsDetailController: UIViewController {
     let log = Log(id: "NewsDetailController")
-    let sizer = Sizer.sharedInstance()
     
     @IBOutlet weak var newsDate: NewsDateLabel!
     @IBOutlet weak var newsText: UITextView!

@@ -242,7 +242,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <outlet property="bookImage" destination="I1E-W4-JnQ" id="Dsr-Eq-kum"/>
                                     <outlet property="loader" destination="qZ8-wF-tyI" id="1O7-Ra-KdV"/>
                                     <outlet property="title" destination="DTx-Mw-D9M" id="ajI-pV-gei"/>
-                                    <segue destination="1KV-Nf-XxF" kind="show" id="1Xw-c7-5hr"/>
+                                    <segue destination="1KV-Nf-XxF" kind="show" identifier="bookDetail" id="1Xw-c7-5hr"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>

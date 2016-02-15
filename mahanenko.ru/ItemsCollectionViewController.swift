@@ -10,7 +10,6 @@ import UIKit
 
 class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsCollectionViewController") }
-    let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
     private var filterDelegate: ItemsFilterDelegate!
     

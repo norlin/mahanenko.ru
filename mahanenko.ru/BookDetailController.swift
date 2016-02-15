@@ -9,5 +9,19 @@
 import UIKit
 
 class BookDetailController: UIViewController {
-
+    let log = Log(id: "BookDetailController")
+    
+    let imagesAspect:CGFloat = 184 / 375
+    
+    var book: Book?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.configure()
+    }
+    
+    func configure(){
+        log.notice("configure")
+    }
 }

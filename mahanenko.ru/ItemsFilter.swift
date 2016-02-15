@@ -24,7 +24,6 @@ protocol ItemsFilterDelegate {
 // Items Filter
 class ItemsFilter: ItemsFilterDelegate {
     let log = Log(id: "ItemsFilter")
-    let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
     var items: [FilterableItem]?
     

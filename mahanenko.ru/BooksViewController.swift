@@ -12,6 +12,22 @@ import UIKit
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        log.notice("prepareForSegue")
+        guard let collectionView = self.collectionView else {
+            return
+        }
+        
+        if segue.identifier == "bookDetail" {
+            let detailController = segue.destinationViewController as! BookDetailController
+            if let selectedBooks = collectionView.indexPathsForSelectedItems() {
+                let selectedItem = selectedBooks[0]
+                let item = selectedItem.item
+                detailController.book = (selected as! [Book])[item]
+            }
+        }
+    }
+    
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BookCell", forIndexPath: indexPath) as! BookCellView
         
