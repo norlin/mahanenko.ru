@@ -67,8 +67,8 @@ class NewsDetailController: UIViewController {
         
         if let urls = news.imageUrls {
             log.debug("updateNewsItem: fetch images")
-            let width = imagesScroll.frame.size.width
-            let height = imagesScroll.frame.size.height
+            let width = view.frame.width
+            let height = view.frame.width / 375 * 184
             let imageFrame = CGSize(width: width, height: height)
             print("\(imageFrame)")
             imagesScroll.contentSize = CGSize(width: CGFloat(urls.count) * width, height: height)
