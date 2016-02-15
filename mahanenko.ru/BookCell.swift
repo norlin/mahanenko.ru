@@ -21,7 +21,7 @@ class BookCellView: CollectionCellView {
         self.bringSubviewToFront(loader)
         
         // TODO: create default fonts for the app
-        title.font = Constants.TEXT_FONT
+        title.font = Constants.TITLE3_FONT
         
         title.text = item.title
         

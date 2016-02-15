@@ -115,25 +115,18 @@ Build: 123456</string>
                                                 <constraint firstAttribute="width" secondItem="Nbq-5t-3i8" secondAttribute="height" multiplier="326:184" id="54j-Og-JLX"/>
                                             </constraints>
                                         </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
-                                            <rect key="frame" x="8" y="259" width="359" height="94"/>
-                                            <attributedString key="attributedText">
-                                                <fragment>
-                                                    <string key="content">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
-
-P.S.: Встречаем новую обложку! Как Вам?</string>
-                                                    <attributes>
-                                                        <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                                        <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
-                                                    </attributes>
-                                                </fragment>
-                                            </attributedString>
-                                            <nil key="highlightedColor"/>
-                                        </label>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="D5I-Uk-kOl" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
                                             <rect key="frame" x="177" y="135" width="20" height="20"/>
                                         </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
+                                            <rect key="frame" x="8" y="259" width="359" height="104"/>
+                                            <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?</string>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
@@ -223,7 +216,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
                                             <rect key="frame" x="8" y="195" width="171" height="27"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -249,6 +242,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <outlet property="bookImage" destination="I1E-W4-JnQ" id="Dsr-Eq-kum"/>
                                     <outlet property="loader" destination="qZ8-wF-tyI" id="1O7-Ra-KdV"/>
                                     <outlet property="title" destination="DTx-Mw-D9M" id="ajI-pV-gei"/>
+                                    <segue destination="1KV-Nf-XxF" kind="show" id="1Xw-c7-5hr"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -262,10 +256,45 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             </objects>
             <point key="canvasLocation" x="506.5" y="1050.5"/>
         </scene>
+        <!--Book Detail Controller-->
+        <scene sceneID="1kG-j2-z49">
+            <objects>
+                <viewController id="1KV-Nf-XxF" customClass="BookDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="a7e-I5-aDQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="J8e-2B-TcZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="egH-78-zGh">
+                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWG-OT-ACf">
+                                <rect key="frame" x="16" y="0.0" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="RVr-QR-o5B"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="pWG-OT-ACf" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="CWN-zg-Tpb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pWG-OT-ACf" secondAttribute="trailing" id="LkU-qy-NXv"/>
+                            <constraint firstItem="pWG-OT-ACf" firstAttribute="top" secondItem="a7e-I5-aDQ" secondAttribute="bottom" id="oF1-gb-Yeq"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7yc-gy-hzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1056.5" y="1050.5"/>
+        </scene>
         <!--News Detail-->
         <scene sceneID="z8A-Y8-RjY">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="Wmg-IZ-Eag" userLabel="News Detail" customClass="NewsDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Wmg-IZ-Eag" userLabel="News Detail" customClass="NewsDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jxU-h1-9YV"/>
                         <viewControllerLayoutGuide type="bottom" id="8B0-IS-e3b"/>
@@ -372,7 +401,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
                                             <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </label>

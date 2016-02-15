@@ -23,7 +23,7 @@ class BooksViewController: ItemsCollectionViewController {
     
     func getTextHeight(item: FilterableItem, width: CGFloat) -> CGFloat {
         let text = UILabel()
-        text.font = Constants.TEXT_FONT
+        text.font = Constants.TITLE3_FONT
         text.lineBreakMode = .ByWordWrapping
         text.numberOfLines = 0
         let book = item as! Book
