@@ -15,10 +15,11 @@ class ItemsCollectionFlowLayout: UICollectionViewFlowLayout {
         if let attrs = super.layoutAttributesForElementsInRect(rect) {
             var newAttrs = [UICollectionViewLayoutAttributes]()
             for attr in attrs {
-                if attr.representedElementKind == nil {
-                    attr.frame = self.layoutAttributesForItemAtIndexPath(attr.indexPath)!.frame
+                let newAttr = attr.copy() as! UICollectionViewLayoutAttributes
+                if newAttr.representedElementKind == nil {
+                    newAttr.frame = self.layoutAttributesForItemAtIndexPath(attr.indexPath)!.frame
                 }
-                newAttrs.append(attr)
+                newAttrs.append(newAttr)
             }
             
             return newAttrs
@@ -32,7 +33,7 @@ class ItemsCollectionFlowLayout: UICollectionViewFlowLayout {
     }
     
     func layoutAttributesForTopAlignmentForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        if let attrs = super.layoutAttributesForItemAtIndexPath(indexPath) {
+        if let attrs = super.layoutAttributesForItemAtIndexPath(indexPath)?.copy() as? UICollectionViewLayoutAttributes {
             if (attrs.frame.origin.y <= self.sectionInset.top) {
                 return attrs
             }
