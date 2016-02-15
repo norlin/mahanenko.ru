@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct BookFull {
+    let summary: NSAttributedString!
+    let ebookFile: String?
+    let freeBookTextId: String?
+}
+
 class Book: FilterableItem {
     let log = Log(id: "Book")
     let api = SiteAPI.sharedInstance()
@@ -15,7 +21,7 @@ class Book: FilterableItem {
     let id: String
     var textId: String?
     let title: String
-    let summary: NSAttributedString
+    var summary: NSAttributedString
     var image: UIImage?
     let imageUrl: String?
     var image3d: UIImage?
@@ -23,6 +29,10 @@ class Book: FilterableItem {
     let date: NSDate?
     let state: String?
     let seria: String?
+    var ebookFile: String?
+    var freeBookTextId: String?
+    var isFull: Bool = false
+    
     override var types: [String] {
         guard let seria = seria else {
             return []
@@ -90,6 +100,32 @@ class Book: FilterableItem {
                 }
             }
         }
+    }
+    
+    func fetchFull(completion:(error: NSError?)->Void){
+        log.debug("fetchFull \(self.id)")
+        api.getBookItem(self.id) { (result, error) -> Void in
+            if error != nil {
+                self.log.error("fetchFull error: \(error)")
+                completion(error: error)
+                return
+            }
+            
+            guard let result = result else {
+                self.log.error("fetchFull error: no result found")
+                completion(error: NSError(domain: "fetchFull error: no result found", code: 404, userInfo: nil))
+                return
+            }
+            
+            self.summary = result.summary
+            self.freeBookTextId = result.freeBookTextId
+            self.ebookFile = result.ebookFile
+            
+            self.isFull = true
+            
+            completion(error: nil)
+        }
+
     }
 
 }

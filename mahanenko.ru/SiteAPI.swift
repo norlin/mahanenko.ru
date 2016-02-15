@@ -26,7 +26,7 @@ class SiteAPI: HTTP {
         static let NewsList = "/news"
         static let NewsItem = "/article?args[0]=%@"
         static let BooksList = "/books"
-        static let Book = "/book?args[0]=%@"
+        static let BookItem = "/book?args[0]=%@"
         static let BookText = "/booktext?args[0]=%@"
     }
     
@@ -34,7 +34,7 @@ class SiteAPI: HTTP {
         // Common
         static let Language: String = "language"
         static let Date: String = "created"
-        static let Description: String = "summary"
+        static let Summary: String = "summary"
         // News
         static let NewsId: String = "news_id"
         static let Category: String = "category"
@@ -64,6 +64,9 @@ class SiteAPI: HTTP {
             case .English: return "state"
             }
         }
+        static let EbookFile: String = "ebook_file"
+        static let FreeTextId: String = "free_book_text_id"
+        static let Description: String = "description"
     }
     
     var lang:Lang {
@@ -169,7 +172,7 @@ class SiteAPI: HTTP {
     }
     
     func getNewsItem(id: String, completion: (result: NewsFull?, error: NSError?) -> Void) {
-        log.notice("getNewsList")
+        log.notice("getNewsItem")
         let baseUrl = getBaseUrl()
         let methodUrl = String(format: Methods.NewsItem, id)
         let url = "\(baseUrl)\(methodUrl)"
@@ -184,7 +187,7 @@ class SiteAPI: HTTP {
                     return
                 }
                 guard let result = result else {
-                    let error = HTTP.Error("SiteAPI.getNewsList", code: 404, msg: "Can't fetch news list")
+                    let error = HTTP.Error("SiteAPI.getNewsItem", code: 404, msg: "Can't fetch news item")
                     dispatch_async(dispatch_get_main_queue()){
                         completion(result: nil, error: error)
                     }
@@ -218,8 +221,8 @@ class SiteAPI: HTTP {
         formatter.timeZone = NSTimeZone(name: "Europe/Moscow")
         let date = formatter.dateFromString(dateString)
         
-        // parse description
-        guard let summaryHTML = item[Keys.Description] as? String else {
+        // parse summary
+        guard let summaryHTML = item[Keys.Summary] as? String else {
             return nil
         }
         let data = summaryHTML.dataUsingEncoding(NSUTF8StringEncoding)
@@ -244,13 +247,7 @@ class SiteAPI: HTTP {
             return nil
         }
         
-        let textData = textHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let text = try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil) else {
+        guard let text = parseHTMLString(textHTML) else {
             return nil
         }
         
@@ -298,6 +295,41 @@ class SiteAPI: HTTP {
         }
     }
     
+    func getBookItem(id: String, completion: (result: BookFull?, error: NSError?) -> Void) {
+        log.notice("getBookList")
+        let baseUrl = getBaseUrl()
+        let methodUrl = String(format: Methods.BookItem, id)
+        let url = "\(baseUrl)\(methodUrl)"
+        
+        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
+        dispatch_async(backgroundQueue) {
+            self.get(url){result, error in
+                if error != nil {
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
+                    }
+                    return
+                }
+                guard let result = result else {
+                    let error = HTTP.Error("SiteAPI.getBookItem", code: 404, msg: "Can't fetch book item")
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
+                    }
+                    return
+                }
+                
+                if let items = result as? [[String: AnyObject]] {
+                    let item = items[0]
+                    let bookUpdate = self.parseBookItemFull(item)
+                    
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: bookUpdate, error: nil)
+                    }
+                }
+            }
+        }
+    }
+    
     func parseBookItem(item: [String: AnyObject]) -> Book? {
         guard let id = item[Keys.BookId] as? String else {
             return nil
@@ -317,16 +349,11 @@ class SiteAPI: HTTP {
         let date = formatter.dateFromString(dateString)
         
         // parse description
-        guard let descriptionHTML = item[Keys.Description] as? String else {
+        guard let descriptionHTML = item[Keys.Summary] as? String else {
             return nil
         }
-        let data = descriptionHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let description = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
+        
+        guard let description = parseHTMLString(descriptionHTML) else {
             return nil
         }
         
@@ -337,10 +364,33 @@ class SiteAPI: HTTP {
         
         return Book(id: id, title: title, summary: description, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state)
     }
+    
+    func parseBookItemFull(item: [String: AnyObject]) -> BookFull? {
+        // parse text html
+        guard let textHTML = item[Keys.Description] as? String else {
+            return nil
+        }
+        
+        let description = parseHTMLString(textHTML)
+        
+        let ebookFile = item[Keys.EbookFile] as? String
+        let freeTextId = item[Keys.FreeTextId] as? String
+        return BookFull(summary: description, ebookFile: ebookFile, freeBookTextId: freeTextId)
+    }
 
     // Common
     func getBaseUrl() -> String {
         return String(format: Constants.BaseURL, arguments: [langString])
+    }
+    
+    func parseHTMLString(html: String) -> NSAttributedString? {
+        let textData = html.dataUsingEncoding(NSUTF8StringEncoding)
+        let opts:[String: AnyObject] = [
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+            NSKernAttributeName: NSNull()
+        ]
+        return try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil)
     }
     
     func switchLang(){

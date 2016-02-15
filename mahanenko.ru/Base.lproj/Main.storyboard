@@ -268,24 +268,76 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWG-OT-ACf">
-                                <rect key="frame" x="16" y="0.0" width="343" height="21"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pyk-w8-K72">
+                                <rect key="frame" x="16" y="37" width="343" height="402"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="RVr-QR-o5B"/>
+                                    <constraint firstAttribute="width" secondItem="Pyk-w8-K72" secondAttribute="height" multiplier="335:392" id="59g-GZ-KFd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
+                            </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-cw-7q3" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="178" y="228" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Cyx-Bu-DeK" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book.detail.seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-zE-1Vo">
+                                <rect key="frame" x="16" y="447" width="154" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="154" id="9cU-AZ-iJR"/>
+                                    <constraint firstAttribute="height" constant="21" id="On4-hf-XMA"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
+                                <rect key="frame" x="178" y="447" width="181" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="rpb-3V-COW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWG-OT-ACf">
+                                <rect key="frame" x="16" y="8" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="vWN-Rb-Fjl"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="pWG-OT-ACf" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="CWN-zg-Tpb"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="pWG-OT-ACf" secondAttribute="trailing" id="LkU-qy-NXv"/>
-                            <constraint firstItem="pWG-OT-ACf" firstAttribute="top" secondItem="a7e-I5-aDQ" secondAttribute="bottom" id="oF1-gb-Yeq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="pWG-OT-ACf" secondAttribute="trailing" id="0LW-1J-ygr"/>
+                            <constraint firstItem="5af-64-nlo" firstAttribute="trailing" secondItem="egH-78-zGh" secondAttribute="trailingMargin" id="4qH-0H-dzX"/>
+                            <constraint firstItem="QUt-cw-7q3" firstAttribute="centerY" secondItem="Pyk-w8-K72" secondAttribute="centerY" id="6LF-SN-jt0"/>
+                            <constraint firstItem="Pyk-w8-K72" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="Fgj-g3-KnT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Pyk-w8-K72" secondAttribute="trailing" id="Gak-28-kg4"/>
+                            <constraint firstItem="pWG-OT-ACf" firstAttribute="top" secondItem="a7e-I5-aDQ" secondAttribute="bottom" constant="8" symbolic="YES" id="JB9-0y-qkd"/>
+                            <constraint firstItem="QUt-cw-7q3" firstAttribute="centerX" secondItem="Pyk-w8-K72" secondAttribute="centerX" id="LmS-9E-CPk"/>
+                            <constraint firstItem="pWG-OT-ACf" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="RVU-RL-Zz4"/>
+                            <constraint firstItem="5af-64-nlo" firstAttribute="top" secondItem="Pyk-w8-K72" secondAttribute="bottom" constant="8" symbolic="YES" id="Z6S-3B-npj"/>
+                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="top" secondItem="Pyk-w8-K72" secondAttribute="bottom" constant="8" symbolic="YES" id="a3b-cq-KkD"/>
+                            <constraint firstItem="5af-64-nlo" firstAttribute="leading" secondItem="Keg-zE-1Vo" secondAttribute="trailing" constant="8" symbolic="YES" id="jDz-yu-xrH"/>
+                            <constraint firstItem="Pyk-w8-K72" firstAttribute="top" secondItem="pWG-OT-ACf" secondAttribute="bottom" constant="8" symbolic="YES" id="jKG-y5-e9D"/>
+                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="klk-f9-pm7"/>
+                            <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerY" secondItem="egH-78-zGh" secondAttribute="centerY" id="nJc-vO-Zcs"/>
+                            <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerX" secondItem="egH-78-zGh" secondAttribute="centerX" id="oz5-nK-pRr"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="bookImage" destination="Pyk-w8-K72" id="84L-mK-ZkQ"/>
+                        <outlet property="bookSeria" destination="5af-64-nlo" id="pSb-Qg-rVc"/>
+                        <outlet property="bookTitle" destination="pWG-OT-ACf" id="QcV-IJ-cYw"/>
+                        <outlet property="imageLoader" destination="Cyx-Bu-DeK" id="EX7-l5-A6A"/>
+                        <outlet property="mainLoader" destination="QUt-cw-7q3" id="HtF-PC-HZq"/>
+                        <outlet property="seriaLabel" destination="Keg-zE-1Vo" id="lbV-7S-qW6"/>
+                        <outlet property="titleHeight" destination="vWN-Rb-Fjl" id="wqq-2d-vsk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yc-gy-hzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

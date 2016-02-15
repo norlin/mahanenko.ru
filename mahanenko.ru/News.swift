@@ -23,6 +23,7 @@ class News: FilterableItem {
     var images: [UIImage]
     var imageUrls: [String]?
     let date: NSDate?
+    var isFull:Bool = false
     var hasImages: Bool {
         return imageUrls != nil
     }
@@ -110,6 +111,8 @@ class News: FilterableItem {
             if let urls = result.imageUrls {
                 self.imageUrls = urls
             }
+            
+            self.isFull = true
             
             completion(error: nil)
         }

@@ -34,7 +34,7 @@ class NewsDetailController: UIViewController {
         log.notice("configure")
         if let news = self.news {
             newsDate.text = news.dateStringShort
-            if news.text == nil {
+            if !news.isFull {
                 newsText.hidden = true
                 loader.startAnimating()
                 news.fetchFull({ (error) -> Void in
