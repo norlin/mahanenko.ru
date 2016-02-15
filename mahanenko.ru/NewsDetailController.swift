@@ -18,7 +18,7 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var loader: Loader!
     
-    let NEWS_FONT = UIFont(name: "Helvetica Neue", size: 16)!
+    let imagesAspect:CGFloat = 184 / 375
     
     var news: News?
     
@@ -68,9 +68,8 @@ class NewsDetailController: UIViewController {
         if let urls = news.imageUrls {
             log.debug("updateNewsItem: fetch images")
             let width = view.frame.width
-            let height = view.frame.width / 375 * 184
+            let height = width * imagesAspect
             let imageFrame = CGSize(width: width, height: height)
-            print("\(imageFrame)")
             imagesScroll.contentSize = CGSize(width: CGFloat(urls.count) * width, height: height)
             
             for (index, _) in urls.enumerate() {
