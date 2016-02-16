@@ -281,21 +281,11 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <rect key="frame" x="169" y="283" width="37" height="37"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book.detail.seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-zE-1Vo">
-                                <rect key="frame" x="16" y="447" width="154" height="21"/>
+                                <rect key="frame" x="16" y="447" width="343" height="21"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="154" id="9cU-AZ-iJR"/>
                                     <constraint firstAttribute="height" constant="21" id="On4-hf-XMA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
-                                <rect key="frame" x="178" y="447" width="181" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="rpb-3V-COW"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -308,22 +298,32 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
+                                <rect key="frame" x="16" y="476" width="343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="rpb-3V-COW"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="pWG-OT-ACf" secondAttribute="trailing" id="0LW-1J-ygr"/>
-                            <constraint firstItem="5af-64-nlo" firstAttribute="trailing" secondItem="egH-78-zGh" secondAttribute="trailingMargin" id="4qH-0H-dzX"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Keg-zE-1Vo" secondAttribute="trailing" id="60o-Ae-nzw"/>
                             <constraint firstItem="QUt-cw-7q3" firstAttribute="centerY" secondItem="Pyk-w8-K72" secondAttribute="centerY" id="6LF-SN-jt0"/>
+                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="top" secondItem="Pyk-w8-K72" secondAttribute="bottom" constant="8" symbolic="YES" id="CzN-qW-GPt"/>
+                            <constraint firstItem="5af-64-nlo" firstAttribute="top" secondItem="Keg-zE-1Vo" secondAttribute="bottom" constant="8" symbolic="YES" id="Du1-on-Wmp"/>
                             <constraint firstItem="Pyk-w8-K72" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="Fgj-g3-KnT"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Pyk-w8-K72" secondAttribute="trailing" id="Gak-28-kg4"/>
                             <constraint firstItem="pWG-OT-ACf" firstAttribute="top" secondItem="a7e-I5-aDQ" secondAttribute="bottom" constant="8" symbolic="YES" id="JB9-0y-qkd"/>
                             <constraint firstItem="QUt-cw-7q3" firstAttribute="centerX" secondItem="Pyk-w8-K72" secondAttribute="centerX" id="LmS-9E-CPk"/>
                             <constraint firstItem="pWG-OT-ACf" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="RVU-RL-Zz4"/>
-                            <constraint firstItem="5af-64-nlo" firstAttribute="top" secondItem="Pyk-w8-K72" secondAttribute="bottom" constant="8" symbolic="YES" id="Z6S-3B-npj"/>
-                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="top" secondItem="Pyk-w8-K72" secondAttribute="bottom" constant="8" symbolic="YES" id="a3b-cq-KkD"/>
-                            <constraint firstItem="5af-64-nlo" firstAttribute="leading" secondItem="Keg-zE-1Vo" secondAttribute="trailing" constant="8" symbolic="YES" id="jDz-yu-xrH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5af-64-nlo" secondAttribute="trailing" id="eZz-OW-vr4"/>
+                            <constraint firstItem="5af-64-nlo" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="hfs-D2-kqx"/>
+                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="iSm-k3-8C3"/>
                             <constraint firstItem="Pyk-w8-K72" firstAttribute="top" secondItem="pWG-OT-ACf" secondAttribute="bottom" constant="8" symbolic="YES" id="jKG-y5-e9D"/>
-                            <constraint firstItem="Keg-zE-1Vo" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="klk-f9-pm7"/>
                             <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerY" secondItem="egH-78-zGh" secondAttribute="centerY" id="nJc-vO-Zcs"/>
                             <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerX" secondItem="egH-78-zGh" secondAttribute="centerX" id="oz5-nK-pRr"/>
                         </constraints>
