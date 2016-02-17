@@ -45,6 +45,9 @@
 		97E4CEDC1C667C7B00C0FE50 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E4CEDB1C667C7B00C0FE50 /* Log.swift */; };
 		97E4CEDF1C66842A00C0FE50 /* BooksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E4CEDE1C66842A00C0FE50 /* BooksViewController.swift */; };
 		97E591AF1C607F3F0098C822 /* Sizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97E591AE1C607F3F0098C822 /* Sizer.swift */; };
+		97EA403D1C7440E00018B1C5 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA403C1C7440E00018B1C5 /* CoreDataStackManager.swift */; };
+		97EA40421C7441E90018B1C5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97EA40401C7441E90018B1C5 /* Model.xcdatamodeld */; };
+		97EA40441C74436C0018B1C5 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA40431C74436C0018B1C5 /* Image.swift */; };
 		97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -110,6 +113,9 @@
 		97E4CEDB1C667C7B00C0FE50 /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		97E4CEDE1C66842A00C0FE50 /* BooksViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BooksViewController.swift; sourceTree = "<group>"; };
 		97E591AE1C607F3F0098C822 /* Sizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sizer.swift; sourceTree = "<group>"; };
+		97EA403C1C7440E00018B1C5 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		97EA40411C7441E90018B1C5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		97EA40431C74436C0018B1C5 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +164,7 @@
 				97CFC6301C62697F007ED24D /* SiteAPI.swift */,
 				97CFC6321C627E59007ED24D /* Strings.swift */,
 				97E4CEDB1C667C7B00C0FE50 /* Log.swift */,
+				97EA403C1C7440E00018B1C5 /* CoreDataStackManager.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -232,6 +239,8 @@
 				973D5A0D1C2A60FA001CB704 /* Menu.swift */,
 				972E37F81C4CC2860055AA66 /* News.swift */,
 				97E06B6A1C676746003DDB8D /* Books.swift */,
+				97EA40401C7441E90018B1C5 /* Model.xcdatamodeld */,
+				97EA40431C74436C0018B1C5 /* Image.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -451,6 +460,7 @@
 				97E06B771C67973E003DDB8D /* ItemsFilter.swift in Sources */,
 				97E06B6B1C676746003DDB8D /* Books.swift in Sources */,
 				97B10ADF1C57496800B2C3F5 /* DateLabel.swift in Sources */,
+				97EA403D1C7440E00018B1C5 /* CoreDataStackManager.swift in Sources */,
 				973D59E11C2A5FCE001CB704 /* DetailViewController.swift in Sources */,
 				97E06B7B1C679B7A003DDB8D /* Items.swift in Sources */,
 				97CFC6331C627E59007ED24D /* Strings.swift in Sources */,
@@ -470,6 +480,7 @@
 				973D59DF1C2A5FCE001CB704 /* MenuViewController.swift in Sources */,
 				97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */,
 				9747A1021C72346E005BFD0D /* BookDetailController.swift in Sources */,
+				97EA40421C7441E90018B1C5 /* Model.xcdatamodeld in Sources */,
 				97264D751C6B96CB00942494 /* CollectionCellView.swift in Sources */,
 				972E37F31C4CB3D20055AA66 /* NewsCell.swift in Sources */,
 				973D5A0E1C2A60FA001CB704 /* Menu.swift in Sources */,
@@ -477,6 +488,7 @@
 				9759050D1C49374600A6345B /* NewsViewController.swift in Sources */,
 				973D59DD1C2A5FCE001CB704 /* AppDelegate.swift in Sources */,
 				97E06B791C679748003DDB8D /* ItemsListTable.swift in Sources */,
+				97EA40441C74436C0018B1C5 /* Image.swift in Sources */,
 				97A29B7B1C6B1A0200BD98DB /* ItemsCollection.swift in Sources */,
 				97E06B701C677DEF003DDB8D /* BookCell.swift in Sources */,
 				97E06B7D1C67A7FB003DDB8D /* Constants.swift in Sources */,
@@ -735,6 +747,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		97EA40401C7441E90018B1C5 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				97EA40411C7441E90018B1C5 /* Model.xcdatamodel */,
+			);
+			currentVersion = 97EA40411C7441E90018B1C5 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 973D59D11C2A5FCE001CB704 /* Project object */;
 }

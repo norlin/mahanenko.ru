@@ -23,16 +23,16 @@ class NewsCellView: TableCellView {
         self.bringSubviewToFront(loader)
         
         self.newsImage.hidden = true
-        if item.hasImages {
+        if let image = item.previewImage {
             loader.startAnimating()
-            item.fetchImage(0){image in
+            image.fetch(){image in
                 self.newsImage.image = image
                 self.loader.stopAnimating()
                 self.newsImage.hidden = false
             }
         }
         
-        textToImage?.active = item.hasImages
+        textToImage?.active = item.previewImage != nil
         newsDate.text = "\(item.dateString)"
         newsText.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
     }

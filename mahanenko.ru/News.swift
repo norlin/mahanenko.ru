@@ -20,12 +20,12 @@ class News: FilterableItem {
     let id: String
     let summary: NSAttributedString
     var text: NSAttributedString?
-    var images: [UIImage]
-    var imageUrls: [String]?
+    var images: [Image] = []
+    let previewImage:Image?
     let date: NSDate?
     var isFull:Bool = false
     var hasImages: Bool {
-        return imageUrls != nil
+        return images.count > 0
     }
     var dateString: String {
         guard let date = date else {
@@ -58,38 +58,27 @@ class News: FilterableItem {
         self.id = id
         self.summary = summary
         self.text = nil
-        self.imageUrls = images
-        self.images = []
+        if let images = images {
+            if images.count > 0 {
+                let url = images[0]
+                self.previewImage = Image(url: url)
+            } else {
+                self.previewImage = nil
+            }
+        } else {
+            self.previewImage = nil
+        }
         self.date = date
         self.category = category
     }
     
     func fetchImage(index: Int, completion: (image: UIImage)->Void){
-        guard let urls = imageUrls else {
+        if index >= self.images.count {
             return
         }
         
-        if index >= urls.count {
-            return
-        }
-        
-        if index < images.count {
-            completion(image: images[index])
-            return
-        }
-        let url = urls[index]
-        let imageURL = NSURL(string: url)
-        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-        dispatch_async(backgroundQueue) {
-            if let imageData = NSData(contentsOfURL: imageURL!) {
-                if let image = UIImage(data: imageData) {
-                    self.images.append(image)
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(image: image)
-                    }
-                }
-            }
-        }
+        let image = self.images[index]
+        image.fetch(completion)
     }
     
     func fetchFull(completion:(error: NSError?)->Void){
@@ -109,7 +98,9 @@ class News: FilterableItem {
             
             self.text = result.text
             if let urls = result.imageUrls {
-                self.imageUrls = urls
+                for url in urls {
+                    self.images.append(Image(url: url))
+                }
             }
             
             self.isFull = true

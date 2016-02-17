@@ -22,10 +22,8 @@ class Book: FilterableItem {
     var textId: String?
     let title: String
     var summary: NSAttributedString
-    var image: UIImage?
-    let imageUrl: String?
-    var image3d: UIImage?
-    let image3dUrl: String?
+    let image: Image?
+    let image3d: Image?
     let date: NSDate?
     let state: String?
     let seria: String?
@@ -61,44 +59,21 @@ class Book: FilterableItem {
         self.id = id
         self.textId = textId
         self.title = title
-        self.summary = summary.attributedStringWith(font)
         self.seria = seria
-        self.imageUrl = image
-        self.image3dUrl = image3d
         self.date = date
         self.state = state
-    }
-    
-    func fetchImage(need3d: Bool, completion: (image: UIImage)->Void){
-        if need3d && image3d != nil {
-            completion(image: image3d!)
-            return
+        self.summary = summary.attributedStringWith(font)
+        
+        if let image = image {
+            self.image = Image(url: image)
+        } else {
+            self.image = nil
         }
         
-        if !need3d && image != nil {
-            completion(image: image!)
-            return
-        }
-        
-        guard let url:String = need3d ? image3dUrl : imageUrl else {
-            return
-        }
-        let imageURL = NSURL(string: url)
-        
-        let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
-        dispatch_async(backgroundQueue) {
-            if let imageData = NSData(contentsOfURL: imageURL!) {
-                if let image = UIImage(data: imageData) {
-                    if need3d {
-                        self.image3d = image
-                    } else {
-                        self.image = image
-                    }
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(image: image)
-                    }
-                }
-            }
+        if let image = image3d {
+            self.image3d = Image(url: image)
+        } else {
+            self.image3d = nil
         }
     }
     

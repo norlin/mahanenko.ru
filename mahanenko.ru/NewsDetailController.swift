@@ -64,14 +64,24 @@ class NewsDetailController: UIViewController {
         
         newsText.text = news.text?.string
         
-        if let urls = news.imageUrls {
+        let newsImages:[Image]
+        
+        if (news.hasImages) {
+            newsImages = news.images
+        } else if let preview = news.previewImage {
+            newsImages = [preview]
+        } else {
+            newsImages = []
+        }
+        
+        if newsImages.count > 0 {
             log.debug("updateNewsItem: fetch images")
             let width = view.frame.width
             let height = width * imagesAspect
             let imageFrame = CGSize(width: width, height: height)
-            imagesScroll.contentSize = CGSize(width: CGFloat(urls.count) * width, height: height)
+            imagesScroll.contentSize = CGSize(width: CGFloat(newsImages.count) * width, height: height)
             
-            for (index, _) in urls.enumerate() {
+            for (index, image) in newsImages.enumerate() {
                 let imageView = UIImageView()
                 imageView.hidden = true
                 imageView.contentMode = .ScaleAspectFill
@@ -82,7 +92,7 @@ class NewsDetailController: UIViewController {
                 imagesScroll.addSubview(loader)
                 loader.startAnimating()
                 
-                news.fetchImage(index){ image in
+                image.fetch(){ image in
                     dispatch_async(dispatch_get_main_queue()){
                         imageView.image = image
                         imageView.hidden = false

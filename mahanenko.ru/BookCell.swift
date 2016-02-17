@@ -25,15 +25,16 @@ class BookCellView: CollectionCellView {
         
         title.text = item.title
         
-        loader.startAnimating()
         self.bookImage.hidden = true
         
-        item.fetchImage(true){image in
-            self.bookImage.image = image
-            self.loader.stopAnimating()
-            self.bookImage.hidden = false
+        if let image = item.image3d {
+            loader.startAnimating()
+            image.fetch(){image in
+                self.bookImage.image = image
+                self.loader.stopAnimating()
+                self.bookImage.hidden = false
+            }
         }
     }
     
 }
-

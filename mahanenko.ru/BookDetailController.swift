@@ -125,11 +125,16 @@ class BookDetailController: UIViewController {
             self.summary.alpha = 1
         })
         
-        self.imageLoader.startAnimating()
-        book.fetchImage(true) {image in
-            self.bookImage.image = image
-            self.imageLoader.stopAnimating()
-            self.bookImage.hidden = false
+        if let image = book.image3d {
+            self.imageLoader.startAnimating()
+            image.fetch() {image in
+                self.bookImage.image = image
+                self.imageLoader.stopAnimating()
+                self.bookImage.hidden = false
+                self.bookImageReady = true
+                self.updateView()
+            }
+        } else {
             self.bookImageReady = true
             self.updateView()
         }

@@ -38,7 +38,7 @@ class NewsViewController: ItemsListViewController {
         if indexPath.section < selected.count {
             let news = selected[indexPath.section] as! News
             let textHeight = getTextHeight(news)
-            if news.hasImages {
+            if news.previewImage != nil {
                 return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
             }
             return ROW_HEIGHT + textHeight
