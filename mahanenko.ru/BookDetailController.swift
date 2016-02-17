@@ -34,24 +34,27 @@ class BookDetailController: UIViewController {
     let imagesAspect:CGFloat = 392 / 335
     let bgPattern = UIImage(named: "Background")!
     
-    
     var book: Book?
+    var bookImageReady = false
+    var appeared = false
+    var userAction = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.bringSubviewToFront(mainLoader)
         topView.bringSubviewToFront(imageLoader)
-        bookImage.hidden = true
-        bookTitle.hidden = true
-        bookSeria.hidden = true
-        seriaLabel.hidden = true
+        bookImage.alpha = 0
+        bookTitle.alpha = 0
+        bookSeria.alpha = 0
+        seriaLabel.alpha = 0
+        summary.alpha = 0
         
         summary.textContainerInset = UIEdgeInsets(top: 0, left: view.layoutMargins.left, bottom: 0, right: view.layoutMargins.right)
         
         view.backgroundColor = UIColor(patternImage: self.bgPattern)
         
-        let textModeTap = UITapGestureRecognizer(target: self, action: "switchMode")
+        let textModeTap = UITapGestureRecognizer(target: self, action: "setTextMode")
         summary.addGestureRecognizer(textModeTap)
         let imageModeTap = UITapGestureRecognizer(target: self, action: "switchMode")
         bookImage.addGestureRecognizer(imageModeTap)
@@ -86,6 +89,7 @@ class BookDetailController: UIViewController {
                     }
                     
                     dispatch_async(dispatch_get_main_queue()){
+                        self.log.debug("book full ready")
                         self.updateBookItem()
                         self.mainLoader.stopAnimating()
                     }
@@ -100,72 +104,101 @@ class BookDetailController: UIViewController {
     
     func updateBookItem(){
         guard let book = self.book else {
+            // TODO: handle error
             return
         }
         log.notice("updateBookItem")
         
         bookTitle.text = book.title
-        bookTitle.hidden = false
         let height = getTitleHeight()
         titleHeight.constant = height
-        summary.sizeToFit()
-        setImageMode(false)
         
         bookSeria.text = book.seria
-        bookSeria.hidden = false
-        seriaLabel.hidden = false
-        
         summary.attributedText = book.summary.attributedStringWith(Constants.TEXT_FONT)
+        summary.sizeToFit()
+        
+        setImageMode(false)
+        
+        UIView.animateWithDuration(0.5, animations: {
+            self.bookImage.alpha = 1
+            self.bookTitle.alpha = 1
+            self.summary.alpha = 1
+        })
         
         self.imageLoader.startAnimating()
         book.fetchImage(true) {image in
             self.bookImage.image = image
             self.imageLoader.stopAnimating()
             self.bookImage.hidden = false
+            self.bookImageReady = true
+            self.updateView()
         }
     }
     
     override func viewDidAppear(animated: Bool) {
-        setTextMode(animated)
+        log.debug("viewDidAppear")
+        appeared = true
+        updateView()
+    }
+    
+    func updateView(){
+        if (bookImageReady && appeared && !userAction){
+            setTextMode(true)
+        }
     }
     
     func switchMode(){
+        userAction = true
         if textModeState {
             setImageMode()
         } else {
-            setTextMode()
+            setTextMode(true)
         }
+    }
+    
+    func setTextMode(){
+        userAction = true
+        setTextMode(true)
     }
     
     func setTextMode(animated: Bool = true){
         log.debug("setTextMode")
+        if (textModeState){
+            return
+        }
         let titleHeight = getTitleHeight()
         imageHeight.constant = 100 + titleHeight
         NSLayoutConstraint.deactivateConstraints(imageViewConstraints)
+        self.textModeState = true
         if animated {
             UIView.animateWithDuration(0.1, animations: {
                 self.seriaLabel.alpha = 0
                 self.bookSeria.alpha = 0
             })
             UIView.animateWithDuration(0.5, animations: {
+                self.summary.alpha = 1
                 self.view.layoutIfNeeded()
             }){ success in
                 UIView.animateWithDuration(0.1, animations: {
                     self.seriaLabel.alpha = 1
                     self.bookSeria.alpha = 1
-                    self.textModeState = true
                 })
             }
         } else {
             self.view.layoutIfNeeded()
+            self.summary.alpha = 1
         }
     }
     
     func setImageMode(animated: Bool = true){
         log.debug("setImageMode")
+        if (!textModeState){
+            return
+        }
         let height = getImageHeight(getTitleHeight())
         self.imageHeight.constant = height
         NSLayoutConstraint.activateConstraints(imageViewConstraints)
+        self.textModeState = false
         if animated {
             UIView.animateWithDuration(0.1, animations: {
                 self.seriaLabel.alpha = 0
@@ -177,11 +210,16 @@ class BookDetailController: UIViewController {
                 UIView.animateWithDuration(0.1, animations: {
                     self.seriaLabel.alpha = 1
                     self.bookSeria.alpha = 1
-                    self.textModeState = false
+                    if (self.summary.frame.height < 21){
+                        self.summary.alpha = 0
+                    }
                 })
             }
         } else {
             self.view.layoutIfNeeded()
+            if (self.summary.frame.height < 21){
+                self.summary.alpha = 0
+            }
         }
     }
 }

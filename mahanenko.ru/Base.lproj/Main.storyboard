@@ -302,8 +302,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstItem="Pyk-w8-K72" firstAttribute="leading" secondItem="teJ-o8-xhY" secondAttribute="leading" id="zIh-i5-uOU"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-cw-7q3" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-cw-7q3" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="169" y="283" width="37" height="37"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book.detail.seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-zE-1Vo">
                                 <rect key="frame" x="16" y="416" width="343" height="21"/>
@@ -314,7 +314,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
                                 <rect key="frame" x="16" y="445" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="rpb-3V-COW"/>
@@ -323,9 +323,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="60D-vJ-JWi">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Book Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="60D-vJ-JWi">
                                 <rect key="frame" x="0.0" y="474" width="375" height="121"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -340,6 +339,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                             <constraint firstItem="60D-vJ-JWi" firstAttribute="top" secondItem="teJ-o8-xhY" secondAttribute="bottom" priority="999" constant="8" symbolic="YES" id="H7A-bB-R7b"/>
                             <constraint firstAttribute="trailing" secondItem="60D-vJ-JWi" secondAttribute="trailing" id="MDJ-8P-kVE"/>
                             <constraint firstItem="5af-64-nlo" firstAttribute="leading" secondItem="Keg-zE-1Vo" secondAttribute="leading" id="T8A-un-AzL"/>
+                            <constraint firstItem="QUt-cw-7q3" firstAttribute="centerY" secondItem="egH-78-zGh" secondAttribute="centerY" id="YEl-PS-x2A"/>
+                            <constraint firstItem="QUt-cw-7q3" firstAttribute="centerX" secondItem="egH-78-zGh" secondAttribute="centerX" id="e80-pr-GqL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="5af-64-nlo" secondAttribute="trailing" id="eZz-OW-vr4"/>
                             <constraint firstItem="60D-vJ-JWi" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leading" id="hnG-my-xMc"/>
                             <constraint firstItem="Keg-zE-1Vo" firstAttribute="leading" secondItem="egH-78-zGh" secondAttribute="leadingMargin" id="iSm-k3-8C3"/>
