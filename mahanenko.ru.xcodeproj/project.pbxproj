@@ -48,6 +48,7 @@
 		97EA403D1C7440E00018B1C5 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA403C1C7440E00018B1C5 /* CoreDataStackManager.swift */; };
 		97EA40421C7441E90018B1C5 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 97EA40401C7441E90018B1C5 /* Model.xcdatamodeld */; };
 		97EA40441C74436C0018B1C5 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA40431C74436C0018B1C5 /* Image.swift */; };
+		97EA40461C744F540018B1C5 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EA40451C744F540018B1C5 /* Category.swift */; };
 		97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,7 @@
 		97EA403C1C7440E00018B1C5 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		97EA40411C7441E90018B1C5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		97EA40431C74436C0018B1C5 /* Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		97EA40451C744F540018B1C5 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		97EC18831C6CE1690081674C /* ItemsCollectionLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ItemsCollectionLayout.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -241,6 +243,7 @@
 				97E06B6A1C676746003DDB8D /* Books.swift */,
 				97EA40401C7441E90018B1C5 /* Model.xcdatamodeld */,
 				97EA40431C74436C0018B1C5 /* Image.swift */,
+				97EA40451C744F540018B1C5 /* Category.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -478,6 +481,7 @@
 				97E4CEDF1C66842A00C0FE50 /* BooksViewController.swift in Sources */,
 				973294691C4F662700908F81 /* TableCellView.swift in Sources */,
 				973D59DF1C2A5FCE001CB704 /* MenuViewController.swift in Sources */,
+				97EA40461C744F540018B1C5 /* Category.swift in Sources */,
 				97EC18841C6CE1690081674C /* ItemsCollectionLayout.swift in Sources */,
 				9747A1021C72346E005BFD0D /* BookDetailController.swift in Sources */,
 				97EA40421C7441E90018B1C5 /* Model.xcdatamodeld in Sources */,

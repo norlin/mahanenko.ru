@@ -48,10 +48,10 @@ class News: FilterableItem {
         return formatter.stringFromDate(date)
     }
     
-    let category: [String]
-    override var types: [String] { return self.category }
+    var category: [Category] = []
+    override var types: [String] { return self.category.map({return $0.name}) }
     override func filter(type: String) -> Bool {
-        return self.category.contains(type)
+        return self.category.contains({return $0.name == type})
     }
     
     init(id: String, summary: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
@@ -69,7 +69,9 @@ class News: FilterableItem {
             self.previewImage = nil
         }
         self.date = date
-        self.category = category
+        for name in category {
+            self.category.append(Category(name: name))
+        }
     }
     
     func fetchImage(index: Int, completion: (image: UIImage)->Void){
