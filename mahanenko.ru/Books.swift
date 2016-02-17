@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 struct BookFull {
-    let summary: NSAttributedString!
+    let summary: String!
     let ebookFile: String?
     let freeBookTextId: String?
 }
@@ -18,18 +19,19 @@ class Book: FilterableItem {
     let log = Log(id: "Book")
     let api = SiteAPI.sharedInstance()
     
-    let id: String
-    var textId: String?
-    let title: String
-    var summary: NSAttributedString
-    let image: Image?
-    let image3d: Image?
-    let date: NSDate?
-    let state: String?
-    let seria: String?
-    var ebookFile: String?
-    var freeBookTextId: String?
-    var isFull: Bool = false
+    @NSManaged var id: String
+    @NSManaged var textId: String?
+    @NSManaged var title: String
+    @NSManaged var summaryHTML: String
+    var summary:NSAttributedString { return self.api.parseHTMLString(summaryHTML)! }
+    @NSManaged var image: Image?
+    @NSManaged var image3d: Image?
+    @NSManaged var date: NSDate?
+    @NSManaged var state: String?
+    @NSManaged var seria: String?
+    @NSManaged var ebookFile: String?
+    @NSManaged var freeBookTextId: String?
+    @NSManaged var isFull: Bool
     
     override var types: [String] {
         guard let seria = seria else {
@@ -53,25 +55,31 @@ class Book: FilterableItem {
         return formatter.stringFromDate(date)
     }
     
-    let font = UIFont(name: "Helvetica Neue", size: 16)!
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
     
-    init(id: String, textId: String? = nil, title: String, summary: NSAttributedString, seria: String?, image: String?, image3d: String?, date: NSDate?, state: String?) {
+    init(id: String, textId: String? = nil, title: String, summary: String, seria: String?, image: String?, image3d: String?, date: NSDate?, state: String?, context: NSManagedObjectContext) {
+    
+        let entity =  NSEntityDescription.entityForName("Book", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.id = id
         self.textId = textId
         self.title = title
         self.seria = seria
         self.date = date
         self.state = state
-        self.summary = summary.attributedStringWith(font)
+        self.summaryHTML = summary
         
         if let image = image {
-            self.image = Image(url: image)
+            self.image = Image(url: image, context: context)
         } else {
             self.image = nil
         }
         
         if let image = image3d {
-            self.image3d = Image(url: image)
+            self.image3d = Image(url: image, context: context)
         } else {
             self.image3d = nil
         }
@@ -92,12 +100,13 @@ class Book: FilterableItem {
                 return
             }
             
-            self.summary = result.summary
+            self.summaryHTML = result.summary
             self.freeBookTextId = result.freeBookTextId
             self.ebookFile = result.ebookFile
             
             self.isFull = true
             
+            CoreDataStackManager.sharedInstance().saveContext()
             completion(error: nil)
         }
 

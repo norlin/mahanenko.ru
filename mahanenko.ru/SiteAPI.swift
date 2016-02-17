@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum Lang {
     case Russian
@@ -225,20 +226,11 @@ class SiteAPI: HTTP {
         guard let summaryHTML = item[Keys.Summary] as? String else {
             return nil
         }
-        let data = summaryHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let summary = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
-            return nil
-        }
         
         let images = item[Keys.Image] as? [String]
         
         let category = item[Keys.Category] as? [String]
-        return News(id: id, summary: summary, images: images, date: date, category: category==nil ? [] : category!)
+        return News(id: id, summary: summaryHTML, images: images, date: date, category: category==nil ? [] : category!, context: self.sharedContext)
     }
     
     func parseNewsItemFull(item: [String: AnyObject]) -> NewsFull? {
@@ -246,13 +238,9 @@ class SiteAPI: HTTP {
         guard let textHTML = item[Keys.Text] as? String else {
             return nil
         }
-        
-        guard let text = parseHTMLString(textHTML) else {
-            return nil
-        }
-        
+
         let images = item[Keys.Images] as? [String]
-        return NewsFull(text: text, imageUrls: images)
+        return NewsFull(text: textHTML, imageUrls: images)
     }
     
     // Books
@@ -353,16 +341,12 @@ class SiteAPI: HTTP {
             return nil
         }
         
-        guard let description = parseHTMLString(descriptionHTML) else {
-            return nil
-        }
-        
         let image = item[Keys.ImageFront] as? String
         let image3d = item[Keys.Image3d] as? String
         let seria = item[Keys.Seria] as? String
         let state = item[Keys.State] as? String
         
-        return Book(id: id, title: title, summary: description, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state)
+        return Book(id: id, title: title, summary: descriptionHTML, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state, context: self.sharedContext)
     }
     
     func parseBookItemFull(item: [String: AnyObject]) -> BookFull? {
@@ -371,26 +355,14 @@ class SiteAPI: HTTP {
             return nil
         }
         
-        let description = parseHTMLString(textHTML)
-        
         let ebookFile = item[Keys.EbookFile] as? String
         let freeTextId = item[Keys.FreeTextId] as? String
-        return BookFull(summary: description, ebookFile: ebookFile, freeBookTextId: freeTextId)
+        return BookFull(summary: textHTML, ebookFile: ebookFile, freeBookTextId: freeTextId)
     }
 
     // Common
     func getBaseUrl() -> String {
         return String(format: Constants.BaseURL, arguments: [langString])
-    }
-    
-    func parseHTMLString(html: String) -> NSAttributedString? {
-        let textData = html.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        return try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil)
     }
     
     func switchLang(){
@@ -400,6 +372,14 @@ class SiteAPI: HTTP {
         } else {
             lang = .Russian
         }
+    }
+    
+    struct Caches {
+        static let imageCache = ImageCache()
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
     override class func sharedInstance() -> SiteAPI {

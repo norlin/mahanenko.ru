@@ -7,9 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 struct NewsFull {
-    let text: NSAttributedString
+    let text: String
     let imageUrls: [String]?
 }
 
@@ -17,13 +18,20 @@ class News: FilterableItem {
     let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()
     
-    let id: String
-    let summary: NSAttributedString
-    var text: NSAttributedString?
-    var images: [Image] = []
-    let previewImage:Image?
-    let date: NSDate?
-    var isFull:Bool = false
+    @NSManaged var id: String
+    @NSManaged var summaryHTML: String
+    var summary: NSAttributedString { return self.api.parseHTMLString(summaryHTML)! }
+    @NSManaged var textHTML: String?
+    var text: NSAttributedString? {
+        if let textHTML = self.textHTML {
+            return self.api.parseHTMLString(textHTML)
+        }
+        return NSAttributedString(string: "")
+    }
+    @NSManaged var images: [Image]
+    @NSManaged var previewImage:Image?
+    @NSManaged var date: NSDate?
+    @NSManaged var isFull:Bool
     var hasImages: Bool {
         return images.count > 0
     }
@@ -48,20 +56,27 @@ class News: FilterableItem {
         return formatter.stringFromDate(date)
     }
     
-    var category: [Category] = []
-    override var types: [String] { return self.category.map({return $0.name}) }
+    @NSManaged var category: [String]
+    override var types: [String] { return self.category }
     override func filter(type: String) -> Bool {
-        return self.category.contains({return $0.name == type})
+        return self.category.contains(type)
     }
     
-    init(id: String, summary: NSAttributedString, images: [String]? = nil, date: NSDate?, category: [String] = []) {
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    init(id: String, summary: String, images: [String]? = nil, date: NSDate?, category: [String] = [], context: NSManagedObjectContext) {
+        let entity =  NSEntityDescription.entityForName("News", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.id = id
-        self.summary = summary
-        self.text = nil
+        self.summaryHTML = summary
+        self.textHTML = nil
         if let images = images {
             if images.count > 0 {
                 let url = images[0]
-                self.previewImage = Image(url: url)
+                self.previewImage = Image(url: url, context: context)
             } else {
                 self.previewImage = nil
             }
@@ -69,9 +84,7 @@ class News: FilterableItem {
             self.previewImage = nil
         }
         self.date = date
-        for name in category {
-            self.category.append(Category(name: name))
-        }
+        self.category = category
     }
     
     func fetchImage(index: Int, completion: (image: UIImage)->Void){
@@ -86,6 +99,10 @@ class News: FilterableItem {
     func fetchFull(completion:(error: NSError?)->Void){
         log.debug("fetchFull \(self.id)")
         api.getNewsItem(self.id) { (result, error) -> Void in
+            guard let context = self.managedObjectContext else {
+                completion(error: NSError(domain: "fetchFull error: no managed context found", code: 404, userInfo: nil))
+                return
+            }
             if error != nil {
                 self.log.error("fetchFull error: \(error)")
                 completion(error: error)
@@ -98,15 +115,17 @@ class News: FilterableItem {
                 return
             }
             
-            self.text = result.text
+            self.textHTML = result.text
+            self.images = []
             if let urls = result.imageUrls {
                 for url in urls {
-                    self.images.append(Image(url: url))
+                    self.images.append(Image(url: url, context: context))
                 }
             }
             
             self.isFull = true
             
+            CoreDataStackManager.sharedInstance().saveContext()
             completion(error: nil)
         }
 

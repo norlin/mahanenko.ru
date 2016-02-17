@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class ItemsListViewController: UITableViewController, DetailViewProtocol {
+class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
     var log:Log { return Log(id: "ItemsListViewController") }
     let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
@@ -64,6 +65,15 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = ROW_HEIGHT + imageHeight
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
+        
+        fetchedResultsController.delegate = self
+        if let items = fetchedResultsController.sections?[0].objects as? [FilterableItem] {
+            self.items = items
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -93,5 +103,28 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
             tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
+    
+    // CoreData
+    var entityName: String { return "" }
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        if (self.entityName=="") {
+            self.log.critical("fetchedResultsController: no entity name!")
+        }
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+    }()
+
  
 }

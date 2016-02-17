@@ -7,12 +7,33 @@
 //
 
 import UIKit
+import CoreData
 
-class Image {
-    let url:String
-    var image:UIImage?
+class Image: NSManagedObject {
+    @NSManaged var url:String
+    @NSManaged var newsInverse:News
+    @NSManaged var newsPreviewInverse:News
+    @NSManaged var bookInverse:Book
+    @NSManaged var book3dInverse:Book
     
-    init(url: String) {
+    var image:UIImage? {
+        get {
+            return SiteAPI.Caches.imageCache.imageWithIdentifier(url)
+        }
+        
+        set {
+            SiteAPI.Caches.imageCache.storeImage(newValue, withIdentifier: url)
+        }
+    }
+    
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    init(url: String, context: NSManagedObjectContext) {
+        let entity =  NSEntityDescription.entityForName("Image", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.url = url
     }
     

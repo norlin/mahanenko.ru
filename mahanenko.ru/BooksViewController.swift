@@ -8,9 +8,28 @@
 
 
 import UIKit
+import CoreData
 
-class BooksViewController: ItemsCollectionViewController {
+class BooksViewController: ItemsCollectionViewController, NSFetchedResultsControllerDelegate {
     override var log:Log { return Log(id: "BooksViewController") }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = NSFetchRequest(entityName: "Book")
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+        
+    }()
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
