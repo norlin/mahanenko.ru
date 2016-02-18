@@ -42,8 +42,6 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
         }
             
         self.navigationItem.rightBarButtonItem = filterButton
-        
-        refresh(self)
     }
 
     var items: [FilterableItem]?
@@ -61,18 +59,17 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
             }
         }
         
-        self.view.bringSubviewToFront(loader)
-        
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = ROW_HEIGHT + imageHeight
         
-        do {
-            try fetchedResultsController.performFetch()
-        } catch {}
-        
-        fetchedResultsController.delegate = self
-        if let items = fetchedResultsController.sections?[0].objects as? [FilterableItem] {
-            self.items = items
+        self.view.bringSubviewToFront(loader)
+        self.loader.startAnimating()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if (items == nil || items!.isEmpty) {
+            refresh(self)
         }
     }
     

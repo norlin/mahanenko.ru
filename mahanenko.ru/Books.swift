@@ -73,15 +73,13 @@ class Book: FilterableItem {
         self.summaryHTML = summary
         
         if let image = image {
-            self.image = Image(url: image, context: context)
-        } else {
-            self.image = nil
+            let imageObject = Image(url: image, context: context)
+            imageObject.bookInverse = self
         }
         
         if let image = image3d {
-            self.image3d = Image(url: image, context: context)
-        } else {
-            self.image3d = nil
+            let imageObject = Image(url: image, context: context)
+            imageObject.book3dInverse = self
         }
     }
     

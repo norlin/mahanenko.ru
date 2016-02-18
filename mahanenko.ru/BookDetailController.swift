@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class BookDetailController: UIViewController {
     let log = Log(id: "BookDetailController")
@@ -34,6 +35,13 @@ class BookDetailController: UIViewController {
     let imagesAspect:CGFloat = 392 / 335
     let bgPattern = UIImage(named: "Background")!
     
+    var bookId: NSManagedObjectID? {
+        didSet {
+            if let id = bookId {
+                self.book = self.sharedContext.objectWithID(id) as? Book
+            }
+        }
+    }
     var book: Book?
     var bookImageReady = false
     var appeared = false
@@ -226,5 +234,9 @@ class BookDetailController: UIViewController {
                 self.summary.alpha = 0
             }
         }
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
 }

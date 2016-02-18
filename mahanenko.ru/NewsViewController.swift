@@ -65,6 +65,18 @@ class NewsViewController: ItemsListViewController {
     
     func update(force: Bool = false, completion:()->Void) {
         log.notice("update")
+        loader.startAnimating()
+        if (!force && (self.items == nil || self.items!.isEmpty)){
+            log.debug("update: fetch stored items")
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {}
+            
+            fetchedResultsController.delegate = self
+            if let items = fetchedResultsController.sections?[0].objects as? [News] {
+                self.items = items
+            }
+        }
         if (force || self.items == nil || self.items!.isEmpty) {
             log.debug("update: fetch items")
             api.getNewsList(){result, error in
@@ -73,18 +85,18 @@ class NewsViewController: ItemsListViewController {
                 CoreDataStackManager.sharedInstance().saveContext()
                 dispatch_async(dispatch_get_main_queue()){
                     self.log.debug("update: completion")
-                    completion()
-
                     self.updateFilter()
                     self.setFilter(nil)
+                    self.loader.stopAnimating()
+                    completion()
                 }
             }
         } else {
-            log.debug("update: use stored items")
-            completion()
-
+            log.debug("update: done")
             self.updateFilter()
             self.setFilter(nil)
+            self.loader.stopAnimating()
+            completion()
         }
     }
     
@@ -101,9 +113,7 @@ class NewsViewController: ItemsListViewController {
         }
         
         tableView.scrollEnabled = false
-        loader.startAnimating()
         update(){
-            self.loader.stopAnimating()
             self.tableView.scrollEnabled = true
         }
     }
