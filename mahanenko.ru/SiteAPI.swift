@@ -113,7 +113,6 @@ class SiteAPI: HTTP {
         }
     }
 
-    
     override init() {
         log.notice("init")
         let systemLang = NSUserDefaults.standardUserDefaults().valueForKey("AppleLanguages")
@@ -158,14 +157,15 @@ class SiteAPI: HTTP {
                 
                 var news = [News]()
                 if let list = result as? [[String: AnyObject]] {
-                    for (item) in list {
-                        if let newsItem = self.parseNewsItem(item) {
-                            news.append(newsItem)
+                    self.sharedContext.performBlockAndWait(){
+                        for (item) in list {
+                            if let newsItem = self.parseNewsItem(item) {
+                                news.append(newsItem)
+                            }
                         }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(result: news, error: nil)
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(result: news, error: nil)
+                        }
                     }
                 }
             }
@@ -228,8 +228,17 @@ class SiteAPI: HTTP {
         }
         
         let images = item[Keys.Image] as? [String]
-        
         let category = item[Keys.Category] as? [String]
+        
+        if let news = CoreDataStackManager.sharedInstance().fetchItem("News", id: id) as? News {
+            news.summaryHTML = summaryHTML
+            news.date = date
+            if let category = category {
+                news.category = category
+            }
+            return news
+        }
+        
         return News(id: id, summary: summaryHTML, images: images, date: date, category: category==nil ? [] : category!, context: self.sharedContext)
     }
     
@@ -269,14 +278,16 @@ class SiteAPI: HTTP {
                 
                 var books = [Book]()
                 if let list = result as? [[String: AnyObject]] {
-                    for (item) in list {
-                        if let bookItem = self.parseBookItem(item) {
-                            books.append(bookItem)
+                    self.sharedContext.performBlockAndWait(){
+                        for (item) in list {
+                            if let bookItem = self.parseBookItem(item) {
+                                books.append(bookItem)
+                            }
                         }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(result: books, error: nil)
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(result: books, error: nil)
+                        }
                     }
                 }
             }
@@ -345,6 +356,19 @@ class SiteAPI: HTTP {
         let image3d = item[Keys.Image3d] as? String
         let seria = item[Keys.Seria] as? String
         let state = item[Keys.State] as? String
+        
+        if let book = CoreDataStackManager.sharedInstance().fetchItem("Book", id: id) as? Book {
+            book.title = title
+            book.summaryHTML = descriptionHTML
+            if let seria = seria {
+                book.seria = seria
+            } else {
+                book.seria = bookSeriaOther
+            }
+            book.date = date
+            book.state = state
+            return book
+        }
         
         return Book(id: id, title: title, summary: descriptionHTML, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state, context: self.sharedContext)
     }

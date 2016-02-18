@@ -84,8 +84,21 @@ class CoreDataStackManager {
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()
+    
+    func fetchItem(name: String, id: String) -> NSManagedObject? {
+        let fetchRequest = NSFetchRequest(entityName: name)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        do {
+            let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)
+            if results.count > 0 {
+                return results[0] as? NSManagedObject
+            }
+        } catch {}
+        return nil
+    }
 
-    func saveContext () {
+    func saveContext() {
         log.notice("saveContext \(api.langName)")
         if managedObjectContext.hasChanges {
             do {
