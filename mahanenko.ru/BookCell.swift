@@ -29,7 +29,10 @@ class BookCellView: CollectionCellView {
         
         if let image = item.image3d {
             loader.startAnimating()
-            image.fetch(){image in
+            image.fetch(){(error, image) in
+                if (error){
+                    self.bookImage.contentMode = UIViewContentMode.Center
+                }
                 self.bookImage.image = image
                 self.loader.stopAnimating()
                 self.bookImage.hidden = false

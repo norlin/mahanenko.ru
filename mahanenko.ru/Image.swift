@@ -15,6 +15,8 @@ class Image: NSManagedObject {
     @NSManaged var newsPreviewInverse:News?
     @NSManaged var bookInverse:Book?
     @NSManaged var book3dInverse:Book?
+    var error = false
+    var tap:UITapGestureRecognizer?
     
     var image:UIImage? {
         get {
@@ -22,7 +24,9 @@ class Image: NSManagedObject {
         }
         
         set {
-            SiteAPI.Caches.imageCache.storeImage(newValue, withIdentifier: url)
+            if image != newValue {
+                SiteAPI.Caches.imageCache.storeImage(newValue, withIdentifier: url)
+            }
         }
     }
     
@@ -37,25 +41,36 @@ class Image: NSManagedObject {
         self.url = url
     }
     
-    func fetch(completion: (image: UIImage)->Void){
-        if let image = self.image {
-            completion(image: image)
-            return
+    func handleError(){
+        error = true
+        self.image = UIImage(named: "Error")
+    }
+    
+    func fetch(completion: (error: Bool, image: UIImage)->Void){
+        if !error {
+            if let image = self.image {
+                completion(error: false, image: image)
+                return
+            }
         }
+        self.image = nil
         let imageURL = NSURL(string: self.url)
         let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_async(backgroundQueue) {
             if let imageData = NSData(contentsOfURL: imageURL!) {
                 if let image = UIImage(data: imageData) {
                     self.image = image
+                    self.error = false
                     dispatch_async(dispatch_get_main_queue()){
-                        completion(image: image)
+                        completion(error: false, image: image)
                     }
-                } else {
-                    // TODO: handle parsing error
                 }
-            } else {
-                // TODO: handle fetching error
+            }
+            if self.image==nil {
+                self.handleError()
+                dispatch_async(dispatch_get_main_queue()){
+                    completion(error: true, image: self.image!)
+                }
             }
         }
     }

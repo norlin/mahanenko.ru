@@ -102,7 +102,10 @@ class NewsDetailController: UIViewController {
                 imagesScroll.addSubview(loader)
                 loader.startAnimating()
                 
-                image.fetch(){ image in
+                image.fetch(){ (error, image) in
+                    if (error){
+                        imageView.contentMode = UIViewContentMode.Center
+                    }
                     dispatch_async(dispatch_get_main_queue()){
                         imageView.image = image
                         imageView.hidden = false

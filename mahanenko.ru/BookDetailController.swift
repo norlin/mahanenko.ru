@@ -135,7 +135,10 @@ class BookDetailController: UIViewController {
         
         if let image = book.image3d {
             self.imageLoader.startAnimating()
-            image.fetch() {image in
+            image.fetch() {(error, image) in
+                if (error){
+                    self.bookImage.contentMode = UIViewContentMode.Center
+                }
                 self.bookImage.image = image
                 self.imageLoader.stopAnimating()
                 self.bookImage.hidden = false

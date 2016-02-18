@@ -25,7 +25,10 @@ class NewsCellView: TableCellView {
         self.newsImage.hidden = true
         if let image = item.previewImage {
             loader.startAnimating()
-            image.fetch(){image in
+            image.fetch(){(error, image) in
+                if (error){
+                    self.newsImage.contentMode = UIViewContentMode.Center
+                }
                 self.newsImage.image = image
                 self.loader.stopAnimating()
                 self.newsImage.hidden = false

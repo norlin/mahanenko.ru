@@ -84,7 +84,7 @@ class News: FilterableItem {
         self.category = category
     }
     
-    func fetchImage(index: Int, completion: (image: UIImage)->Void){
+    func fetchImage(index: Int, completion: (error: Bool, image: UIImage)->Void){
         if index >= self.images.count {
             return
         }
