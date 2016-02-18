@@ -32,8 +32,8 @@
         <relationship name="previewImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="newsPreviewInverse" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Book" positionX="-36" positionY="36" width="128" height="225"/>
-        <element name="Image" positionX="-54" positionY="27" width="128" height="120"/>
-        <element name="News" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Book" positionX="439" positionY="-207" width="128" height="225"/>
+        <element name="Image" positionX="142" positionY="36" width="128" height="120"/>
+        <element name="News" positionX="-128" positionY="-9" width="128" height="165"/>
     </elements>
 </model>

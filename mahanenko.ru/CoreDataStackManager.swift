@@ -11,10 +11,9 @@ import CoreData
 
 class CoreDataStackManager {
     let log = Log(id: "CoreDataStackManager")
+    let api = SiteAPI.sharedInstance()
     
     private var SQLITE_FILE_NAME: String {
-        let api = SiteAPI.sharedInstance()
-        
         switch api.lang {
         case .Russian:
             return "mahanenko_ru.sqlite"
@@ -33,10 +32,8 @@ class CoreDataStackManager {
     
         switch api.lang {
         case .Russian:
-            print("got RU context")
             return Static.ru
         case .English:
-            print("got EN context")
             return Static.en
         }
     }
@@ -89,6 +86,7 @@ class CoreDataStackManager {
     }()
 
     func saveContext () {
+        log.notice("saveContext \(api.langName)")
         if managedObjectContext.hasChanges {
             do {
                 try managedObjectContext.save()
