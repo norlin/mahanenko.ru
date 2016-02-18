@@ -9,17 +9,36 @@
 import Foundation
 import CoreData
 
-private let SQLITE_FILE_NAME = "mahanenko.sqlite"
-
 class CoreDataStackManager {
     let log = Log(id: "CoreDataStackManager")
     
+    private var SQLITE_FILE_NAME: String {
+        let api = SiteAPI.sharedInstance()
+        
+        switch api.lang {
+        case .Russian:
+            return "mahanenko_ru.sqlite"
+        case .English:
+            return "mahanenko_en.sqlite"
+        }
+    }
+    
     class func sharedInstance() -> CoreDataStackManager {
         struct Static {
-            static let instance = CoreDataStackManager()
+            static let ru = CoreDataStackManager()
+            static let en = CoreDataStackManager()
         }
+        
+        let api = SiteAPI.sharedInstance()
     
-        return Static.instance
+        switch api.lang {
+        case .Russian:
+            print("got RU context")
+            return Static.ru
+        case .English:
+            print("got EN context")
+            return Static.en
+        }
     }
     
     lazy var applicationDocumentsDirectory: NSURL = {
@@ -40,7 +59,7 @@ class CoreDataStackManager {
         self.log.notice("persistentStoreCoordinator")
         
         let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(SQLITE_FILE_NAME)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(self.SQLITE_FILE_NAME)
         
         self.log.debug("sqlite path: \(url.path!)")
         

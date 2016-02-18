@@ -11,10 +11,10 @@ import CoreData
 
 class Image: NSManagedObject {
     @NSManaged var url:String
-    @NSManaged var newsInverse:News
-    @NSManaged var newsPreviewInverse:News
-    @NSManaged var bookInverse:Book
-    @NSManaged var book3dInverse:Book
+    @NSManaged var newsInverse:News?
+    @NSManaged var newsPreviewInverse:News?
+    @NSManaged var bookInverse:Book?
+    @NSManaged var book3dInverse:Book?
     
     var image:UIImage? {
         get {

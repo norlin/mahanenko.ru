@@ -76,12 +76,9 @@ class News: FilterableItem {
         if let images = images {
             if images.count > 0 {
                 let url = images[0]
-                self.previewImage = Image(url: url, context: context)
-            } else {
-                self.previewImage = nil
+                let image = Image(url: url, context: context)
+                image.newsPreviewInverse = self
             }
-        } else {
-            self.previewImage = nil
         }
         self.date = date
         self.category = category
@@ -116,15 +113,16 @@ class News: FilterableItem {
             }
             
             self.textHTML = result.text
-            self.images = []
             if let urls = result.imageUrls {
                 for url in urls {
-                    self.images.append(Image(url: url, context: context))
+                    let image = Image(url: url, context: context)
+                    image.newsInverse = self
                 }
             }
             
             self.isFull = true
             
+            print("update news item: save context")
             CoreDataStackManager.sharedInstance().saveContext()
             completion(error: nil)
         }
