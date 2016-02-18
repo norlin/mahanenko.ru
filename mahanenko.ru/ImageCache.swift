@@ -15,55 +15,27 @@ class ImageCache {
     
     private var inMemoryCache = NSCache()
     
-    // MARK: - Retreiving images
-    
-    func escapeId(id: String) -> String? {
-        return id.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())
-    }
-    
     func imageWithIdentifier(identifier: String?) -> UIImage? {
-        
-        // If the identifier is nil, or empty, return nil
         if identifier == nil || identifier! == "" {
-            log.debug("imageWithIdentifier: nil")
             return nil
         }
+
+        let path = pathForIdentifier(identifier!)
         
-        guard let identifier = identifier else {
-            return nil
-        }
-        
-        guard let escapedId = escapeId(identifier) else {
-            return nil
-        }
-        let path = pathForIdentifier(escapedId)
-        
-        // First try the memory cache
         if let image = inMemoryCache.objectForKey(path) as? UIImage {
-            log.debug("imageWithIdentifier: cache \(path)")
             return image
         }
         
-        // Next Try the hard drive
         if let data = NSData(contentsOfFile: path) {
-            log.debug("imageWithIdentifier: file \(path)")
             return UIImage(data: data)
         }
-        
-        log.warning("imageWithIdentifier: no data found \(identifier)")
         
         return nil
     }
     
-    // MARK: - Saving images
-    
     func storeImage(image: UIImage?, withIdentifier identifier: String) {
-        guard let escapedId = escapeId(identifier) else {
-            return
-        }
-        let path = pathForIdentifier(escapedId)
+        let path = pathForIdentifier(identifier)
         
-        // If the image is nil, remove images from the cache
         if image == nil {
             inMemoryCache.removeObjectForKey(path)
             
@@ -76,10 +48,8 @@ class ImageCache {
             return
         }
         
-        // Otherwise, keep the image in memory
         inMemoryCache.setObject(image!, forKey: path)
         
-        // And in documents directory
         let data = UIImagePNGRepresentation(image!)!
         var options = NSDataWritingOptions()
         options.insert(.DataWritingAtomic)
@@ -90,11 +60,10 @@ class ImageCache {
         }
     }
     
-    // MARK: - Helper
-    
     func pathForIdentifier(identifier: String) -> String {
         let documentsDirectoryURL: NSURL = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first!
-        let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(identifier)
+        let escapedId = identifier.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.alphanumericCharacterSet())
+        let fullURL = documentsDirectoryURL.URLByAppendingPathComponent(escapedId!)
         
         return fullURL.path!
     }
