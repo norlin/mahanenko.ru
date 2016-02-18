@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsDetailController: UIViewController {
     let log = Log(id: "NewsDetailController")
@@ -19,6 +20,13 @@ class NewsDetailController: UIViewController {
     
     let imagesAspect:CGFloat = 184 / 375
     
+    var newsId: NSManagedObjectID? {
+        didSet {
+            if let id = newsId {
+                self.news = self.sharedContext.objectWithID(id) as? News
+            }
+        }
+    }
     var news: News?
     
     override func viewDidLoad() {
@@ -37,10 +45,12 @@ class NewsDetailController: UIViewController {
             if !news.isFull {
                 newsText.hidden = true
                 loader.startAnimating()
+                self.log.debug("configure: fetch full item")
                 news.fetchFull({ (error) -> Void in
                     if error != nil {
                         self.log.error("fetchFull error: \(error)")
                     }
+                    self.log.debug("configure: fetch done")
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.updateNewsItem()
@@ -92,7 +102,10 @@ class NewsDetailController: UIViewController {
                 imagesScroll.addSubview(loader)
                 loader.startAnimating()
                 
-                image.fetch(){ image in
+                image.fetch(){ (error, image) in
+                    if (error){
+                        imageView.contentMode = UIViewContentMode.Center
+                    }
                     dispatch_async(dispatch_get_main_queue()){
                         imageView.image = image
                         imageView.hidden = false
@@ -108,5 +121,9 @@ class NewsDetailController: UIViewController {
             textToImage.active = false
             imagesScroll.hidden = true
         }
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
 }

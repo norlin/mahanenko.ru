@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import CoreData
 
 class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
-    
+        
     override var ROW_HEIGHT: CGFloat { return 40 }
     override var IMAGE_HEIGHT: CGFloat { return 184 }
+    
+    override var entityName: String { return "News" }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -21,7 +24,7 @@ class NewsViewController: ItemsListViewController {
             let detailController = segue.destinationViewController as! NewsDetailController
             if let selectedRow = tableView.indexPathForSelectedRow {
                 let row = selectedRow.section
-                detailController.news = (selected as! [News])[row]
+                detailController.newsId = (selected as! [News])[row].objectID
             }
         }
     }
@@ -60,20 +63,45 @@ class NewsViewController: ItemsListViewController {
         return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
     }
     
-    func update(completion:()->Void) {
-        api.getNewsList(){result, error in
-            self.items = result
-            dispatch_async(dispatch_get_main_queue()){
-                completion()
-
-                self.updateFilter()
-                self.setFilter(nil)
+    func update(force: Bool = false, completion:()->Void) {
+        log.notice("update")
+        loader.startAnimating()
+        if (!force && (self.items == nil || self.items!.isEmpty)){
+            log.debug("update: fetch stored items")
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {}
+            
+            fetchedResultsController.delegate = self
+            if let items = fetchedResultsController.sections?[0].objects as? [News] {
+                self.items = items
             }
+        }
+        if (force || self.items == nil || self.items!.isEmpty) {
+            log.debug("update: fetch items")
+            api.getNewsList(){result, error in
+                self.log.debug("update: done")
+                self.items = result
+                CoreDataStackManager.sharedInstance().saveContext()
+                dispatch_async(dispatch_get_main_queue()){
+                    self.log.debug("update: completion")
+                    self.updateFilter()
+                    self.setFilter(nil)
+                    self.loader.stopAnimating()
+                    completion()
+                }
+            }
+        } else {
+            log.debug("update: done")
+            self.updateFilter()
+            self.setFilter(nil)
+            self.loader.stopAnimating()
+            completion()
         }
     }
     
     func pullRefresh(sender: UIRefreshControl){
-        update(){
+        update(true){
             sender.endRefreshing()
         }
     }
@@ -85,9 +113,7 @@ class NewsViewController: ItemsListViewController {
         }
         
         tableView.scrollEnabled = false
-        loader.startAnimating()
         update(){
-            self.loader.stopAnimating()
             self.tableView.scrollEnabled = true
         }
     }

@@ -8,9 +8,12 @@
 
 
 import UIKit
+import CoreData
 
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
+    
+    override var entityName: String { return "Book" }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -53,29 +56,51 @@ class BooksViewController: ItemsCollectionViewController {
         let cellSize = viewWidth / 2
         
         let textHeight = getTextHeight(selected[indexPath.row], width: cellSize)
-        log.debug("titleHeight \(textHeight)+\(cellSize)")
-        
-        collectionViewLayout
         
         return CGSize(width: cellSize, height: cellSize+textHeight)
     }
     
-    func update(completion: ()->Void) {
-        api.getBooksList(){result, error in
-            self.items = result
-            dispatch_async(dispatch_get_main_queue()){
-                completion()
-                
-                self.updateFilter()
-                self.setFilter(nil)
+    func update(force: Bool = false, completion:()->Void) {
+        log.notice("update")
+        self.loader.startAnimating()
+        if (!force && (self.items == nil || self.items!.isEmpty)) {
+            do {
+                try fetchedResultsController.performFetch()
+            } catch {}
+            
+            fetchedResultsController.delegate = self
+            if let items = fetchedResultsController.sections?[0].objects as? [Book] {
+                self.items = items
             }
+        }
+
+        if (force || self.items == nil || self.items!.isEmpty) {
+            log.debug("update: fetch items")
+            api.getBooksList(){result, error in
+                self.items = result
+                CoreDataStackManager.sharedInstance().saveContext()
+                
+                dispatch_async(dispatch_get_main_queue()){
+                    self.updateFilter()
+                    self.setFilter(nil)
+                    self.loader.stopAnimating()
+                    completion()
+                }
+            }
+        } else {
+            log.debug("update: use stored items")
+            
+            self.updateFilter()
+            self.setFilter(nil)
+            self.loader.stopAnimating()
+            completion()
         }
 
     }
 
     func pullRefresh(sender: UIRefreshControl) {
         log.notice("refresh")
-        update(){
+        update(true){
             sender.endRefreshing()
         }
     }
@@ -86,9 +111,6 @@ class BooksViewController: ItemsCollectionViewController {
             return pullRefresh(refreshControl)
         }
         
-        self.loader.startAnimating()
-        update(){
-            self.loader.stopAnimating()
-        }
+        update(){}
     }
 }

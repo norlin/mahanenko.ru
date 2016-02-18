@@ -9,17 +9,33 @@
 import Foundation
 import CoreData
 
-private let SQLITE_FILE_NAME = "mahanenko.sqlite"
-
 class CoreDataStackManager {
     let log = Log(id: "CoreDataStackManager")
+    let api = SiteAPI.sharedInstance()
+    
+    private var SQLITE_FILE_NAME: String {
+        switch api.lang {
+        case .Russian:
+            return "mahanenko_ru.sqlite"
+        case .English:
+            return "mahanenko_en.sqlite"
+        }
+    }
     
     class func sharedInstance() -> CoreDataStackManager {
         struct Static {
-            static let instance = CoreDataStackManager()
+            static let ru = CoreDataStackManager()
+            static let en = CoreDataStackManager()
         }
+        
+        let api = SiteAPI.sharedInstance()
     
-        return Static.instance
+        switch api.lang {
+        case .Russian:
+            return Static.ru
+        case .English:
+            return Static.en
+        }
     }
     
     lazy var applicationDocumentsDirectory: NSURL = {
@@ -36,4 +52,61 @@ class CoreDataStackManager {
         return NSManagedObjectModel(contentsOfURL: modelURL)!
     }()
 
+    lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator? = {
+        self.log.notice("persistentStoreCoordinator")
+        
+        let coordinator: NSPersistentStoreCoordinator? = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
+        let url = self.applicationDocumentsDirectory.URLByAppendingPathComponent(self.SQLITE_FILE_NAME)
+        
+        self.log.debug("sqlite path: \(url.path!)")
+        
+        var failureReason = "There was an error creating or loading the application's saved data."
+        do {
+            try coordinator!.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: nil)
+        } catch {
+            // Report any error we got.
+            var dict = [String: AnyObject]()
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            
+            dict[NSUnderlyingErrorKey] = error as NSError
+            let wrappedError = NSError(domain: "CoreDataStackManager: persistentStoreCoordinator", code: 9999, userInfo: dict)
+            
+            self.log.error("Unresolved error \(wrappedError), \(wrappedError.userInfo)")
+        }
+        
+        return coordinator
+    }()
+    
+    lazy var managedObjectContext: NSManagedObjectContext = {
+        let coordinator = self.persistentStoreCoordinator
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = coordinator
+        return managedObjectContext
+    }()
+    
+    func fetchItem(name: String, id: String) -> NSManagedObject? {
+        let fetchRequest = NSFetchRequest(entityName: name)
+        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        
+        do {
+            let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)
+            if results.count > 0 {
+                return results[0] as? NSManagedObject
+            }
+        } catch {}
+        return nil
+    }
+
+    func saveContext() {
+        log.notice("saveContext \(api.langName)")
+        if managedObjectContext.hasChanges {
+            do {
+                try managedObjectContext.save()
+            } catch {
+                let nserror = error as NSError
+                self.log.error("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
 }

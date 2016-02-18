@@ -7,8 +7,9 @@
 //
 
 import Foundation
+import CoreData
 
-class FilterableItem {
+class FilterableItem: NSManagedObject {
     func filter(type: String) -> Bool {
         return true
     }

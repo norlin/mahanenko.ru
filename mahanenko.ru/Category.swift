@@ -7,10 +7,21 @@
 //
 
 import Foundation
-class Category {
-    let name: String
+import CoreData
+
+class Category: NSManagedObject {
+    @NSManaged var name: String
     
-    init(name: String){
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    init(name: String, context: NSManagedObjectContext){
+        print("category init...")
+        let entity =  NSEntityDescription.entityForName("Category", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.name = name
+        print("category done!")
     }
 }

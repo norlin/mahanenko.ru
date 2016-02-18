@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 enum Lang {
     case Russian
@@ -112,7 +113,6 @@ class SiteAPI: HTTP {
         }
     }
 
-    
     override init() {
         log.notice("init")
         let systemLang = NSUserDefaults.standardUserDefaults().valueForKey("AppleLanguages")
@@ -157,14 +157,15 @@ class SiteAPI: HTTP {
                 
                 var news = [News]()
                 if let list = result as? [[String: AnyObject]] {
-                    for (item) in list {
-                        if let newsItem = self.parseNewsItem(item) {
-                            news.append(newsItem)
+                    self.sharedContext.performBlockAndWait(){
+                        for (item) in list {
+                            if let newsItem = self.parseNewsItem(item) {
+                                news.append(newsItem)
+                            }
                         }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(result: news, error: nil)
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(result: news, error: nil)
+                        }
                     }
                 }
             }
@@ -225,20 +226,20 @@ class SiteAPI: HTTP {
         guard let summaryHTML = item[Keys.Summary] as? String else {
             return nil
         }
-        let data = summaryHTML.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        guard let summary = try? NSAttributedString.init(data: data!, options: opts, documentAttributes: nil) else {
-            return nil
-        }
         
         let images = item[Keys.Image] as? [String]
-        
         let category = item[Keys.Category] as? [String]
-        return News(id: id, summary: summary, images: images, date: date, category: category==nil ? [] : category!)
+        
+        if let news = CoreDataStackManager.sharedInstance().fetchItem("News", id: id) as? News {
+            news.summaryHTML = summaryHTML
+            news.date = date
+            if let category = category {
+                news.category = category
+            }
+            return news
+        }
+        
+        return News(id: id, summary: summaryHTML, images: images, date: date, category: category==nil ? [] : category!, context: self.sharedContext)
     }
     
     func parseNewsItemFull(item: [String: AnyObject]) -> NewsFull? {
@@ -246,13 +247,9 @@ class SiteAPI: HTTP {
         guard let textHTML = item[Keys.Text] as? String else {
             return nil
         }
-        
-        guard let text = parseHTMLString(textHTML) else {
-            return nil
-        }
-        
+
         let images = item[Keys.Images] as? [String]
-        return NewsFull(text: text, imageUrls: images)
+        return NewsFull(text: textHTML, imageUrls: images)
     }
     
     // Books
@@ -281,14 +278,16 @@ class SiteAPI: HTTP {
                 
                 var books = [Book]()
                 if let list = result as? [[String: AnyObject]] {
-                    for (item) in list {
-                        if let bookItem = self.parseBookItem(item) {
-                            books.append(bookItem)
+                    self.sharedContext.performBlockAndWait(){
+                        for (item) in list {
+                            if let bookItem = self.parseBookItem(item) {
+                                books.append(bookItem)
+                            }
                         }
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue()){
-                        completion(result: books, error: nil)
+                        
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(result: books, error: nil)
+                        }
                     }
                 }
             }
@@ -353,16 +352,25 @@ class SiteAPI: HTTP {
             return nil
         }
         
-        guard let description = parseHTMLString(descriptionHTML) else {
-            return nil
-        }
-        
         let image = item[Keys.ImageFront] as? String
         let image3d = item[Keys.Image3d] as? String
         let seria = item[Keys.Seria] as? String
         let state = item[Keys.State] as? String
         
-        return Book(id: id, title: title, summary: description, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state)
+        if let book = CoreDataStackManager.sharedInstance().fetchItem("Book", id: id) as? Book {
+            book.title = title
+            book.summaryHTML = descriptionHTML
+            if let seria = seria {
+                book.seria = seria
+            } else {
+                book.seria = bookSeriaOther
+            }
+            book.date = date
+            book.state = state
+            return book
+        }
+        
+        return Book(id: id, title: title, summary: descriptionHTML, seria: seria == nil ? bookSeriaOther : seria, image: image, image3d: image3d, date: date, state: state, context: self.sharedContext)
     }
     
     func parseBookItemFull(item: [String: AnyObject]) -> BookFull? {
@@ -371,26 +379,14 @@ class SiteAPI: HTTP {
             return nil
         }
         
-        let description = parseHTMLString(textHTML)
-        
         let ebookFile = item[Keys.EbookFile] as? String
         let freeTextId = item[Keys.FreeTextId] as? String
-        return BookFull(summary: description, ebookFile: ebookFile, freeBookTextId: freeTextId)
+        return BookFull(summary: textHTML, ebookFile: ebookFile, freeBookTextId: freeTextId)
     }
 
     // Common
     func getBaseUrl() -> String {
         return String(format: Constants.BaseURL, arguments: [langString])
-    }
-    
-    func parseHTMLString(html: String) -> NSAttributedString? {
-        let textData = html.dataUsingEncoding(NSUTF8StringEncoding)
-        let opts:[String: AnyObject] = [
-            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
-            NSKernAttributeName: NSNull()
-        ]
-        return try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil)
     }
     
     func switchLang(){
@@ -400,6 +396,14 @@ class SiteAPI: HTTP {
         } else {
             lang = .Russian
         }
+    }
+    
+    struct Caches {
+        static let imageCache = ImageCache()
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
     }
     
     override class func sharedInstance() -> SiteAPI {

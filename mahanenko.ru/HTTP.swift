@@ -6,7 +6,7 @@
 //  Copyright © 2016 norlin. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class HTTP: NSObject {
     var session: NSURLSession
@@ -99,5 +99,15 @@ class HTTP: NSObject {
         }
         
         return Singleton.sharedInstance
+    }
+    
+    func parseHTMLString(html: String) -> NSAttributedString? {
+        let textData = html.dataUsingEncoding(NSUTF8StringEncoding)
+        let opts:[String: AnyObject] = [
+            NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+            NSCharacterEncodingDocumentAttribute: NSUTF8StringEncoding,
+            NSKernAttributeName: NSNull()
+        ]
+        return try? NSAttributedString.init(data: textData!, options: opts, documentAttributes: nil)
     }
 }

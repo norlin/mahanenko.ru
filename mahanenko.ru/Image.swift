@@ -7,34 +7,70 @@
 //
 
 import UIKit
+import CoreData
 
-class Image {
-    let url:String
-    var image:UIImage?
+class Image: NSManagedObject {
+    @NSManaged var url:String
+    @NSManaged var newsInverse:News?
+    @NSManaged var newsPreviewInverse:News?
+    @NSManaged var bookInverse:Book?
+    @NSManaged var book3dInverse:Book?
+    var error = false
+    var tap:UITapGestureRecognizer?
     
-    init(url: String) {
+    var image:UIImage? {
+        get {
+            return SiteAPI.Caches.imageCache.imageWithIdentifier(url)
+        }
+        
+        set {
+            if image != newValue {
+                SiteAPI.Caches.imageCache.storeImage(newValue, withIdentifier: url)
+            }
+        }
+    }
+    
+    override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    init(url: String, context: NSManagedObjectContext) {
+        let entity =  NSEntityDescription.entityForName("Image", inManagedObjectContext: context)!
+        super.init(entity: entity, insertIntoManagedObjectContext: context)
+        
         self.url = url
     }
     
-    func fetch(completion: (image: UIImage)->Void){
-        if let image = self.image {
-            completion(image: image)
-            return
+    func handleError(){
+        error = true
+        self.image = UIImage(named: "Error")
+    }
+    
+    func fetch(completion: (error: Bool, image: UIImage)->Void){
+        if !error {
+            if let image = self.image {
+                completion(error: false, image: image)
+                return
+            }
         }
+        self.image = nil
         let imageURL = NSURL(string: self.url)
         let backgroundQueue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND, 0)
         dispatch_async(backgroundQueue) {
             if let imageData = NSData(contentsOfURL: imageURL!) {
                 if let image = UIImage(data: imageData) {
                     self.image = image
+                    self.error = false
                     dispatch_async(dispatch_get_main_queue()){
-                        completion(image: image)
+                        completion(error: false, image: image)
                     }
-                } else {
-                    // TODO: handle parsing error
                 }
-            } else {
-                // TODO: handle fetching error
+            }
+            if self.image==nil {
+                self.handleError()
+                dispatch_async(dispatch_get_main_queue()){
+                    completion(error: true, image: self.image!)
+                }
             }
         }
     }

@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import CoreData
 
-class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol {
+class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
     var log:Log { return Log(id: "ItemsCollectionViewController") }
     let api = SiteAPI.sharedInstance()
     private var filterDelegate: ItemsFilterDelegate!
@@ -35,8 +36,6 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
             
         self.navigationItem.rightBarButtonItem = filterButton
-        
-        refresh(self)
     }
 
     var items: [FilterableItem]?
@@ -61,6 +60,14 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
 
         self.view.bringSubviewToFront(loader)
+        self.loader.startAnimating()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if (items == nil || items!.isEmpty) {
+            refresh(self)
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -93,6 +100,28 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
+    
+    // CoreData
+    var entityName: String { return "" }
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        if (self.entityName=="") {
+            self.log.critical("fetchedResultsController: no entity name!")
+        }
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+    }()
  
 }
 
