@@ -10,16 +10,12 @@
 import UIKit
 import CoreData
 
-class BookFilter: ItemsFilter {
-    override var entityName: String { return "Book" }
-    
-    override func makePredicate(type: String) -> NSPredicate {
-        return NSPredicate(format: "type == %@", type)
-    }
-}
-
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
+    
+    override func setFilterDelegate(){
+        filterDelegate = BookFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -58,7 +54,7 @@ class BooksViewController: ItemsCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let viewWidth = collectionView.contentSize.width
+        let viewWidth = collectionView.frame.size.width
         let cellSize = viewWidth / 2
         
         let textHeight = getTextHeight(items[indexPath.row], width: cellSize)
@@ -76,12 +72,8 @@ class BooksViewController: ItemsCollectionViewController {
                 CoreDataStackManager.sharedInstance().saveContext()
                 self.setFilter(nil)
                 self.updateFilter()
-                
-                dispatch_async(dispatch_get_main_queue()){
-                    self.log.debug("update: completion")
-                    self.loader.stopAnimating()
-                    completion()
-                }
+                self.loader.stopAnimating()
+                completion()
             }
         } else {
             log.debug("update: use stored items")
@@ -94,9 +86,11 @@ class BooksViewController: ItemsCollectionViewController {
     }
 
     func pullRefresh(sender: UIRefreshControl) {
-        log.notice("refresh")
+        log.notice("pullRefresh")
         update(true){
-            sender.endRefreshing()
+            dispatch_async(dispatch_get_main_queue()){
+                sender.endRefreshing()
+            }
         }
     }
     

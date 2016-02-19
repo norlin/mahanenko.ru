@@ -9,14 +9,6 @@
 import UIKit
 import CoreData
 
-class NewsFilter: ItemsFilter {
-    override var entityName: String { return "News" }
-    
-    override func makePredicate(type: String) -> NSPredicate {
-        return NSPredicate(format: "category == %@", type)
-    }
-}
-
 class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
         
@@ -87,11 +79,9 @@ class NewsViewController: ItemsListViewController {
                 }
                 self.setFilter(nil)
                 self.updateFilter()
-                
+                completion()
                 dispatch_async(dispatch_get_main_queue()){
-                    self.log.debug("update: completion")
                     self.loader.stopAnimating()
-                    completion()
                 }
             }
         } else {
@@ -105,7 +95,9 @@ class NewsViewController: ItemsListViewController {
     
     func pullRefresh(sender: UIRefreshControl){
         update(true){
-            sender.endRefreshing()
+            dispatch_async(dispatch_get_main_queue()){
+                sender.endRefreshing()
+            }
         }
     }
     

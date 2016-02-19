@@ -14,6 +14,14 @@ struct NewsFull {
     let imageUrls: [String]?
 }
 
+class NewsFilter: ItemsFilter {
+    override var entityName: String { return "News" }
+    
+    override func makePredicate(type: String) -> NSPredicate {
+        return NSPredicate(format: "category == %@", type)
+    }
+}
+
 class News: FilterableItem {
     let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()

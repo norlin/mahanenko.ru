@@ -62,16 +62,15 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
 
         self.view.bringSubviewToFront(loader)
-//        self.loader.startAnimating()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if (items.isEmpty) {
             refresh(self)
         }
     }
-    
+  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.warning("prepareForSegue is not defined!")
     }
@@ -95,16 +94,15 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         log.notice("onSetFilter")
         self.filterButton.title = type
         
-        /*
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
         collectionView?.reloadData()
         if collectionView?.numberOfItemsInSection(0) > 0 {
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }*/
+        }
     }
     
     func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
-        log.warning("prepareForSegue is not defined!")
+        log.warning("onDataChanged is not defined!")
     }
  
 }

@@ -39,7 +39,6 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         } catch {}
         
         updateFilter()
-        log.debug("\(items)")
     }
     
     func getTypeName(type: String?) -> String {
@@ -90,8 +89,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         selectedType = getTypeName(type)
         
         sharedContext.performBlock {
-            //NSFetchedResultsController.deleteCacheWithName("cache_\(self.entityName)")
-            self.fetchedResultsController.fetchRequest.predicate = self.makePredicate(self.selectedType)
+            self.fetchedResultsController.fetchRequest.predicate = type == nil ? nil : self.makePredicate(self.selectedType)
             do {
                 try self.fetchedResultsController.performFetch()
             } catch {

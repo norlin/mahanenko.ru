@@ -65,7 +65,6 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         tableView.rowHeight = ROW_HEIGHT + imageHeight
         
         self.view.bringSubviewToFront(loader)
-//        self.loader.startAnimating()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -102,7 +101,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     }
         
     func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
-        log.warning("prepareForSegue is not defined!")
+        log.warning("onDataChanged is not defined!")
     }
  
 }
