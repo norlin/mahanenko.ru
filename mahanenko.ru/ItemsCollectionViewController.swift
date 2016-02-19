@@ -9,10 +9,10 @@
 import UIKit
 import CoreData
 
-class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
+class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsCollectionViewController") }
     let api = SiteAPI.sharedInstance()
-    private var filterDelegate: ItemsFilterDelegate!
+    internal var filterDelegate: ItemsFilter!
     
     var detailItem: MenuItem? {
         didSet {
@@ -21,11 +21,15 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
     }
     
+    func setFilterDelegate(){
+        filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
+    
     internal func configureView(){
         log.notice("configureView")
         
         if filterDelegate == nil {
-            filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
+            setFilterDelegate()
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
         }
         
@@ -38,10 +42,8 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         self.navigationItem.rightBarButtonItem = filterButton
     }
 
-    var items: [FilterableItem]?
-    
+    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
-    var selected: [FilterableItem]!
     
     var loader: Loader!
 
@@ -60,12 +62,12 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
 
         self.view.bringSubviewToFront(loader)
-        self.loader.startAnimating()
+//        self.loader.startAnimating()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items == nil || items!.isEmpty) {
+        if (items.isEmpty) {
             refresh(self)
         }
     }
@@ -76,7 +78,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     
     func updateFilter(){
         log.notice("updateFilter")
-        self.filterDelegate.items = items
+
         self.filterDelegate.updateFilter()
     }
     
@@ -89,39 +91,21 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(selected: [FilterableItem], type: String) {
+    func onSetFilter(type: String) {
         log.notice("onSetFilter")
-        self.selected = selected
         self.filterButton.title = type
         
+        /*
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
         collectionView?.reloadData()
         if collectionView?.numberOfItemsInSection(0) > 0 {
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }
+        }*/
     }
     
-    // CoreData
-    var entityName: String { return "" }
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
+        log.warning("prepareForSegue is not defined!")
     }
-    
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        if (self.entityName=="") {
-            self.log.critical("fetchedResultsController: no entity name!")
-        }
-        let fetchRequest = NSFetchRequest(entityName: self.entityName)
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: self.sharedContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        
-        return fetchedResultsController
-    }()
  
 }
 

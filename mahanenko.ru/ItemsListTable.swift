@@ -12,9 +12,6 @@ import UIKit
 extension ItemsListViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        guard let items = selected else {
-            return 0
-        }
         return items.count// + 1
     }
 
@@ -31,7 +28,7 @@ extension ItemsListViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         log.warning("heightForRowAtIndexPath is not defined")
         
-        if indexPath.section < selected.count {
+        if indexPath.section < items.count {
             return ROW_HEIGHT + IMAGE_HEIGHT + 300
         }
         
@@ -39,7 +36,7 @@ extension ItemsListViewController {
     }
         
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section < selected.count {
+        if indexPath.section < items.count {
             return
         }
         

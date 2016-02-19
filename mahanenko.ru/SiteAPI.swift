@@ -157,15 +157,16 @@ class SiteAPI: HTTP {
                 
                 var news = [News]()
                 if let list = result as? [[String: AnyObject]] {
-                    self.sharedContext.performBlockAndWait(){
+                    self.log.debug("getNewsList: parsing results")
+                    self.sharedContext.performBlock(){
                         for (item) in list {
                             if let newsItem = self.parseNewsItem(item) {
                                 news.append(newsItem)
                             }
                         }
-                        dispatch_async(dispatch_get_main_queue()){
-                            completion(result: news, error: nil)
-                        }
+                        self.log.debug("getNewsList: results ready")
+                        self.log.debug("getNewsList: callback")
+                        completion(result: news, error: nil)
                     }
                 }
             }

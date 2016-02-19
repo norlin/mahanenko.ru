@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
+class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsListViewController") }
     let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
-    private var filterDelegate: ItemsFilterDelegate!
+    internal var filterDelegate: ItemsFilter!
     
     var ROW_HEIGHT:CGFloat { return 40 }
     var IMAGE_HEIGHT:CGFloat { return 184 }
@@ -27,11 +27,15 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
     
     var loader: Loader!
     
+    func setFilterDelegate(){
+        filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
+    
     internal func configureView(){
         log.notice("configureView")
         
         if filterDelegate == nil {
-            filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
+            setFilterDelegate()
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
         }
         
@@ -44,10 +48,8 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
         self.navigationItem.rightBarButtonItem = filterButton
     }
 
-    var items: [FilterableItem]?
-    
+    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
-    var selected: [FilterableItem]!
 
     override func viewDidLoad() {
         log.notice("viewDidLoad")
@@ -63,12 +65,12 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
         tableView.rowHeight = ROW_HEIGHT + imageHeight
         
         self.view.bringSubviewToFront(loader)
-        self.loader.startAnimating()
+//        self.loader.startAnimating()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items == nil || items!.isEmpty) {
+        if (items.isEmpty) {
             refresh(self)
         }
     }
@@ -78,7 +80,6 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
     }
     
     func updateFilter(){
-        self.filterDelegate.items = items
         self.filterDelegate.updateFilter()
     }
     
@@ -90,8 +91,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(selected: [FilterableItem], type: String) {
-        self.selected = selected
+    func onSetFilter(type: String) {
         self.filterButton.title = type
         
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
@@ -100,28 +100,9 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
             tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
-    
-    // CoreData
-    var entityName: String { return "" }
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
+        
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
+        log.warning("prepareForSegue is not defined!")
     }
-    
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        if (self.entityName=="") {
-            self.log.critical("fetchedResultsController: no entity name!")
-        }
-        let fetchRequest = NSFetchRequest(entityName: self.entityName)
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: self.sharedContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        
-        return fetchedResultsController
-    }()
-
  
 }
