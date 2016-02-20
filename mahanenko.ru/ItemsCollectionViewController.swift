@@ -81,24 +81,22 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         self.filterDelegate.updateFilter()
     }
     
-    func setFilter(type: String?){
+    func setFilter(type: String?, needReload: Bool){
         log.notice("setFilter")
-        self.filterDelegate.setFilter(type)
+        self.filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(type: String) {
+    func onSetFilter(type: String, needReload: Bool) {
         log.notice("onSetFilter")
         self.filterButton.title = type
         
-        /*let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        collectionView?.reloadData()
-        if collectionView?.numberOfItemsInSection(0) > 0 {
-            collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }*/
+        if (needReload) {
+            collectionView?.reloadData()
+        }
     }
     
     func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {

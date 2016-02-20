@@ -24,11 +24,11 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
     
     var filterOptions: UIAlertController?
     var selectedType: String!
-    var onSetFilter: ((type: String)->Void)!
+    var onSetFilter: ((type: String, needReload: Bool)->Void)!
     
     var entityName: String { return "" }
     
-    init(onSetFilter: (type: String)->Void, onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)){
+    init(onSetFilter: (type: String, needReload: Bool)->Void, onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)){
         super.init()
         self.onSetFilter = onSetFilter
         self.onDataChanged = onDataChanged
@@ -80,7 +80,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         return NSPredicate(format: "type == %@", type)
     }
     
-    func setFilter(type: String?) {
+    func setFilter(type: String?, needReload: Bool) {
         log.notice("setFilter")
         if type == selectedType {
             return
@@ -95,13 +95,13 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
             } catch {
                 self.log.error("\(error)")
             }
-            self.onSetFilter(type: self.selectedType)
+            self.onSetFilter(type: self.selectedType, needReload: needReload)
         }
     }
     
     func createHandler(type: String?) -> ((action: UIAlertAction) -> Void) {
         return {(action: UIAlertAction) in
-            self.setFilter(type)
+            self.setFilter(type, needReload: true)
             self.dismissFilter(action)
         }
     }

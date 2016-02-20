@@ -116,7 +116,7 @@ class NewsViewController: ItemsListViewController {
             return
         }
         
-        self.setFilter(nil)
+        self.setFilter(nil, needReload: false)
         self.updateFilter()
         
         self.tableView.beginUpdates()

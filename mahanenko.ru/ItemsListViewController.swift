@@ -82,16 +82,20 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         self.filterDelegate.updateFilter()
     }
     
-    func setFilter(type: String?){
-        self.filterDelegate.setFilter(type)
+    func setFilter(type: String?, needReload: Bool){
+        self.filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(type: String) {
+    func onSetFilter(type: String, needReload: Bool) {
         self.filterButton.title = type
+        
+        if (needReload) {
+            self.tableView.reloadData()
+        }
     }
         
     func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
