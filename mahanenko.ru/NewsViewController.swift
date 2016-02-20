@@ -13,7 +13,6 @@ class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
         
     override var ROW_HEIGHT: CGFloat { return 40 }
-    override var IMAGE_HEIGHT: CGFloat { return 184 }
     
     override func setFilterDelegate(){
         filterDelegate = NewsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
@@ -35,7 +34,7 @@ class NewsViewController: ItemsListViewController {
         let text = UITextView()
         let news = item as! News
         text.attributedText = news.summary.attributedStringWith(Constants.TEXT_FONT)
-        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 300))
+        let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 500))
         return sizeThatFits.height
     }
     
@@ -44,14 +43,19 @@ class NewsViewController: ItemsListViewController {
             let news = items[indexPath.section] as! News
             let textHeight = getTextHeight(news)
             let horizontalClass = self.traitCollection.horizontalSizeClass
-
-            switch (horizontalClass) {
-            case .Regular:
-                let maxHeight = max(textHeight, IMAGE_HEIGHT)
+            let verticalClass = self.traitCollection.verticalSizeClass
+            let wideIphone = horizontalClass == .Regular && verticalClass == .Compact
+            
+            if (!wideIphone && (horizontalClass == .Regular || verticalClass == .Compact)) {
+                let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.contentSize.width * 0.3).height
+                print("compact: \(imageHeight)")
+                let maxHeight = max(textHeight, imageHeight)
                 return ROW_HEIGHT + maxHeight
-            default:
+            } else {
                 if news.previewImage != nil {
-                    return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
+                    let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.contentSize.width).height
+                    print("normal: \(imageHeight)")
+                    return ROW_HEIGHT + imageHeight + textHeight
                 }
                 return ROW_HEIGHT + textHeight
             }
