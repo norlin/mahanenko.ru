@@ -18,6 +18,8 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
     
+    var ready = false
+    
     internal func configureView(){
         log.notice("configureView")
         
@@ -33,6 +35,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
             
         navigationItem.rightBarButtonItem = filterButton
+        ready = true
     }
 
     var items: [FilterableItem] { return filterDelegate.items }

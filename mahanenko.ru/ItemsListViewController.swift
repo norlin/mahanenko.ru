@@ -24,6 +24,8 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
     
+    var ready = false
+    
     internal func configureView(){
         log.notice("configureView")
         
@@ -39,6 +41,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         }
             
         navigationItem.rightBarButtonItem = filterButton
+        ready = true
     }
 
     var items: [FilterableItem] { return filterDelegate.items }

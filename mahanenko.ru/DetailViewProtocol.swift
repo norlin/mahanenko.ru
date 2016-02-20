@@ -8,4 +8,6 @@
 
 protocol DetailViewProtocol {
     func configureView() -> Void
+    
+    var ready: Bool { get set }
 }

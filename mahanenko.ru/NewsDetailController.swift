@@ -66,6 +66,8 @@ class NewsDetailController: UIViewController {
         }
     }
     
+    var imageViews = [UIImageView]()
+    
     func updateNewsItem(){
         log.notice("updateNewsItem")
         guard let news = self.news else {
@@ -91,24 +93,45 @@ class NewsDetailController: UIViewController {
             let imageFrame = CGSize(width: width, height: height)
             imagesScroll.contentSize = CGSize(width: CGFloat(newsImages.count) * width, height: height)
             
+            if (newsImages.count != imageViews.count) {
+                for imageView in imageViews {
+                    imageView.removeFromSuperview()
+                }
+                imageViews.removeAll()
+            }
+
             for (index, image) in newsImages.enumerate() {
-                let imageView = UIImageView()
-                imageView.hidden = true
-                imageView.contentMode = .ScaleAspectFill
-                imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
-                imagesScroll.addSubview(imageView)
-                let loader = Loader(activityIndicatorStyle: .Gray)
-                loader.center = imageView.center
-                imagesScroll.addSubview(loader)
-                loader.startAnimating()
+                let imageView:UIImageView
+                let loader: Loader
+                if imageViews.count > index {
+                    imageView = imageViews[index]
+                } else {
+                    imageView = UIImageView()
+                    imageView.contentMode = .ScaleAspectFill
+                    imageViews.append(imageView)
+                    imagesScroll.addSubview(imageView)
+                }
+                if let existingLoader = imageView.subviews.filter({ $0.isKindOfClass(Loader) }).first as? Loader {
+                    loader = existingLoader
+                } else {
+                    loader = Loader(activityIndicatorStyle: .Gray)
+                    imagesScroll.addSubview(loader)
+                }
                 
+                imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
+                loader.center = imageView.center
+                
+                if (imageView.image == image.image && !image.error) {
+                    continue
+                }
+                
+                loader.startAnimating()
                 image.fetch(){ (error, image) in
                     if (error){
                         imageView.contentMode = UIViewContentMode.Center
                     }
                     dispatch_async(dispatch_get_main_queue()){
                         imageView.image = image
-                        imageView.hidden = false
                         loader.stopAnimating()
                     }
                 }
@@ -121,6 +144,10 @@ class NewsDetailController: UIViewController {
             textToImage.active = false
             imagesScroll.hidden = true
         }
+    }
+    
+    override func viewDidLayoutSubviews() {
+        updateNewsItem()
     }
     
     var sharedContext: NSManagedObjectContext {

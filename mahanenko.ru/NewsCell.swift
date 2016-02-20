@@ -14,7 +14,6 @@ class NewsCellView: TableCellView {
     @IBOutlet weak var newsImage: UIImageView!
     @IBOutlet weak var newsDate: UILabel!
     @IBOutlet weak var newsText: UILabel!
-    @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var loader: Loader!
     
     func configure(item: News){
@@ -35,7 +34,6 @@ class NewsCellView: TableCellView {
             }
         }
         
-        textToImage?.active = item.previewImage != nil
         newsDate.text = "\(item.dateString)"
         newsText.attributedText = item.summary.attributedStringWith(Constants.TEXT_FONT)
     }

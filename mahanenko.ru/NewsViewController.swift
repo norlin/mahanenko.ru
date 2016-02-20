@@ -43,10 +43,18 @@ class NewsViewController: ItemsListViewController {
         if indexPath.section < items.count {
             let news = items[indexPath.section] as! News
             let textHeight = getTextHeight(news)
-            if news.previewImage != nil {
-                return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
+            let horizontalClass = self.traitCollection.horizontalSizeClass
+
+            switch (horizontalClass) {
+            case .Regular:
+                let maxHeight = max(textHeight, IMAGE_HEIGHT)
+                return ROW_HEIGHT + maxHeight
+            default:
+                if news.previewImage != nil {
+                    return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
+                }
+                return ROW_HEIGHT + textHeight
             }
-            return ROW_HEIGHT + textHeight
         }
         
         return 41
@@ -54,9 +62,9 @@ class NewsViewController: ItemsListViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         if indexPath.section < items.count {
-            let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
-            
             let item = items[indexPath.section] as! News
+            let cellId = item.previewImage == nil ? "NewsCellText" : "NewsCell"
+            let cell = tableView.dequeueReusableCellWithIdentifier(cellId, forIndexPath: indexPath) as! NewsCellView
             cell.configure(item)
             
             return cell
@@ -84,6 +92,10 @@ class NewsViewController: ItemsListViewController {
         } else {
             log.debug("update: use stored items")
         }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("newsDetail", sender: self)
     }
     
     func pullRefresh(sender: UIRefreshControl){

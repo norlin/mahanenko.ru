@@ -19,11 +19,11 @@ class BooksViewController: ItemsCollectionViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
-        guard let collectionView = self.collectionView else {
-            return
-        }
         
         if segue.identifier == "bookDetail" {
+            guard let collectionView = self.collectionView else {
+                return
+            }
             let detailController = segue.destinationViewController as! BookDetailController
             if let selectedBooks = collectionView.indexPathsForSelectedItems() {
                 let selectedItem = selectedBooks[0]

@@ -6,6 +6,7 @@
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Menu Navigation-->
@@ -32,11 +33,11 @@
                         <viewControllerLayoutGuide type="bottom" id="GAO-Cl-Wes"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="svH-Pt-448">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="0XM-y9-sOw">
-                                <rect key="frame" x="142" y="312" width="90" height="42"/>
+                                <rect key="frame" x="115" y="263" width="90" height="42"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="EPq-8U-ECc"/>
@@ -47,6 +48,9 @@ Build: 123456</string>
                                 <fontDescription key="fontDescription" type="system" size="system"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="306" y="490" width="90" height="42"/>
+                                </variation>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -68,24 +72,24 @@ Build: 123456</string>
         <!--News View Controller-->
         <scene sceneID="ZWT-1b-HI0">
             <objects>
-                <tableViewController storyboardIdentifier="NewsViewController" title="News" automaticallyAdjustsScrollViewInsets="NO" id="Ucw-9X-O6F" userLabel="News View Controller" customClass="NewsViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="NewsViewController" title="News" id="Ucw-9X-O6F" userLabel="News View Controller" customClass="NewsViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="370" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ac8-Q3-bdP" customClass="RefreshTableView" customModule="mahanenko_ru" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsCell" id="OuN-Y8-sVB" customClass="NewsCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="370"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OuN-Y8-sVB" id="A97-L8-HC3">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="370"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="39"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WnX-Sj-J2i" userLabel="Date">
-                                                    <rect key="frame" x="16" y="0.0" width="343" height="39"/>
+                                                    <rect key="frame" x="16" y="0.0" width="288" height="39"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="39" id="gxW-HY-v9Z"/>
                                                     </constraints>
@@ -103,23 +107,23 @@ Build: 123456</string>
                                             </constraints>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bqt-Lw-b16" userLabel="Bottom Border">
-                                            <rect key="frame" x="0.0" y="369" width="375" height="1"/>
+                                            <rect key="frame" x="0.0" y="369" width="320" height="1"/>
                                             <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="blz-Qe-nVV"/>
                                             </constraints>
                                         </view>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Nbq-5t-3i8" userLabel="Image">
-                                            <rect key="frame" x="0.0" y="39" width="375" height="212"/>
+                                            <rect key="frame" x="0.0" y="39" width="320" height="181"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Nbq-5t-3i8" secondAttribute="height" multiplier="326:184" id="54j-Og-JLX"/>
                                             </constraints>
                                         </imageView>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="D5I-Uk-kOl" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                            <rect key="frame" x="177" y="135" width="20" height="20"/>
+                                            <rect key="frame" x="150" y="120" width="20" height="20"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya3-m0-9s9" userLabel="Text">
-                                            <rect key="frame" x="8" y="259" width="359" height="104"/>
+                                            <rect key="frame" x="8" y="228" width="304" height="146"/>
                                             <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
 
 P.S.: Встречаем новую обложку! Как Вам?</string>
@@ -130,7 +134,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     </subviews>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="qvQ-jf-gl7" secondAttribute="trailing" id="5Vl-6C-1OQ"/>
-                                        <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="WnX-Sj-J2i" secondAttribute="bottom" priority="999" constant="8" id="5is-vF-A2J"/>
+                                        <constraint firstItem="Nbq-5t-3i8" firstAttribute="width" secondItem="A97-L8-HC3" secondAttribute="width" multiplier="0.3" id="9XV-9r-MYs"/>
                                         <constraint firstItem="D5I-Uk-kOl" firstAttribute="centerY" secondItem="Nbq-5t-3i8" secondAttribute="centerY" id="9kp-gD-agT"/>
                                         <constraint firstItem="D5I-Uk-kOl" firstAttribute="centerX" secondItem="Nbq-5t-3i8" secondAttribute="centerX" id="Doa-sb-sXE"/>
                                         <constraint firstItem="qvQ-jf-gl7" firstAttribute="top" secondItem="A97-L8-HC3" secondAttribute="top" id="Iaz-aZ-Pe4"/>
@@ -138,32 +142,151 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="Nbq-5t-3i8" secondAttribute="bottom" constant="8" id="R38-yA-cJW"/>
                                         <constraint firstAttribute="trailingMargin" secondItem="Ya3-m0-9s9" secondAttribute="trailing" id="VLq-tW-LEg"/>
                                         <constraint firstItem="Nbq-5t-3i8" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="W8t-J6-7IO"/>
+                                        <constraint firstItem="Ya3-m0-9s9" firstAttribute="leading" secondItem="Nbq-5t-3i8" secondAttribute="trailing" constant="8" symbolic="YES" id="ZYH-5b-uFC"/>
                                         <constraint firstItem="Nbq-5t-3i8" firstAttribute="top" secondItem="qvQ-jf-gl7" secondAttribute="bottom" id="bkx-b0-aGY"/>
                                         <constraint firstItem="bqt-Lw-b16" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leading" id="dyE-jS-p6i"/>
                                         <constraint firstAttribute="trailing" secondItem="bqt-Lw-b16" secondAttribute="trailing" id="eA5-dx-4qc"/>
                                         <constraint firstItem="Ya3-m0-9s9" firstAttribute="leading" secondItem="A97-L8-HC3" secondAttribute="leadingMargin" id="eFP-Ek-qNb"/>
+                                        <constraint firstItem="Ya3-m0-9s9" firstAttribute="top" secondItem="WnX-Sj-J2i" secondAttribute="bottom" constant="8" id="i0F-da-1vx"/>
                                         <constraint firstAttribute="trailing" secondItem="Nbq-5t-3i8" secondAttribute="trailing" id="oYl-ze-3AY"/>
                                         <constraint firstAttribute="bottom" secondItem="bqt-Lw-b16" secondAttribute="bottom" id="rrG-PN-HWG"/>
                                     </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="9XV-9r-MYs"/>
+                                            <exclude reference="ZYH-5b-uFC"/>
+                                            <exclude reference="i0F-da-1vx"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=compact">
+                                        <mask key="constraints">
+                                            <include reference="9XV-9r-MYs"/>
+                                            <exclude reference="oYl-ze-3AY"/>
+                                            <exclude reference="R38-yA-cJW"/>
+                                            <include reference="ZYH-5b-uFC"/>
+                                            <exclude reference="eFP-Ek-qNb"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=regular">
+                                        <mask key="constraints">
+                                            <include reference="9XV-9r-MYs"/>
+                                            <exclude reference="oYl-ze-3AY"/>
+                                            <exclude reference="R38-yA-cJW"/>
+                                            <include reference="ZYH-5b-uFC"/>
+                                            <exclude reference="eFP-Ek-qNb"/>
+                                            <include reference="i0F-da-1vx"/>
+                                        </mask>
+                                    </variation>
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="loader" destination="D5I-Uk-kOl" id="hCu-kr-KBJ"/>
                                     <outlet property="newsDate" destination="WnX-Sj-J2i" id="aMm-fk-3TR"/>
                                     <outlet property="newsImage" destination="Nbq-5t-3i8" id="Xox-J8-WwJ"/>
                                     <outlet property="newsText" destination="Ya3-m0-9s9" id="iem-4H-gpx"/>
-                                    <outlet property="textToImage" destination="R38-yA-cJW" id="MPf-2B-Jt1"/>
-                                    <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" action="showDetailViewController:sender:" id="4hg-hc-hxj"/>
+                                </connections>
+                            </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsCellText" id="ROU-nL-CBg" customClass="NewsCellView" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="398" width="320" height="370"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ROU-nL-CBg" id="Pjx-u5-igU">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-Mc-PmX" userLabel="Header View">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="39"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14 Янв в 16:52" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mqD-SJ-Ek2" userLabel="Date">
+                                                    <rect key="frame" x="16" y="0.0" width="288" height="39"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="39" id="sGe-6d-zS5"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                    <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                        <rect key="frame" x="16" y="0.0" width="1013" height="39"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstItem="mqD-SJ-Ek2" firstAttribute="leading" secondItem="Rhr-Mc-PmX" secondAttribute="leadingMargin" constant="8" id="4lP-rY-Twz"/>
+                                                <constraint firstAttribute="bottom" secondItem="mqD-SJ-Ek2" secondAttribute="bottom" id="FCw-CY-Jt7"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="mqD-SJ-Ek2" secondAttribute="trailing" constant="8" id="KdP-hK-lem"/>
+                                                <constraint firstItem="mqD-SJ-Ek2" firstAttribute="top" secondItem="Rhr-Mc-PmX" secondAttribute="top" id="d7X-QN-ccY"/>
+                                            </constraints>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="1045" height="39"/>
+                                            </variation>
+                                        </view>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="niU-q4-2Zd" userLabel="Bottom Border">
+                                            <rect key="frame" x="0.0" y="369" width="320" height="1"/>
+                                            <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="5Sx-1G-dN8"/>
+                                            </constraints>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="0.0" y="369" width="1045" height="1"/>
+                                            </variation>
+                                        </view>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="9MU-Eo-Nbz" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                            <rect key="frame" x="177" y="135" width="20" height="20"/>
+                                            <variation key="heightClass=regular-widthClass=regular" fixedFrame="YES">
+                                                <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                            </variation>
+                                        </activityIndicatorView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsLetterSpacingToFitWidth="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58O-Vf-VcP" userLabel="Text">
+                                            <rect key="frame" x="8" y="47" width="304" height="146"/>
+                                            <string key="text">В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?</string>
+                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="306" y="47" width="731" height="82"/>
+                                            </variation>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="niU-q4-2Zd" firstAttribute="leading" secondItem="Pjx-u5-igU" secondAttribute="leading" id="0QP-rV-H2R"/>
+                                        <constraint firstItem="58O-Vf-VcP" firstAttribute="top" secondItem="mqD-SJ-Ek2" secondAttribute="bottom" constant="8" id="2nB-AA-nTY"/>
+                                        <constraint firstItem="Rhr-Mc-PmX" firstAttribute="leading" secondItem="Pjx-u5-igU" secondAttribute="leading" id="54z-9K-Zx6"/>
+                                        <constraint firstItem="58O-Vf-VcP" firstAttribute="leading" secondItem="Pjx-u5-igU" secondAttribute="leadingMargin" id="640-A5-Jhj"/>
+                                        <constraint firstAttribute="trailing" secondItem="Rhr-Mc-PmX" secondAttribute="trailing" id="T5R-TX-yEA"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="58O-Vf-VcP" secondAttribute="trailing" id="V5O-EQ-08x"/>
+                                        <constraint firstItem="58O-Vf-VcP" firstAttribute="width" secondItem="Pjx-u5-igU" secondAttribute="width" multiplier="0.7" id="h80-KY-PIr"/>
+                                        <constraint firstAttribute="bottom" secondItem="niU-q4-2Zd" secondAttribute="bottom" id="lYR-9a-VSt"/>
+                                        <constraint firstAttribute="trailing" secondItem="niU-q4-2Zd" secondAttribute="trailing" id="p4t-CS-wxV"/>
+                                        <constraint firstItem="Rhr-Mc-PmX" firstAttribute="top" secondItem="Pjx-u5-igU" secondAttribute="top" id="rSw-1m-gfy"/>
+                                    </constraints>
+                                    <variation key="default">
+                                        <mask key="constraints">
+                                            <exclude reference="h80-KY-PIr"/>
+                                        </mask>
+                                    </variation>
+                                    <variation key="heightClass=regular-widthClass=regular">
+                                        <mask key="constraints">
+                                            <exclude reference="640-A5-Jhj"/>
+                                            <include reference="h80-KY-PIr"/>
+                                        </mask>
+                                    </variation>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="loader" destination="9MU-Eo-Nbz" id="1i4-LE-Yub"/>
+                                    <outlet property="newsDate" destination="mqD-SJ-Ek2" id="lHx-KO-yfe"/>
+                                    <outlet property="newsText" destination="58O-Vf-VcP" id="tXe-wR-zON"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MoreCell" textLabel="CCi-do-s8Z" rowHeight="41" style="IBUITableViewCellStyleDefault" id="uxZ-bB-3iQ">
-                                <rect key="frame" x="0.0" y="398" width="375" height="41"/>
+                                <rect key="frame" x="0.0" y="768" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uxZ-bB-3iQ" id="czj-h4-1aF">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="40.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Load more news" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CCi-do-s8Z">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="40.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="40.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -182,18 +305,19 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <navigationItem key="navigationItem" id="pu7-1L-OaJ"/>
                     <connections>
                         <outlet property="tableView" destination="Ac8-Q3-bdP" id="4yj-cy-GH0"/>
+                        <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" id="Kjw-lH-kt3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Kj-VY-vaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="506.5" y="202.5"/>
+            <point key="canvasLocation" x="506.5" y="201.75"/>
         </scene>
         <!--Books View Controller-->
         <scene sceneID="6R4-hU-XJl">
             <objects>
                 <collectionViewController storyboardIdentifier="BooksViewController" id="iJz-4F-63O" customClass="BooksViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" id="wMf-IC-nYc" customClass="RefreshCollectionView" customModule="mahanenko_ru" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="vzF-p7-AOj" customClass="ItemsCollectionFlowLayout" customModule="mahanenko_ru" customModuleProvider="target">
                             <size key="itemSize" width="187" height="210"/>
@@ -203,7 +327,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="fOr-Lh-DaK" customClass="BookCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="64" width="187" height="230"/>
+                                <rect key="frame" x="67" y="64" width="187" height="230"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
@@ -222,7 +346,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                            <rect key="frame" x="83" y="92" width="20" height="20"/>
+                                            <rect key="frame" x="84" y="92" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -266,17 +390,20 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <viewControllerLayoutGuide type="bottom" id="J8e-2B-TcZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="egH-78-zGh">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="teJ-o8-xhY">
-                                <rect key="frame" x="16" y="8" width="343" height="400"/>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="teJ-o8-xhY">
+                                <rect key="frame" x="16" y="8" width="343" height="29"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Cyx-Bu-DeK" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                        <rect key="frame" x="140" y="196" width="37" height="37"/>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Cyx-Bu-DeK" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                        <rect key="frame" x="-17" y="10" width="37" height="37"/>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="-15" y="10" width="37" height="37"/>
+                                        </variation>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWG-OT-ACf">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="21"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="21" id="vWN-Rb-Fjl"/>
                                         </constraints>
@@ -284,11 +411,14 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Pyk-w8-K72">
-                                        <rect key="frame" x="0.0" y="29" width="318" height="371"/>
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pyk-w8-K72">
+                                        <rect key="frame" x="0.0" y="29" width="1" height="0.0"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="Pyk-w8-K72" secondAttribute="height" multiplier="335:392" id="59g-GZ-KFd"/>
                                         </constraints>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="29" width="0.0" height="0.0"/>
+                                        </variation>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -302,33 +432,45 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerY" secondItem="Pyk-w8-K72" secondAttribute="centerY" id="yZJ-lF-3Mi"/>
                                     <constraint firstItem="Pyk-w8-K72" firstAttribute="leading" secondItem="teJ-o8-xhY" secondAttribute="leading" id="zIh-i5-uOU"/>
                                 </constraints>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="16" y="8" width="664" height="28"/>
+                                </variation>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-cw-7q3" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="169" y="283" width="37" height="37"/>
+                                <rect key="frame" x="142" y="234" width="37" height="37"/>
                             </activityIndicatorView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="book.detail.seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-zE-1Vo">
-                                <rect key="frame" x="16" y="416" width="343" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="book.detail.seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Keg-zE-1Vo">
+                                <rect key="frame" x="16" y="45" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="On4-hf-XMA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="16" y="45" width="664" height="20"/>
+                                </variation>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
-                                <rect key="frame" x="16" y="445" width="343" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Book Seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
+                                <rect key="frame" x="16" y="74" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="rpb-3V-COW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="16" y="74" width="664" height="20"/>
+                                </variation>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Book Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="60D-vJ-JWi">
-                                <rect key="frame" x="0.0" y="474" width="375" height="121"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Book Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="60D-vJ-JWi">
+                                <rect key="frame" x="0.0" y="103" width="375" height="492"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="103" width="703" height="849"/>
+                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -384,11 +526,11 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <viewControllerLayoutGuide type="bottom" id="8B0-IS-e3b"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="tCy-QI-5RJ">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="42"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
                                 <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
@@ -397,11 +539,14 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-N7-3al" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="169" y="212" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-N7-3al" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="171" y="302" width="37" height="37"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="333" y="482" width="37" height="37"/>
+                                </variation>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
-                                <rect key="frame" x="0.0" y="419" width="375" height="184"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
+                                <rect key="frame" x="0.0" y="603" width="0.0" height="0.0"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HdQ-Ha-BO1" secondAttribute="height" multiplier="375:184" id="PiP-gf-JcD"/>
                                     <constraint firstAttribute="height" constant="184" id="Ri7-yS-h62"/>
@@ -411,14 +556,20 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <exclude reference="Ri7-yS-h62"/>
                                     </mask>
                                 </variation>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="960" width="0.0" height="0.0"/>
+                                </variation>
                             </scrollView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
-                                <rect key="frame" x="0.0" y="42" width="375" height="377"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
+                                <rect key="frame" x="0.0" y="42" width="375" height="561"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                    <rect key="frame" x="0.0" y="42" width="703" height="918"/>
+                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -456,7 +607,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             <objects>
                 <splitViewController id="H1p-Uh-vWS" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <segue destination="RMx-3f-FxP" kind="relationship" relationship="masterViewController" id="BlO-5A-QYV"/>
                         <segue destination="vC3-pB-5Vb" kind="relationship" relationship="detailViewController" id="Tll-UG-LXB"/>
@@ -471,19 +623,19 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             <objects>
                 <tableViewController title="Master" clearsSelectionOnViewWillAppear="NO" id="7bK-jq-Zjz" userLabel="Menu" customClass="MenuViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="r7i-6Z-zg0" customClass="TableView" customModule="mahanenko_ru" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Arm-wq-HPj" style="IBUITableViewCellStyleDefault" id="WCw-Qf-5nD" customClass="TableCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="114" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Arm-wq-HPj">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                            <rect key="frame" x="15" y="0.0" width="290" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -519,8 +671,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <connections>
                         <segue destination="Ucw-9X-O6F" kind="show" identifier="newsList" id="bBx-7t-6Vz"/>
                         <segue destination="iJz-4F-63O" kind="show" identifier="booksList" id="uNJ-qA-bk4"/>
-                        <segue destination="Ucw-9X-O6F" kind="relationship" relationship="rootViewController" id="qSD-ku-VKg"/>
                         <segue destination="JEX-9P-axG" kind="show" identifier="showCommonDetails" id="jAt-8t-j1i"/>
+                        <segue destination="JEX-9P-axG" kind="relationship" relationship="rootViewController" id="GCZ-7N-kmp"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SLD-UC-DBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -529,7 +681,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
-        <segue reference="qSD-ku-VKg"/>
+        <segue reference="Tll-UG-LXB"/>
+        <segue reference="jAt-8t-j1i"/>
     </inferredMetricsTieBreakers>
 </document>

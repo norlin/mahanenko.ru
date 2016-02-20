@@ -12,10 +12,14 @@ class DetailViewController: UIViewController, DetailViewProtocol {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
+    var ready = false
+
     func configureView() -> Void {
         let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
         let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
         detailDescriptionLabel.text = "Version: \(version)\nBuild: \(build)"
+        
+        ready = true
     }
 
     override func viewDidLoad() {
