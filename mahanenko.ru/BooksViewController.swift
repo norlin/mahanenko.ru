@@ -54,12 +54,51 @@ class BooksViewController: ItemsCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let viewWidth = collectionView.frame.size.width
-        let cellSize = viewWidth / 2
+        guard let layout = collectionViewLayout as? ItemsCollectionFlowLayout else {
+            return super.collectionView(collectionView, layout: collectionViewLayout, sizeForItemAtIndexPath: indexPath)
+        }
         
-        let textHeight = getTextHeight(items[indexPath.row], width: cellSize)
+        let defaultSize = layout.itemSize
+        let textHeight = getTextHeight(items[indexPath.row], width: defaultSize.width)
         
-        return CGSize(width: cellSize, height: cellSize+textHeight)
+        return CGSize(width: defaultSize.width, height: defaultSize.height+textHeight)
+    }
+    
+    func updateCollectionCellSize(size: CGSize){
+        guard let collectionView = self.collectionView else {
+            return
+        }
+
+        guard let layout = collectionView.collectionViewLayout as? ItemsCollectionFlowLayout else {
+            return
+        }
+        
+        log.debug("updateCollectionCellSize")
+
+        let viewWidth = size.width
+        let cellsInRow = Int(floor(viewWidth / CGFloat(160)))
+        let cellsCount = max(2, cellsInRow)
+        let cellSize = CGFloat(floor(viewWidth / CGFloat(cellsCount)))
+        
+        layout.itemSize = CGSize(width: cellSize, height: cellSize)
+
+        layout.invalidateLayout()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        guard let collectionView = self.collectionView else {
+            return
+        }
+
+        updateCollectionCellSize(collectionView.frame.size)
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransitionToSize(size, withTransitionCoordinator: coordinator)
+        
+        updateCollectionCellSize(size)
     }
     
     func update(force: Bool = false) {

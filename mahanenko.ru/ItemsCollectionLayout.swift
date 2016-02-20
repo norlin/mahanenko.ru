@@ -29,10 +29,6 @@ class ItemsCollectionFlowLayout: UICollectionViewFlowLayout {
     }
 
     override func layoutAttributesForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
-        return self.layoutAttributesForTopAlignmentForItemAtIndexPath(indexPath)
-    }
-    
-    func layoutAttributesForTopAlignmentForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewLayoutAttributes? {
         if let attrs = super.layoutAttributesForItemAtIndexPath(indexPath)?.copy() as? UICollectionViewLayoutAttributes {
             if (attrs.frame.origin.y <= self.sectionInset.top) {
                 return attrs
@@ -67,7 +63,7 @@ class ItemsCollectionFlowLayout: UICollectionViewFlowLayout {
             return attrs
         }
         
-        print("nil!")
         return nil
     }
+
 }
