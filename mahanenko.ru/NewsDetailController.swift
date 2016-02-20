@@ -75,6 +75,7 @@ class NewsDetailController: UIViewController {
         }
         
         newsText.text = news.text?.string
+        newsText.layoutIfNeeded()
         
         let newsImages:[Image]
         
@@ -85,13 +86,16 @@ class NewsDetailController: UIViewController {
         } else {
             newsImages = []
         }
+        let compact = self.traitCollection.verticalSizeClass == .Compact
         
         if newsImages.count > 0 {
             log.debug("updateNewsItem: fetch images")
-            let width = view.frame.width
+
+            let width = imagesScroll.frame.size.width
             let height = width * imagesAspect
             let imageFrame = CGSize(width: width, height: height)
             imagesScroll.contentSize = CGSize(width: CGFloat(newsImages.count) * width, height: height)
+            let imgCenterY = imagesScroll.center.y
             
             if (newsImages.count != imageViews.count) {
                 for imageView in imageViews {
@@ -119,9 +123,12 @@ class NewsDetailController: UIViewController {
                 }
                 
                 imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
+                if compact {
+                    imageView.center.y = imgCenterY
+                }
                 loader.center = imageView.center
                 
-                if (imageView.image == image.image && !image.error) {
+                if (imageView.image != nil && imageView.image == image.image && !image.error) {
                     continue
                 }
                 
@@ -137,12 +144,13 @@ class NewsDetailController: UIViewController {
                 }
             }
         
-            textToImage.active = true
-            imagesScroll.hidden = false
         } else {
             log.debug("updateNewsItem: hide images scroll")
-            textToImage.active = false
-            imagesScroll.hidden = true
+        }
+        imagesScroll.hidden = !(newsImages.count > 0)
+
+        if (!compact) {
+            textToImage.active = newsImages.count > 0
         }
     }
     
