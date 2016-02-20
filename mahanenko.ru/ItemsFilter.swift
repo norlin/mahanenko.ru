@@ -7,32 +7,38 @@
 //
 
 import UIKit
-
-protocol ItemsFilterDelegate {
-
-    var items: [FilterableItem]? { get set }
-    var selectedType: String! { get set }
-
-    func getTypeName(type: String?) -> String
-    func updateFilter()
-    func setFilter(type: String?)
-    func createHandler(type: String?) -> ((action: UIAlertAction) -> Void)
-    func showFilter(vc: UIViewController, sender: AnyObject)
-    func dismissFilter(action: UIAlertAction)
-}
+import CoreData
 
 // Items Filter
-class ItemsFilter: ItemsFilterDelegate {
+class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
     let log = Log(id: "ItemsFilter")
     let api = SiteAPI.sharedInstance()
-    var items: [FilterableItem]?
+    var items: [FilterableItem] {
+        if let objects = self.fetchedResultsController.sections?[0].objects as? [FilterableItem] {
+            return objects
+        }
+        
+        log.warning("no objects found?")
+        return []
+    }
     
     var filterOptions: UIAlertController?
     var selectedType: String!
-    var onSetFilter: ((selected: [FilterableItem], type: String)->Void)!
+    var onSetFilter: ((type: String, needReload: Bool)->Void)!
     
-    init(onSetFilter: (selected: [FilterableItem], type: String)->Void){
+    var entityName: String { return "" }
+    
+    init(onSetFilter: (type: String, needReload: Bool)->Void, onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)){
+        super.init()
         self.onSetFilter = onSetFilter
+        self.onDataChanged = onDataChanged
+        fetchedResultsController.delegate = self
+        
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {}
+        
+        updateFilter()
     }
     
     func getTypeName(type: String?) -> String {
@@ -55,10 +61,8 @@ class ItemsFilter: ItemsFilterDelegate {
         
         filterOptions = UIAlertController(title: "Select item category", message: "", preferredStyle: .ActionSheet)
         var types = Set<String>()
-        if let items = self.items {
-            for item in items {
-                types.unionInPlace(item.types)
-            }
+        for item in items {
+            types.unionInPlace(item.types)
         }
 
         // create item with type == nil (for "all news", no filter selection)
@@ -70,30 +74,34 @@ class ItemsFilter: ItemsFilterDelegate {
         }
         
         filterOptions!.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: dismissFilter))
-
-        
     }
     
-    func setFilter(type: String?) {
+    func makePredicate(type: String) -> NSPredicate {
+        return NSPredicate(format: "type == %@", type)
+    }
+    
+    func setFilter(type: String?, needReload: Bool) {
         log.notice("setFilter")
-        selectedType = getTypeName(type)
-        var selected: [FilterableItem]
-        guard let items = self.items else {
-            selected = []
+        if type == selectedType {
             return
         }
-        if let type = type {
-            selected = items.filter { return $0.filter(type) }
-        } else {
-            selected = items
-        }
         
-        onSetFilter(selected: selected, type: selectedType)
+        selectedType = getTypeName(type)
+        
+        sharedContext.performBlock {
+            self.fetchedResultsController.fetchRequest.predicate = type == nil ? nil : self.makePredicate(self.selectedType)
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {
+                self.log.error("\(error)")
+            }
+            self.onSetFilter(type: self.selectedType, needReload: needReload)
+        }
     }
     
     func createHandler(type: String?) -> ((action: UIAlertAction) -> Void) {
         return {(action: UIAlertAction) in
-            self.setFilter(type)
+            self.setFilter(type, needReload: true)
             self.dismissFilter(action)
         }
     }
@@ -112,6 +120,85 @@ class ItemsFilter: ItemsFilterDelegate {
         }
         
         filter.dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // Helpers
+    
+    func clear(){
+        sharedContext.performBlockAndWait(){
+            self.fetchedResultsController.fetchRequest.predicate = nil
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {}
+            
+            if let objects = self.fetchedResultsController.fetchedObjects as? [NSManagedObject] {
+                for object in objects {
+                    self.sharedContext.deleteObject(object)
+                }
+            }
+        }
+    }
+    
+    // CoreData
+    var insertedItems = [NSIndexPath]()
+    var deletedItems = [NSIndexPath]()
+    var updatedItems = [NSIndexPath]()
+    var movedItems = [[NSIndexPath]]()
+    
+    var onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)!
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        if (self.entityName=="") {
+            self.log.critical("fetchedResultsController: no entity name!")
+        }
+        let fetchRequest = NSFetchRequest(entityName: self.entityName)
+        
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
+            managedObjectContext: self.sharedContext,
+            sectionNameKeyPath: nil,
+            cacheName: nil)
+        
+        return fetchedResultsController
+    }()
+    
+    func controller(controller: NSFetchedResultsController,
+        didChangeObject anObject: AnyObject,
+        atIndexPath indexPath: NSIndexPath?,
+        forChangeType type: NSFetchedResultsChangeType,
+        newIndexPath: NSIndexPath?) {
+        
+            if let _ = anObject as? FilterableItem {
+                switch type {
+                case .Insert:
+                    insertedItems.append(newIndexPath!)
+                case .Delete:
+                    deletedItems.append(indexPath!)
+                case .Update:
+                    updatedItems.append(indexPath!)
+                case .Move:
+                    movedItems.append([indexPath!, newIndexPath!])
+                }
+                return
+            }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        log.debug("controllerDidChangeContent")
+        dispatch_async(dispatch_get_main_queue()){
+            self.onDataChanged(inserted: self.insertedItems, deleted: self.deletedItems, updated: self.updatedItems, moved: self.movedItems)
+            self.insertedItems.removeAll()
+            self.deletedItems.removeAll()
+            self.updatedItems.removeAll()
+            self.movedItems.removeAll()
+        }
+        
+        
     }
     
 }

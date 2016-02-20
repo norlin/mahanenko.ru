@@ -15,6 +15,14 @@ struct BookFull {
     let freeBookTextId: String?
 }
 
+class BookFilter: ItemsFilter {
+    override var entityName: String { return "Book" }
+    
+    override func makePredicate(type: String) -> NSPredicate {
+        return NSPredicate(format: "seria == %@", type)
+    }
+}
+
 class Book: FilterableItem {
     let log = Log(id: "Book")
     let api = SiteAPI.sharedInstance()

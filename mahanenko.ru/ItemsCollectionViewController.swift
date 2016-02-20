@@ -9,39 +9,41 @@
 import UIKit
 import CoreData
 
-class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
+class ItemsCollectionViewController: UICollectionViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsCollectionViewController") }
     let api = SiteAPI.sharedInstance()
-    private var filterDelegate: ItemsFilterDelegate!
+    internal var filterDelegate: ItemsFilter!
     
     var detailItem: MenuItem? {
         didSet {
             // Update the view.
-            self.configureView()
+            configureView()
         }
+    }
+    
+    func setFilterDelegate(){
+        filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
     
     internal func configureView(){
         log.notice("configureView")
         
         if filterDelegate == nil {
-            filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
+            setFilterDelegate()
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
         }
         
         if loader == nil {
             loader = Loader(activityIndicatorStyle: .WhiteLarge)
-            loader.center = self.view.center
+            loader.center = view.center
             self.view.addSubview(loader)
         }
             
-        self.navigationItem.rightBarButtonItem = filterButton
+        navigationItem.rightBarButtonItem = filterButton
     }
 
-    var items: [FilterableItem]?
-    
+    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
-    var selected: [FilterableItem]!
     
     var loader: Loader!
 
@@ -60,68 +62,58 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         }
 
         self.view.bringSubviewToFront(loader)
-        self.loader.startAnimating()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items == nil || items!.isEmpty) {
+        if (items.isEmpty) {
             refresh(self)
         }
     }
-    
+  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.warning("prepareForSegue is not defined!")
     }
     
     func updateFilter(){
         log.notice("updateFilter")
-        self.filterDelegate.items = items
+
         self.filterDelegate.updateFilter()
     }
     
-    func setFilter(type: String?){
+    func setFilter(type: String?, needReload: Bool){
         log.notice("setFilter")
-        self.filterDelegate.setFilter(type)
+        filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(selected: [FilterableItem], type: String) {
-        log.notice("onSetFilter")
-        self.selected = selected
-        self.filterButton.title = type
-        
+    func finishUpdate(){
+        if let refreshControl = (collectionView as? RefreshCollectionView)?.refreshControl {
+            refreshControl.endRefreshing()
+        }
+        loader.stopAnimating()
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        collectionView?.reloadData()
         if collectionView?.numberOfItemsInSection(0) > 0 {
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
     
-    // CoreData
-    var entityName: String { return "" }
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
+    func onSetFilter(type: String, needReload: Bool) {
+        log.notice("onSetFilter")
+        filterButton.title = type
+        
+        if (needReload) {
+            collectionView?.reloadData()
+            finishUpdate()
+        }
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        if (self.entityName=="") {
-            self.log.critical("fetchedResultsController: no entity name!")
-        }
-        let fetchRequest = NSFetchRequest(entityName: self.entityName)
-        
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: self.sharedContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        
-        return fetchedResultsController
-    }()
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.warning("onDataChanged is not defined!")
+    }
  
 }
 

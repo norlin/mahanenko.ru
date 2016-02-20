@@ -15,7 +15,9 @@ class NewsViewController: ItemsListViewController {
     override var ROW_HEIGHT: CGFloat { return 40 }
     override var IMAGE_HEIGHT: CGFloat { return 184 }
     
-    override var entityName: String { return "News" }
+    override func setFilterDelegate(){
+        filterDelegate = NewsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -24,7 +26,7 @@ class NewsViewController: ItemsListViewController {
             let detailController = segue.destinationViewController as! NewsDetailController
             if let selectedRow = tableView.indexPathForSelectedRow {
                 let row = selectedRow.section
-                detailController.newsId = (selected as! [News])[row].objectID
+                detailController.newsId = (items as! [News])[row].objectID
             }
         }
     }
@@ -38,8 +40,8 @@ class NewsViewController: ItemsListViewController {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section < selected.count {
-            let news = selected[indexPath.section] as! News
+        if indexPath.section < items.count {
+            let news = items[indexPath.section] as! News
             let textHeight = getTextHeight(news)
             if news.previewImage != nil {
                 return ROW_HEIGHT + IMAGE_HEIGHT + textHeight
@@ -51,10 +53,10 @@ class NewsViewController: ItemsListViewController {
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section < selected.count {
+        if indexPath.section < items.count {
             let cell = tableView.dequeueReusableCellWithIdentifier("NewsCell", forIndexPath: indexPath) as! NewsCellView
             
-            let item = selected[indexPath.section] as! News
+            let item = items[indexPath.section] as! News
             cell.configure(item)
             
             return cell
@@ -63,47 +65,29 @@ class NewsViewController: ItemsListViewController {
         return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
     }
     
-    func update(force: Bool = false, completion:()->Void) {
+    func update(force: Bool = false) {
         log.notice("update")
         loader.startAnimating()
-        if (!force && (self.items == nil || self.items!.isEmpty)){
-            log.debug("update: fetch stored items")
-            do {
-                try fetchedResultsController.performFetch()
-            } catch {}
-            
-            fetchedResultsController.delegate = self
-            if let items = fetchedResultsController.sections?[0].objects as? [News] {
-                self.items = items
-            }
-        }
-        if (force || self.items == nil || self.items!.isEmpty) {
+        
+        if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
+            
+            //filterDelegate.clear()
+            
             api.getNewsList(){result, error in
                 self.log.debug("update: done")
-                self.items = result
-                CoreDataStackManager.sharedInstance().saveContext()
-                dispatch_async(dispatch_get_main_queue()){
-                    self.log.debug("update: completion")
-                    self.updateFilter()
-                    self.setFilter(nil)
-                    self.loader.stopAnimating()
-                    completion()
+                
+                self.sharedContext.performBlock(){
+                    CoreDataStackManager.sharedInstance().saveContext()
                 }
             }
         } else {
-            log.debug("update: done")
-            self.updateFilter()
-            self.setFilter(nil)
-            self.loader.stopAnimating()
-            completion()
+            log.debug("update: use stored items")
         }
     }
     
     func pullRefresh(sender: UIRefreshControl){
-        update(true){
-            sender.endRefreshing()
-        }
+        update(true)
     }
     
     override func refresh(sender: AnyObject) {
@@ -113,9 +97,43 @@ class NewsViewController: ItemsListViewController {
         }
         
         tableView.scrollEnabled = false
-        update(){
-            self.tableView.scrollEnabled = true
+        update()
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.notice("onDataChanged")
+        
+        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
+
+        if (inserted.count == 0 && deleted.count == 0) {
+            finishUpdate()
+            return
         }
+        
+        setFilter(nil, needReload: false)
+        updateFilter()
+        
+        tableView.beginUpdates()
+        
+        let deletedRows:[NSIndexPath] = deleted.map {
+            self.tableView.deleteSections(NSIndexSet(index: $0.item), withRowAnimation: .None)
+            return NSIndexPath(forRow: 0, inSection: $0.item)
+        }
+        
+        self.tableView.deleteRowsAtIndexPaths(deletedRows, withRowAnimation: .None)
+        
+        let insertedRows:[NSIndexPath] = inserted.map {
+            self.tableView.insertSections(NSIndexSet(index: $0.item), withRowAnimation: .None)
+            return NSIndexPath(forRow: 0, inSection: $0.item)
+        }
+        tableView.insertRowsAtIndexPaths(insertedRows, withRowAnimation: .None)
+        
+        tableView.endUpdates()
+        finishUpdate()
     }
 }
 

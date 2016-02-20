@@ -14,6 +14,14 @@ struct NewsFull {
     let imageUrls: [String]?
 }
 
+class NewsFilter: ItemsFilter {
+    override var entityName: String { return "News" }
+    
+    override func makePredicate(type: String) -> NSPredicate {
+        return NSPredicate(format: "ANY category.name == %@", type)
+    }
+}
+
 class News: FilterableItem {
     let log = Log(id: "News")
     let api = SiteAPI.sharedInstance()
@@ -56,10 +64,12 @@ class News: FilterableItem {
         return formatter.stringFromDate(date)
     }
     
-    @NSManaged var category: [String]
-    override var types: [String] { return self.category }
+    @NSManaged var category: Set<Category>
+    override var types: [String] {
+        return self.category.map { return $0.name }
+    }
     override func filter(type: String) -> Bool {
-        return self.category.contains(type)
+        return self.category.contains { return $0.name == type }
     }
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
@@ -81,7 +91,13 @@ class News: FilterableItem {
             }
         }
         self.date = date
-        self.category = category
+        for tag in category {
+            if let category = CoreDataStackManager.sharedInstance().fetchItem("Category", predicate: NSPredicate(format: "name == %@", tag)) as? Category {
+                category.parent.insert(self)
+            }
+            let category = Category(name: tag, context: context)
+            category.parent.insert(self)
+        }
     }
     
     func fetchImage(index: Int, completion: (error: Bool, image: UIImage)->Void){

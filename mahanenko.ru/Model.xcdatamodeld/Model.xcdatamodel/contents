@@ -14,6 +14,10 @@
         <relationship name="image" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="bookInverse" inverseEntity="Image" syncable="YES"/>
         <relationship name="image3d" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="book3dInverse" inverseEntity="Image" syncable="YES"/>
     </entity>
+    <entity name="Category" representedClassName=".Category" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="parent" toMany="YES" deletionRule="Nullify" destinationEntity="News" inverseName="category" inverseEntity="News" syncable="YES"/>
+    </entity>
     <entity name="Image" representedClassName=".Image" syncable="YES">
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="book3dInverse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Book" inverseName="image3d" inverseEntity="Book" syncable="YES"/>
@@ -22,17 +26,18 @@
         <relationship name="newsPreviewInverse" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="News" inverseName="previewImage" inverseEntity="News" syncable="YES"/>
     </entity>
     <entity name="News" representedClassName=".News" syncable="YES">
-        <attribute name="category" attributeType="Transformable" syncable="YES"/>
         <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="id" attributeType="String" syncable="YES"/>
         <attribute name="isFull" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="summaryHTML" attributeType="String" syncable="YES"/>
         <attribute name="textHTML" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="category" toMany="YES" deletionRule="Nullify" destinationEntity="Category" inverseName="parent" inverseEntity="Category" syncable="YES"/>
         <relationship name="images" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Image" inverseName="newsInverse" inverseEntity="Image" syncable="YES"/>
         <relationship name="previewImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Image" inverseName="newsPreviewInverse" inverseEntity="Image" syncable="YES"/>
     </entity>
     <elements>
         <element name="Book" positionX="439" positionY="-207" width="128" height="225"/>
+        <element name="Category" positionX="81" positionY="-54" width="128" height="75"/>
         <element name="Image" positionX="142" positionY="36" width="128" height="120"/>
         <element name="News" positionX="-128" positionY="-9" width="128" height="165"/>
     </elements>

@@ -11,17 +11,16 @@ import CoreData
 
 class Category: NSManagedObject {
     @NSManaged var name: String
+    @NSManaged var parent: Set<News>
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
     }
     
     init(name: String, context: NSManagedObjectContext){
-        print("category init...")
         let entity =  NSEntityDescription.entityForName("Category", inManagedObjectContext: context)!
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
         self.name = name
-        print("category done!")
     }
 }

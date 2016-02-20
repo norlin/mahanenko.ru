@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetchedResultsControllerDelegate {
+class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var log:Log { return Log(id: "ItemsListViewController") }
     let sizer = Sizer.sharedInstance()
     let api = SiteAPI.sharedInstance()
-    private var filterDelegate: ItemsFilterDelegate!
+    internal var filterDelegate: ItemsFilter!
     
     var ROW_HEIGHT:CGFloat { return 40 }
     var IMAGE_HEIGHT:CGFloat { return 184 }
@@ -21,33 +21,35 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
     var detailItem: MenuItem? {
         didSet {
             // Update the view.
-            self.configureView()
+            configureView()
         }
     }
     
     var loader: Loader!
     
+    func setFilterDelegate(){
+        filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
+    
     internal func configureView(){
         log.notice("configureView")
         
         if filterDelegate == nil {
-            filterDelegate = ItemsFilter(onSetFilter: onSetFilter)
+            setFilterDelegate()
             filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
         }
         
         if loader == nil {
             loader = Loader(activityIndicatorStyle: .WhiteLarge)
-            loader.center = self.view.center
-            self.view.addSubview(loader)
+            loader.center = view.center
+            view.addSubview(loader)
         }
             
-        self.navigationItem.rightBarButtonItem = filterButton
+        navigationItem.rightBarButtonItem = filterButton
     }
 
-    var items: [FilterableItem]?
-    
+    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
-    var selected: [FilterableItem]!
 
     override func viewDidLoad() {
         log.notice("viewDidLoad")
@@ -62,13 +64,12 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = ROW_HEIGHT + imageHeight
         
-        self.view.bringSubviewToFront(loader)
-        self.loader.startAnimating()
+        view.bringSubviewToFront(loader)
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items == nil || items!.isEmpty) {
+        if (items.isEmpty) {
             refresh(self)
         }
     }
@@ -78,50 +79,40 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol, NSFetc
     }
     
     func updateFilter(){
-        self.filterDelegate.items = items
-        self.filterDelegate.updateFilter()
+        filterDelegate.updateFilter()
     }
     
-    func setFilter(type: String?){
-        self.filterDelegate.setFilter(type)
+    func setFilter(type: String?, needReload: Bool){
+        filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
-    func onSetFilter(selected: [FilterableItem], type: String) {
-        self.selected = selected
-        self.filterButton.title = type
-        
+    func finishUpdate() {
+        loader.stopAnimating()
+        tableView.scrollEnabled = true
+        if let refreshControl = (tableView as? RefreshTableView)?.refreshControl {
+            refreshControl.endRefreshing()
+        }
         let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        tableView.reloadData()
         if tableView.numberOfSections > 0 {
             tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
         }
     }
     
-    // CoreData
-    var entityName: String { return "" }
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance().managedObjectContext
-    }
-    
-    lazy var fetchedResultsController: NSFetchedResultsController = {
-        if (self.entityName=="") {
-            self.log.critical("fetchedResultsController: no entity name!")
+    func onSetFilter(type: String, needReload: Bool) {
+        filterButton.title = type
+        
+        if (needReload) {
+            tableView.reloadData()
+            finishUpdate()
         }
-        let fetchRequest = NSFetchRequest(entityName: self.entityName)
+    }
         
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "date", ascending: false)]
-        
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest,
-            managedObjectContext: self.sharedContext,
-            sectionNameKeyPath: nil,
-            cacheName: nil)
-        
-        return fetchedResultsController
-    }()
-
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.warning("onDataChanged is not defined!")
+    }
  
 }

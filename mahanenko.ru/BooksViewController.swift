@@ -13,7 +13,9 @@ import CoreData
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
     
-    override var entityName: String { return "Book" }
+    override func setFilterDelegate(){
+        filterDelegate = BookFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
+    }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
@@ -26,7 +28,7 @@ class BooksViewController: ItemsCollectionViewController {
             if let selectedBooks = collectionView.indexPathsForSelectedItems() {
                 let selectedItem = selectedBooks[0]
                 let item = selectedItem.item
-                detailController.book = (selected as! [Book])[item]
+                detailController.book = (items as! [Book])[item]
             }
         }
     }
@@ -34,7 +36,7 @@ class BooksViewController: ItemsCollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BookCell", forIndexPath: indexPath) as! BookCellView
         
-        let item = selected[indexPath.row] as! Book
+        let item = items[indexPath.row] as! Book
         cell.configure(item)
         
         return cell
@@ -52,57 +54,34 @@ class BooksViewController: ItemsCollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let viewWidth = collectionView.contentSize.width
+        let viewWidth = collectionView.frame.size.width
         let cellSize = viewWidth / 2
         
-        let textHeight = getTextHeight(selected[indexPath.row], width: cellSize)
+        let textHeight = getTextHeight(items[indexPath.row], width: cellSize)
         
         return CGSize(width: cellSize, height: cellSize+textHeight)
     }
     
-    func update(force: Bool = false, completion:()->Void) {
+    func update(force: Bool = false) {
         log.notice("update")
-        self.loader.startAnimating()
-        if (!force && (self.items == nil || self.items!.isEmpty)) {
-            do {
-                try fetchedResultsController.performFetch()
-            } catch {}
-            
-            fetchedResultsController.delegate = self
-            if let items = fetchedResultsController.sections?[0].objects as? [Book] {
-                self.items = items
-            }
-        }
 
-        if (force || self.items == nil || self.items!.isEmpty) {
+        if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
+            
             api.getBooksList(){result, error in
-                self.items = result
-                CoreDataStackManager.sharedInstance().saveContext()
-                
-                dispatch_async(dispatch_get_main_queue()){
-                    self.updateFilter()
-                    self.setFilter(nil)
-                    self.loader.stopAnimating()
-                    completion()
+                self.sharedContext.performBlock(){
+                    CoreDataStackManager.sharedInstance().saveContext()
                 }
             }
         } else {
             log.debug("update: use stored items")
-            
-            self.updateFilter()
-            self.setFilter(nil)
-            self.loader.stopAnimating()
-            completion()
         }
 
     }
 
     func pullRefresh(sender: UIRefreshControl) {
-        log.notice("refresh")
-        update(true){
-            sender.endRefreshing()
-        }
+        log.notice("pullRefresh")
+        update(true)
     }
     
     override func refresh(sender: AnyObject) {
@@ -111,6 +90,49 @@ class BooksViewController: ItemsCollectionViewController {
             return pullRefresh(refreshControl)
         }
         
-        update(){}
+        self.loader.startAnimating()
+        update()
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.notice("onDataChanged")
+
+        if (inserted.isEmpty && deleted.isEmpty && updated.isEmpty && moved.isEmpty) {
+            self.finishUpdate()
+            return
+        }
+        
+        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
+
+        setFilter(nil, needReload: false)
+        updateFilter()
+        
+        if let collection = self.collectionView {
+            self.collectionView?.performBatchUpdates({
+                if (deleted.count > 0) {
+                    collection.deleteItemsAtIndexPaths(deleted)
+                }
+            
+                if (inserted.count > 0) {
+                    collection.insertItemsAtIndexPaths(inserted)
+                }
+                
+                if (updated.count > 0) {
+                    collection.reloadItemsAtIndexPaths(updated)
+                }
+                
+                if (moved.count > 0) {
+                    for move in moved {
+                        collection.moveItemAtIndexPath(move[0], toIndexPath: move[1])
+                    }
+                }
+            }){done in
+                self.finishUpdate()
+            }
+        }
     }
 }
