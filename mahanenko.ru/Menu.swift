@@ -50,31 +50,31 @@ class Menu {
         list = [
             MenuSection(title: NSLocalizedString("", comment: ""), items: [
                 MenuItem(
-                    title: NSLocalizedString("menu.item.news", comment: "menu item – News"),
+                    title: NSLocalizedString("News", comment: "menu item – News"),
                     controller: "NewsViewController",
                     icon: nil,
                     instance: nil),
                 MenuItem(
-                    title: NSLocalizedString("menu.item.books", comment: "menu item – Books"),
+                    title: NSLocalizedString("Books", comment: "menu item – Books"),
                     controller: "BooksViewController",
                     icon: nil,
                     instance: nil),
                 MenuItem(
-                    title: NSLocalizedString("menu.item.about", comment: "menu item – About author"),
+                    title: NSLocalizedString("About Bio", comment: "menu item – About author"),
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil)
             ]),
-            /*MenuSection(title: NSLocalizedString("menu.section.user", comment: "menu section – User"), items: [
+            /*MenuSection(title: NSLocalizedString("User", comment: "menu section – User"), items: [
                 MenuItem(
-                    title: NSLocalizedString("menu.item.login", comment: "menu item – Login"),
+                    title: NSLocalizedString("Login", comment: "menu item – Login"),
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil)
             ]),*/
             MenuSection(title: NSLocalizedString("", comment: ""), items: [
                 MenuItem(
-                    title: NSLocalizedString("menu.item.info", comment: "menu item – Info"),
+                    title: NSLocalizedString("About", comment: "menu item – Info"),
                     controller: "DetailViewController",
                     icon: nil,
                     instance: nil)

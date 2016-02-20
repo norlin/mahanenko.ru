@@ -1,0 +1,65 @@
+/* Class = "UILabel"; text = "Version: 0\nBuild: 123456"; ObjectID = "0XM-y9-sOw"; */
+"0XM-y9-sOw.text" = "Version: 0
+Build: 123456";
+
+/* Class = "UILabel"; text = "Book Seria"; ObjectID = "5af-64-nlo"; */
+"5af-64-nlo.text" = "Серия";
+
+/* Class = "UITableViewController"; title = "Master"; ObjectID = "7bK-jq-Zjz"; */
+"7bK-jq-Zjz.title" = "Меню";
+
+/* Class = "UITextView"; text = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "; ObjectID = "8Ul-L4-Res"; */
+"8Ul-L4-Res.text" = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ";
+
+/* Class = "UILabel"; text = "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!\n\nP.S.: Встречаем новую обложку! Как Вам?"; ObjectID = "58O-Vf-VcP"; */
+"58O-Vf-VcP.text" = "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?";
+
+/* Class = "UITextView"; text = "Book Description"; ObjectID = "60D-vJ-JWi"; */
+"60D-vJ-JWi.text" = "Описание";
+
+/* Class = "UILabel"; text = "Date"; ObjectID = "85f-aY-ROF"; */
+"85f-aY-ROF.text" = "Дата";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Arm-wq-HPj"; */
+"Arm-wq-HPj.text" = "Заголовок";
+
+/* Class = "UILabel"; text = "Load more news"; ObjectID = "CCi-do-s8Z"; */
+"CCi-do-s8Z.text" = "Ошибка: попробуйте обновить новости";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "DTx-Mw-D9M"; */
+"DTx-Mw-D9M.text" = "Label";
+
+/* Class = "UIViewController"; title = "Detail"; ObjectID = "JEX-9P-axG"; */
+"JEX-9P-axG.title" = "Detail";
+
+/* Class = "UILabel"; text = "Seria"; ObjectID = "Keg-zE-1Vo"; */
+"Keg-zE-1Vo.text" = "Серия";
+
+/* Class = "UINavigationController"; title = "Master"; ObjectID = "RMx-3f-FxP"; */
+"RMx-3f-FxP.title" = "Меню";
+
+/* Class = "UITableViewController"; title = "News"; ObjectID = "Ucw-9X-O6F"; */
+"Ucw-9X-O6F.title" = "Новости";
+
+/* Class = "UILabel"; text = "14 Янв в 16:52"; ObjectID = "WnX-Sj-J2i"; */
+"WnX-Sj-J2i.text" = "14 Янв в 16:52";
+
+/* Class = "UILabel"; text = "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!\n\nP.S.: Встречаем новую обложку! Как Вам?"; ObjectID = "Ya3-m0-9s9"; */
+"Ya3-m0-9s9.text" = "В марте выходит переиздание 1-й книги Пути Шамана в серии ЛитRPG. Теперь вы сможете собрать фул сет в одном стиле!
+
+P.S.: Встречаем новую обложку! Как Вам?";
+
+/* Class = "UINavigationItem"; title = "Menu"; ObjectID = "Zdf-7t-Un8"; */
+"Zdf-7t-Un8.title" = "Меню";
+
+/* Class = "UINavigationItem"; title = "About"; ObjectID = "mOI-FS-AaM"; */
+"mOI-FS-AaM.title" = "О программе";
+
+/* Class = "UILabel"; text = "14 Янв в 16:52"; ObjectID = "mqD-SJ-Ek2"; */
+"mqD-SJ-Ek2.text" = "14 Янв в 16:52";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "pWG-OT-ACf"; */
+"pWG-OT-ACf.text" = "Label";
+

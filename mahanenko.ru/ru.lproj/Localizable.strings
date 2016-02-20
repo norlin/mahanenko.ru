@@ -1,0 +1,18 @@
+/* menu item – Info */
+"About" = "О программе";
+
+/* menu item – About author */
+"About Bio" = "Об авторе";
+
+/* menu item – Books */
+"Books" = "Книги";
+
+/* menu item – Login */
+"Login" = "Войти";
+
+/* menu item – News */
+"News" = "Новости";
+
+/* menu section – User */
+"User" = "Пользователь";
+
