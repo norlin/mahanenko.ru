@@ -33,7 +33,7 @@ class Log {
         .Debug: "❔"
     ]
     
-    let verbose = Level.Debug
+    let verbose = Level.Warning
     let id:String
     
     init(id: String){
@@ -55,8 +55,8 @@ class Log {
         }
         
         let icon = levelIcon[level]!
-        
-        print("\(icon)\(id): \(msg)")
+        let log = "\(icon)\(id): \(msg)"
+        NSLog(log)
     }
 
 }

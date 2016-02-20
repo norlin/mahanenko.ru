@@ -144,8 +144,6 @@ class BooksViewController: ItemsCollectionViewController {
             self.finishUpdate()
             return
         }
-        
-        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
 
         setFilter(nil, needReload: false)
         updateFilter()

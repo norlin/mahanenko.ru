@@ -48,13 +48,11 @@ class NewsViewController: ItemsListViewController {
             
             if (!wideIphone && (horizontalClass == .Regular || verticalClass == .Compact)) {
                 let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.contentSize.width * 0.3).height
-                print("compact: \(imageHeight)")
                 let maxHeight = max(textHeight, imageHeight)
                 return ROW_HEIGHT + maxHeight
             } else {
                 if news.previewImage != nil {
                     let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.contentSize.width).height
-                    print("normal: \(imageHeight)")
                     return ROW_HEIGHT + imageHeight + textHeight
                 }
                 return ROW_HEIGHT + textHeight
@@ -83,8 +81,6 @@ class NewsViewController: ItemsListViewController {
         
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
-            
-            //filterDelegate.clear()
             
             api.getNewsList(){result, error in
                 self.log.debug("update: done")
@@ -121,9 +117,7 @@ class NewsViewController: ItemsListViewController {
     }
     
     override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
-        log.notice("onDataChanged")
-        
-        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
+        log.debug("onDataChanged")
 
         if (inserted.count == 0 && deleted.count == 0) {
             finishUpdate()

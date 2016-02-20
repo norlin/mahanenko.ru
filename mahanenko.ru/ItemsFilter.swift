@@ -196,7 +196,6 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        log.debug("controllerDidChangeContent")
         dispatch_async(dispatch_get_main_queue()){
             self.onDataChanged(inserted: self.insertedItems, deleted: self.deletedItems, updated: self.updatedItems, moved: self.movedItems)
             self.insertedItems.removeAll()
