@@ -21,7 +21,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var detailItem: MenuItem? {
         didSet {
             // Update the view.
-            self.configureView()
+            configureView()
         }
     }
     
@@ -41,11 +41,11 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         
         if loader == nil {
             loader = Loader(activityIndicatorStyle: .WhiteLarge)
-            loader.center = self.view.center
-            self.view.addSubview(loader)
+            loader.center = view.center
+            view.addSubview(loader)
         }
             
-        self.navigationItem.rightBarButtonItem = filterButton
+        navigationItem.rightBarButtonItem = filterButton
     }
 
     var items: [FilterableItem] { return filterDelegate.items }
@@ -64,7 +64,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         let imageHeight = sizer.getScale(CGSize(width: 326, height: 184), byWidth: tableView.frame.width).height
         tableView.rowHeight = ROW_HEIGHT + imageHeight
         
-        self.view.bringSubviewToFront(loader)
+        view.bringSubviewToFront(loader)
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -79,22 +79,35 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     }
     
     func updateFilter(){
-        self.filterDelegate.updateFilter()
+        filterDelegate.updateFilter()
     }
     
     func setFilter(type: String?, needReload: Bool){
-        self.filterDelegate.setFilter(type, needReload: needReload)
+        filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
+    func finishUpdate() {
+        loader.stopAnimating()
+        tableView.scrollEnabled = true
+        if let refreshControl = (tableView as? RefreshTableView)?.refreshControl {
+            refreshControl.endRefreshing()
+        }
+        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        if tableView.numberOfSections > 0 {
+            tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+        }
+    }
+    
     func onSetFilter(type: String, needReload: Bool) {
-        self.filterButton.title = type
+        filterButton.title = type
         
         if (needReload) {
-            self.tableView.reloadData()
+            tableView.reloadData()
+            finishUpdate()
         }
     }
         

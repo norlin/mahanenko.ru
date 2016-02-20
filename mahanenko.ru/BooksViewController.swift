@@ -102,17 +102,14 @@ class BooksViewController: ItemsCollectionViewController {
         log.notice("onDataChanged")
 
         if (inserted.isEmpty && deleted.isEmpty && updated.isEmpty && moved.isEmpty) {
-            if let refreshControl = (self.collectionView as? RefreshCollectionView)?.refreshControl {
-                refreshControl.endRefreshing()
-            }
-            self.loader.stopAnimating()
+            self.finishUpdate()
             return
         }
         
         print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
 
-        self.setFilter(nil, needReload: false)
-        self.updateFilter()
+        setFilter(nil, needReload: false)
+        updateFilter()
         
         if let collection = self.collectionView {
             self.collectionView?.performBatchUpdates({
@@ -134,10 +131,7 @@ class BooksViewController: ItemsCollectionViewController {
                     }
                 }
             }){done in
-                if let refreshControl = (self.collectionView as? RefreshCollectionView)?.refreshControl {
-                    refreshControl.endRefreshing()
-                }
-                self.loader.stopAnimating()
+                self.finishUpdate()
             }
         }
     }

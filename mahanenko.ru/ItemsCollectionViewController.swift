@@ -17,7 +17,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     var detailItem: MenuItem? {
         didSet {
             // Update the view.
-            self.configureView()
+            configureView()
         }
     }
     
@@ -35,11 +35,11 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         
         if loader == nil {
             loader = Loader(activityIndicatorStyle: .WhiteLarge)
-            loader.center = self.view.center
+            loader.center = view.center
             self.view.addSubview(loader)
         }
             
-        self.navigationItem.rightBarButtonItem = filterButton
+        navigationItem.rightBarButtonItem = filterButton
     }
 
     var items: [FilterableItem] { return filterDelegate.items }
@@ -83,19 +83,31 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     
     func setFilter(type: String?, needReload: Bool){
         log.notice("setFilter")
-        self.filterDelegate.setFilter(type, needReload: needReload)
+        filterDelegate.setFilter(type, needReload: needReload)
     }
     
     func showFilter(sender: AnyObject){
         filterDelegate.showFilter(self, sender: sender)
     }
     
+    func finishUpdate(){
+        if let refreshControl = (collectionView as? RefreshCollectionView)?.refreshControl {
+            refreshControl.endRefreshing()
+        }
+        loader.stopAnimating()
+        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        if collectionView?.numberOfItemsInSection(0) > 0 {
+            collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+        }
+    }
+    
     func onSetFilter(type: String, needReload: Bool) {
         log.notice("onSetFilter")
-        self.filterButton.title = type
+        filterButton.title = type
         
         if (needReload) {
             collectionView?.reloadData()
+            finishUpdate()
         }
     }
     

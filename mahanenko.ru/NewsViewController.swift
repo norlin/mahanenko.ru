@@ -107,36 +107,33 @@ class NewsViewController: ItemsListViewController {
     override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
         log.notice("onDataChanged")
         
-        self.loader.stopAnimating()
-        self.tableView.scrollEnabled = true
-        
         print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
 
         if (inserted.count == 0 && deleted.count == 0) {
+            finishUpdate()
             return
         }
         
-        self.setFilter(nil, needReload: false)
-        self.updateFilter()
+        setFilter(nil, needReload: false)
+        updateFilter()
         
-        self.tableView.beginUpdates()
+        tableView.beginUpdates()
         
-        let deletedRows:[NSIndexPath] = deleted.map { return NSIndexPath(forRow: 0, inSection: $0.item) }
+        let deletedRows:[NSIndexPath] = deleted.map {
+            self.tableView.deleteSections(NSIndexSet(index: $0.item), withRowAnimation: .None)
+            return NSIndexPath(forRow: 0, inSection: $0.item)
+        }
+        
         self.tableView.deleteRowsAtIndexPaths(deletedRows, withRowAnimation: .None)
         
-        let insertedRows:[NSIndexPath] = inserted.map { return NSIndexPath(forRow: 0, inSection: $0.item) }
-        self.tableView.insertRowsAtIndexPaths(insertedRows, withRowAnimation: .None)
-        
-        self.tableView.endUpdates()
-        
-        if let refreshControl = (self.tableView as? RefreshTableView)?.refreshControl {
-            refreshControl.endRefreshing()
+        let insertedRows:[NSIndexPath] = inserted.map {
+            self.tableView.insertSections(NSIndexSet(index: $0.item), withRowAnimation: .None)
+            return NSIndexPath(forRow: 0, inSection: $0.item)
         }
-        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        if self.tableView.numberOfSections > 0 {
-            self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }
-
+        tableView.insertRowsAtIndexPaths(insertedRows, withRowAnimation: .None)
+        
+        tableView.endUpdates()
+        finishUpdate()
     }
 }
 
