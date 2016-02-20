@@ -44,16 +44,11 @@ class MenuItem {
 
 class Menu {
     var list: [MenuSection]
-    let defaultIndex = NSIndexPath(forRow: 2, inSection: 0)
+    let defaultIndex = NSIndexPath(forRow: 0, inSection: 0)
     
     init(){
         list = [
             MenuSection(title: NSLocalizedString("", comment: ""), items: [
-                MenuItem(
-                    title: NSLocalizedString("menu.item.about", comment: "menu item – About author"),
-                    controller: "DetailViewController",
-                    icon: nil,
-                    instance: nil),
                 MenuItem(
                     title: NSLocalizedString("menu.item.news", comment: "menu item – News"),
                     controller: "NewsViewController",
@@ -62,6 +57,11 @@ class Menu {
                 MenuItem(
                     title: NSLocalizedString("menu.item.books", comment: "menu item – Books"),
                     controller: "BooksViewController",
+                    icon: nil,
+                    instance: nil),
+                MenuItem(
+                    title: NSLocalizedString("menu.item.about", comment: "menu item – About author"),
+                    controller: "DetailViewController",
                     icon: nil,
                     instance: nil)
             ]),

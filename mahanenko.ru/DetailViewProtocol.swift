@@ -7,7 +7,5 @@
 //
 
 protocol DetailViewProtocol {
-    var detailItem: MenuItem? { get set }
-    
     func configureView() -> Void
 }

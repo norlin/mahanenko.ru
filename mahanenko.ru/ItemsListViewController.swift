@@ -18,13 +18,6 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     var ROW_HEIGHT:CGFloat { return 40 }
     var IMAGE_HEIGHT:CGFloat { return 184 }
     
-    var detailItem: MenuItem? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-    
     var loader: Loader!
     
     func setFilterDelegate(){
@@ -54,7 +47,8 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     override func viewDidLoad() {
         log.notice("viewDidLoad")
         super.viewDidLoad()
-        
+        self.configureView()
+
         if let table = tableView as? RefreshTableView {
             if let refreshControl = table.refreshControl {
                 refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)

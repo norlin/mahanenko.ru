@@ -12,10 +12,6 @@ class DetailViewController: UIViewController, DetailViewProtocol {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
-    var detailItem: MenuItem? {
-        didSet {}
-    }
-
     func configureView() -> Void {
         let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
         let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String

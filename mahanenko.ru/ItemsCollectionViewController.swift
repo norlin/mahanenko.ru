@@ -14,13 +14,6 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     let api = SiteAPI.sharedInstance()
     internal var filterDelegate: ItemsFilter!
     
-    var detailItem: MenuItem? {
-        didSet {
-            // Update the view.
-            configureView()
-        }
-    }
-    
     func setFilterDelegate(){
         filterDelegate = ItemsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
@@ -50,6 +43,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     override func viewDidLoad() {
         log.notice("viewDidLoad")
         super.viewDidLoad()
+        self.configureView()
         
         let flowLayout = ItemsCollectionFlowLayout()
         flowLayout.minimumInteritemSpacing = 0

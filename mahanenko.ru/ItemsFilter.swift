@@ -60,6 +60,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         }
         
         filterOptions = UIAlertController(title: "Select item category", message: "", preferredStyle: .ActionSheet)
+        filterOptions?.modalPresentationStyle = .Popover
         var types = Set<String>()
         for item in items {
             types.unionInPlace(item.types)
@@ -110,7 +111,13 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         guard let filter = filterOptions else {
             return
         }
-        
+
+        let presenter = filterOptions?.popoverPresentationController
+        if let barButton = sender as? UIBarButtonItem {
+            presenter?.barButtonItem = barButton
+        } else {
+            presenter?.sourceView = vc.view
+        }
         vc.presentViewController(filter, animated: true, completion: nil)
     }
     
