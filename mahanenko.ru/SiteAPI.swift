@@ -159,6 +159,7 @@ class SiteAPI: HTTP {
                 if let list = result as? [[String: AnyObject]] {
                     self.log.debug("getNewsList: parsing results")
                     self.sharedContext.performBlock(){
+                        self.sharedContext
                         for (item) in list {
                             if let newsItem = self.parseNewsItem(item) {
                                 news.append(newsItem)
@@ -231,13 +232,8 @@ class SiteAPI: HTTP {
         let images = item[Keys.Image] as? [String]
         let category = item[Keys.Category] as? [String]
         
-        if let news = CoreDataStackManager.sharedInstance().fetchItem("News", id: id) as? News {
-            news.summaryHTML = summaryHTML
-            news.date = date
-            if let category = category {
-                news.category = category
-            }
-            return news
+        if let news = CoreDataStackManager.sharedInstance().fetchItem("News", predicate: NSPredicate(format: "id == %@", id)) {
+            sharedContext.deleteObject(news)
         }
         
         return News(id: id, summary: summaryHTML, images: images, date: date, category: category==nil ? [] : category!, context: self.sharedContext)
@@ -358,7 +354,7 @@ class SiteAPI: HTTP {
         let seria = item[Keys.Seria] as? String
         let state = item[Keys.State] as? String
         
-        if let book = CoreDataStackManager.sharedInstance().fetchItem("Book", id: id) as? Book {
+        if let book = CoreDataStackManager.sharedInstance().fetchItem("Book", predicate: NSPredicate(format: "id == %@", id)) as? Book {
             book.title = title
             book.summaryHTML = descriptionHTML
             if let seria = seria {

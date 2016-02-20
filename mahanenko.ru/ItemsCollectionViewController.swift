@@ -94,14 +94,14 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         log.notice("onSetFilter")
         self.filterButton.title = type
         
-        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        /*let firstRow = NSIndexPath(forRow: 0, inSection: 0)
         collectionView?.reloadData()
         if collectionView?.numberOfItemsInSection(0) > 0 {
             collectionView?.scrollToItemAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }
+        }*/
     }
     
-    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
         log.warning("onDataChanged is not defined!")
     }
  

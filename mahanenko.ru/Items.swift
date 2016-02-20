@@ -14,5 +14,5 @@ class FilterableItem: NSManagedObject {
         return true
     }
     
-    var types: [String] { return [] }
+    var types:[String] { return [] }
 }

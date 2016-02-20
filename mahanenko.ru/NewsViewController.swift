@@ -65,40 +65,29 @@ class NewsViewController: ItemsListViewController {
         return tableView.dequeueReusableCellWithIdentifier("MoreCell", forIndexPath: indexPath)
     }
     
-    func update(force: Bool = false, completion:()->Void) {
+    func update(force: Bool = false) {
         log.notice("update")
         loader.startAnimating()
         
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
+            
+            //filterDelegate.clear()
+            
             api.getNewsList(){result, error in
                 self.log.debug("update: done")
                 
                 self.sharedContext.performBlock(){
                     CoreDataStackManager.sharedInstance().saveContext()
                 }
-                self.setFilter(nil)
-                self.updateFilter()
-                completion()
-                dispatch_async(dispatch_get_main_queue()){
-                    self.loader.stopAnimating()
-                }
             }
         } else {
             log.debug("update: use stored items")
-            self.setFilter(nil)
-            self.updateFilter()
-            self.loader.stopAnimating()
-            completion()
         }
     }
     
     func pullRefresh(sender: UIRefreshControl){
-        update(true){
-            dispatch_async(dispatch_get_main_queue()){
-                sender.endRefreshing()
-            }
-        }
+        update(true)
     }
     
     override func refresh(sender: AnyObject) {
@@ -108,13 +97,46 @@ class NewsViewController: ItemsListViewController {
         }
         
         tableView.scrollEnabled = false
-        update(){
-            self.tableView.scrollEnabled = true
-        }
+        update()
     }
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.notice("onDataChanged")
+        
+        self.loader.stopAnimating()
+        self.tableView.scrollEnabled = true
+        
+        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
+
+        if (inserted.count == 0 && deleted.count == 0) {
+            return
+        }
+        
+        self.setFilter(nil)
+        self.updateFilter()
+        
+        self.tableView.beginUpdates()
+        
+        let deletedRows:[NSIndexPath] = deleted.map { return NSIndexPath(forRow: 0, inSection: $0.item) }
+        self.tableView.deleteRowsAtIndexPaths(deletedRows, withRowAnimation: .None)
+        
+        let insertedRows:[NSIndexPath] = inserted.map { return NSIndexPath(forRow: 0, inSection: $0.item) }
+        self.tableView.insertRowsAtIndexPaths(insertedRows, withRowAnimation: .None)
+        
+        self.tableView.endUpdates()
+        
+        if let refreshControl = (self.tableView as? RefreshTableView)?.refreshControl {
+            refreshControl.endRefreshing()
+        }
+        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
+        if self.tableView.numberOfSections > 0 {
+            self.tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
+        }
+
     }
 }
 

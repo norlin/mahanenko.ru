@@ -28,7 +28,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
     
     var entityName: String { return "" }
     
-    init(onSetFilter: (type: String)->Void, onDataChanged: (inserted: [NSIndexPath], deleted: [NSIndexPath])->Void){
+    init(onSetFilter: (type: String)->Void, onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)){
         super.init()
         self.onSetFilter = onSetFilter
         self.onDataChanged = onDataChanged
@@ -122,11 +122,30 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         filter.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // Helpers
+    
+    func clear(){
+        sharedContext.performBlockAndWait(){
+            self.fetchedResultsController.fetchRequest.predicate = nil
+            do {
+                try self.fetchedResultsController.performFetch()
+            } catch {}
+            
+            if let objects = self.fetchedResultsController.fetchedObjects as? [NSManagedObject] {
+                for object in objects {
+                    self.sharedContext.deleteObject(object)
+                }
+            }
+        }
+    }
+    
     // CoreData
     var insertedItems = [NSIndexPath]()
     var deletedItems = [NSIndexPath]()
+    var updatedItems = [NSIndexPath]()
+    var movedItems = [[NSIndexPath]]()
     
-    var onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath])->Void)!
+    var onDataChanged: ((inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]])->Void)!
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance().managedObjectContext
@@ -154,46 +173,29 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         forChangeType type: NSFetchedResultsChangeType,
         newIndexPath: NSIndexPath?) {
         
-            log.debug("didChangeObject")
             if let _ = anObject as? FilterableItem {
                 switch type {
                 case .Insert:
                     insertedItems.append(newIndexPath!)
                 case .Delete:
                     deletedItems.append(indexPath!)
-                default:
-                    break
+                case .Update:
+                    updatedItems.append(indexPath!)
+                case .Move:
+                    movedItems.append([indexPath!, newIndexPath!])
                 }
-                log.debug("didChangeObject: done")
                 return
             }
-            log.debug("didChangeObject: missed")
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
         log.debug("controllerDidChangeContent")
         dispatch_async(dispatch_get_main_queue()){
-            self.onDataChanged(inserted: self.insertedItems, deleted: self.deletedItems)
+            self.onDataChanged(inserted: self.insertedItems, deleted: self.deletedItems, updated: self.updatedItems, moved: self.movedItems)
             self.insertedItems.removeAll()
             self.deletedItems.removeAll()
-            /*self.photosView.performBatchUpdates({
-                if (self.deletedItems.count > 0) {
-                    self.photosView.deleteItemsAtIndexPaths(self.deletedItems)
-                    self.deletedItems.removeAll()
-                    self.deleteLabel.hidden = true
-                }
-            
-                if (self.insertedItems.count > 0) {
-                    self.photosView.insertItemsAtIndexPaths(self.insertedItems)
-                    self.insertedItems.removeAll()
-                }
-                
-                if (self.fetchedResultsController.fetchedObjects?.count > 0) {
-                    self.noPhotosHint.hidden = true
-                } else if self.loadintHint.hidden {
-                        self.noPhotosHint.hidden = false
-                }
-            }){done in}*/
+            self.updatedItems.removeAll()
+            self.movedItems.removeAll()
         }
         
         

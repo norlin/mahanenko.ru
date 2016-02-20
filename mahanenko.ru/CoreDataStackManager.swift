@@ -85,9 +85,9 @@ class CoreDataStackManager {
         return managedObjectContext
     }()
     
-    func fetchItem(name: String, id: String) -> NSManagedObject? {
+    func fetchItem(name: String, predicate: NSPredicate) -> NSManagedObject? {
         let fetchRequest = NSFetchRequest(entityName: name)
-        fetchRequest.predicate = NSPredicate(format: "id == %@", id)
+        fetchRequest.predicate = predicate
         
         do {
             let results = try self.managedObjectContext.executeFetchRequest(fetchRequest)

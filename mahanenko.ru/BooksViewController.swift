@@ -62,36 +62,26 @@ class BooksViewController: ItemsCollectionViewController {
         return CGSize(width: cellSize, height: cellSize+textHeight)
     }
     
-    func update(force: Bool = false, completion:()->Void) {
+    func update(force: Bool = false) {
         log.notice("update")
-        self.loader.startAnimating()
 
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
+            
             api.getBooksList(){result, error in
-                CoreDataStackManager.sharedInstance().saveContext()
-                self.setFilter(nil)
-                self.updateFilter()
-                self.loader.stopAnimating()
-                completion()
+                self.sharedContext.performBlock(){
+                    CoreDataStackManager.sharedInstance().saveContext()
+                }
             }
         } else {
             log.debug("update: use stored items")
-            self.setFilter(nil)
-            self.updateFilter()
-            self.loader.stopAnimating()
-            completion()
         }
 
     }
 
     func pullRefresh(sender: UIRefreshControl) {
         log.notice("pullRefresh")
-        update(true){
-            dispatch_async(dispatch_get_main_queue()){
-                sender.endRefreshing()
-            }
-        }
+        update(true)
     }
     
     override func refresh(sender: AnyObject) {
@@ -100,6 +90,55 @@ class BooksViewController: ItemsCollectionViewController {
             return pullRefresh(refreshControl)
         }
         
-        update(){}
+        self.loader.startAnimating()
+        update()
+    }
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    override func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
+        log.notice("onDataChanged")
+
+        if (inserted.isEmpty && deleted.isEmpty && updated.isEmpty && moved.isEmpty) {
+            if let refreshControl = (self.collectionView as? RefreshCollectionView)?.refreshControl {
+                refreshControl.endRefreshing()
+            }
+            self.loader.stopAnimating()
+            return
+        }
+        
+        print("new: \(inserted.count), deleted: \(deleted.count), upd: \(updated.count), moved: \(moved.count), ")
+
+        self.setFilter(nil)
+        self.updateFilter()
+        
+        if let collection = self.collectionView {
+            self.collectionView?.performBatchUpdates({
+                if (deleted.count > 0) {
+                    collection.deleteItemsAtIndexPaths(deleted)
+                }
+            
+                if (inserted.count > 0) {
+                    collection.insertItemsAtIndexPaths(inserted)
+                }
+                
+                if (updated.count > 0) {
+                    collection.reloadItemsAtIndexPaths(updated)
+                }
+                
+                if (moved.count > 0) {
+                    for move in moved {
+                        collection.moveItemAtIndexPath(move[0], toIndexPath: move[1])
+                    }
+                }
+            }){done in
+                if let refreshControl = (self.collectionView as? RefreshCollectionView)?.refreshControl {
+                    refreshControl.endRefreshing()
+                }
+                self.loader.stopAnimating()
+            }
+        }
     }
 }

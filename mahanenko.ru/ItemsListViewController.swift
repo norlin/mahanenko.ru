@@ -92,15 +92,9 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     
     func onSetFilter(type: String) {
         self.filterButton.title = type
-        
-        let firstRow = NSIndexPath(forRow: 0, inSection: 0)
-        tableView.reloadData()
-        if tableView.numberOfSections > 0 {
-            tableView.scrollToRowAtIndexPath(firstRow, atScrollPosition: .Top, animated: false)
-        }
     }
         
-    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath]) {
+    func onDataChanged(inserted: [NSIndexPath], deleted: [NSIndexPath], updated: [NSIndexPath], moved: [[NSIndexPath]]) {
         log.warning("onDataChanged is not defined!")
     }
  
