@@ -33,7 +33,7 @@ class NewsViewController: ItemsListViewController {
     func getTextHeight(item: FilterableItem) -> CGFloat {
         let text = UITextView()
         let news = item as! News
-        text.attributedText = news.summary.attributedStringWith(Constants.TEXT_FONT)
+        text.attributedText = news.getSummary().attributedStringWith(Constants.TEXT_FONT)
         let sizeThatFits = text.sizeThatFits(CGSize(width: tableView.contentSize.width, height: 500))
         return sizeThatFits.height
     }
@@ -124,9 +124,6 @@ class NewsViewController: ItemsListViewController {
             return
         }
         
-        setFilter(nil, needReload: false)
-        updateFilter()
-        
         tableView.beginUpdates()
         
         let deletedRows:[NSIndexPath] = deleted.map {
@@ -143,6 +140,8 @@ class NewsViewController: ItemsListViewController {
         tableView.insertRowsAtIndexPaths(insertedRows, withRowAnimation: .None)
         
         tableView.endUpdates()
+        
+        setFilter(nil, needReload: false)
         finishUpdate()
     }
 }

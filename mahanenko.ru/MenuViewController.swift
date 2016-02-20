@@ -53,6 +53,14 @@ class MenuViewController: UITableViewController {
         api.switchLang()
         updateLangControl()
         menu.clearAll()
+        
+        if let index = tableView.indexPathForSelectedRow {
+            let selectedItem = menu.getItem(index)
+            self.performSegueWithIdentifier("showDetail", sender: selectedItem)
+        } else {
+            self.performSegueWithIdentifier("showDetail", sender: self)
+        }
+        
     }
 
     // MARK: - Segues

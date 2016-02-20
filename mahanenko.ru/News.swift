@@ -28,7 +28,7 @@ class News: FilterableItem {
     
     @NSManaged var id: String
     @NSManaged var summaryHTML: String
-    var summary: NSAttributedString { return self.api.parseHTMLString(summaryHTML)! }
+    var summary: NSAttributedString?
     @NSManaged var textHTML: String?
     var text: NSAttributedString? {
         if let textHTML = self.textHTML {
@@ -142,6 +142,16 @@ class News: FilterableItem {
             CoreDataStackManager.sharedInstance().saveContext()
             completion(error: nil)
         }
-
+    }
+    
+    func getSummary() -> NSAttributedString {
+        if let res = self.summary {
+            return res
+        } else if let res = SiteAPI.sharedInstance().parseHTMLString(summaryHTML) {
+            summary = res
+            return res
+        } else {
+            return NSAttributedString(string: summaryHTML)
+        }
     }
 }

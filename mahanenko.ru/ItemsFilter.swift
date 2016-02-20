@@ -97,6 +97,9 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
                 self.log.error("\(error)")
             }
             self.onSetFilter(type: self.selectedType, needReload: needReload)
+            if type == nil {
+                self.updateFilter()
+            }
         }
     }
     
