@@ -12,6 +12,7 @@ Should work on any iOS device (iPhones & iPads)
 
 ### Expected common behaviour
 
++ Site does not support the `https` protocol, so all network requests are in plain `http`, unfortunately
 + In case of large screen width (iPad or large iPhone), the App's layoyt should behave as Split Screen View controller – with the Menu View on the left part
 + With the first run, the App should use English language in case if system language selected to any of "en" locales (`en`, `en-US`, `en-*`)
 + For other locales App will use Russian language
