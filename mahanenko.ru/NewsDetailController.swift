@@ -17,6 +17,7 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var loader: Loader!
+    var reloadButton: UIBarButtonItem!
     
     let imagesAspect:CGFloat = 184 / 375
     
@@ -34,6 +35,8 @@ class NewsDetailController: UIViewController {
         imagesScroll.backgroundColor = UIColor.blackColor()
         newsText.textContainerInset = view.layoutMargins
         view.bringSubviewToFront(loader)
+        
+        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
         
         self.configure()
     }
@@ -54,13 +57,13 @@ class NewsDetailController: UIViewController {
                     self.log.debug("configure: fetch done")
                     
                     dispatch_async(dispatch_get_main_queue()){
-                        self.updateNewsItem()
+                        self.updateNewsItem(error)
                         self.newsText.hidden = false
                         self.loader.stopAnimating()
                     }
                 })
             } else {
-                self.updateNewsItem()
+                self.updateNewsItem(nil)
             }
         } else {
             log.warning("No news item found!")
@@ -69,8 +72,13 @@ class NewsDetailController: UIViewController {
     
     var imageViews = [UIImageView]()
     
-    func updateNewsItem(){
+    func updateNewsItem(error: NSError?){
         log.notice("updateNewsItem")
+        if error != nil {
+            self.navigationItem.rightBarButtonItem = reloadButton
+            return
+        }
+        self.navigationItem.rightBarButtonItem = nil
         guard let news = self.news else {
             return
         }
@@ -155,8 +163,12 @@ class NewsDetailController: UIViewController {
         }
     }
     
+    func reloadDetails(sender: AnyObject) {
+        configure()
+    }
+    
     override func viewDidLayoutSubviews() {
-        updateNewsItem()
+        updateNewsItem(nil)
     }
     
     var sharedContext: NSManagedObjectContext {
