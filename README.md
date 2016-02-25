@@ -29,6 +29,7 @@ Should work on any iOS device (iPhones & iPads)
 #### Menu / Меню
 
 shows menu with 3 items
+
 1. News / Новости: opens the news list
 2. Books / Книги: opens the books list
 3. About / О программе: opens a view with app version & build number
