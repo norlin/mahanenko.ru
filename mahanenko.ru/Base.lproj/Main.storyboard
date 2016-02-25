@@ -72,9 +72,19 @@ Build: 123456</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <label key="tableHeaderView" hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jhE-WJ-IZw" userLabel="errorLabel">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="0.40342133620689657" colorSpace="calibratedWhite"/>
+                            <string key="text">Something wrong happened!
+Please try to refresh</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsCell" id="OuN-Y8-sVB" customClass="NewsCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="320" height="370"/>
+                                <rect key="frame" x="0.0" y="72" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OuN-Y8-sVB" id="A97-L8-HC3">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
@@ -210,7 +220,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="NewsCellText" id="ROU-nL-CBg" customClass="NewsCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="398" width="320" height="370"/>
+                                <rect key="frame" x="0.0" y="442" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ROU-nL-CBg" id="Pjx-u5-igU">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
@@ -318,7 +328,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="MoreCell" textLabel="CCi-do-s8Z" rowHeight="41" style="IBUITableViewCellStyleDefault" id="uxZ-bB-3iQ">
-                                <rect key="frame" x="0.0" y="768" width="320" height="41"/>
+                                <rect key="frame" x="0.0" y="812" width="320" height="41"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uxZ-bB-3iQ" id="czj-h4-1aF">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="40.5"/>
@@ -343,6 +353,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <navigationItem key="navigationItem" id="pu7-1L-OaJ"/>
                     <connections>
+                        <outlet property="errorLabel" destination="jhE-WJ-IZw" id="9TU-nH-wnO"/>
                         <outlet property="tableView" destination="Ac8-Q3-bdP" id="4yj-cy-GH0"/>
                         <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" id="Kjw-lH-kt3"/>
                     </connections>
@@ -364,6 +375,16 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
+                        <label key="backgroundView" hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oUz-Lj-MI7" userLabel="errorLabel">
+                            <rect key="frame" x="0.0" y="-64" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.40342133620689657" colorSpace="calibratedRGB"/>
+                            <string key="text">Something wrong happened!
+Please try to refresh</string>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="fOr-Lh-DaK" customClass="BookCellView" customModule="mahanenko_ru" customModuleProvider="target">
                                 <rect key="frame" x="67" y="64" width="187" height="230"/>
@@ -415,6 +436,9 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                             <outlet property="delegate" destination="iJz-4F-63O" id="eaH-jd-oeL"/>
                         </connections>
                     </collectionView>
+                    <connections>
+                        <outlet property="errorLabel" destination="oUz-Lj-MI7" id="wTW-Na-VcW"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hxL-Aj-xCC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

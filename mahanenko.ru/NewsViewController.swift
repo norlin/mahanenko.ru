@@ -11,7 +11,8 @@ import CoreData
 
 class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
-        
+    @IBOutlet weak var errorLabel: UILabel!
+    
     override var ROW_HEIGHT: CGFloat { return 40 }
     
     override func setFilterDelegate(){
@@ -78,12 +79,18 @@ class NewsViewController: ItemsListViewController {
     func update(force: Bool = false) {
         log.notice("update")
         loader.startAnimating()
+        self.errorLabel.hidden = true
         
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
             
             api.getNewsList(){result, error in
                 self.log.debug("update: done")
+                
+                if (error != nil) {
+                    self.errorLabel.hidden = false
+                    self.tableView.bringSubviewToFront(self.errorLabel)
+                }
                 
                 self.sharedContext.performBlock(){
                     CoreDataStackManager.sharedInstance().saveContext()
