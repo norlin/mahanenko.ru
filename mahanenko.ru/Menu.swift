@@ -59,11 +59,11 @@ class Menu {
                     controller: "BooksViewController",
                     icon: nil,
                     instance: nil),
-                MenuItem(
+                /*MenuItem(
                     title: NSLocalizedString("About Bio", comment: "menu item – About author"),
                     controller: "DetailViewController",
                     icon: nil,
-                    instance: nil)
+                    instance: nil)*/
             ]),
             /*MenuSection(title: NSLocalizedString("User", comment: "menu section – User"), items: [
                 MenuItem(

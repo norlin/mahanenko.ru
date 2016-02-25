@@ -16,3 +16,8 @@
 /* menu section – User */
 "User" = "Пользователь";
 
+/* Version: {version number}\nBuild: {Build number} */
+"Version: %@
+Build: %@" = "Версия: %1$@
+Билд: %2$@";
+

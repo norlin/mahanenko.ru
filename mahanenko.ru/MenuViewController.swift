@@ -18,6 +18,7 @@ class MenuViewController: UITableViewController {
     override func viewDidLoad() {
         log.notice("viewDidLoad")
         super.viewDidLoad()
+        updateLangControl()
 
         if let split = self.splitViewController {
             let controllers = split.viewControllers
@@ -26,9 +27,7 @@ class MenuViewController: UITableViewController {
         
         tableView.backgroundView?.backgroundColor = UIColor(netHex: 0xFBFBFB)
 
-        updateLangControl()
-
-        //self.performSegueWithIdentifier("showDetail", sender: self)
+        self.performSegueWithIdentifier("showDetail", sender: self)
     }
 
     override func viewWillAppear(animated: Bool) {

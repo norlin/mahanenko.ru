@@ -17,7 +17,8 @@ class DetailViewController: UIViewController, DetailViewProtocol {
     func configureView() -> Void {
         let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"] as! String
         let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"] as! String
-        detailDescriptionLabel.text = "Version: \(version)\nBuild: \(build)"
+        detailDescriptionLabel.text = String(format: NSLocalizedString("Version: %@\nBuild: %@", comment: "Version: {version number}\nBuild: {Build number}"), version, build)
+        detailDescriptionLabel.sizeToFit()
         
         ready = true
     }

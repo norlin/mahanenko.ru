@@ -37,15 +37,11 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0XM-y9-sOw">
-                                <rect key="frame" x="79" y="251" width="163" height="66"/>
+                                <rect key="frame" x="101" y="261" width="118" height="46"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="66" id="EPq-8U-ECc"/>
-                                    <constraint firstAttribute="width" constant="163" id="uiA-el-Q1r"/>
-                                </constraints>
                                 <string key="text">Version: 0
 Build: 123456</string>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
@@ -586,14 +582,14 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-N7-3al" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="142" y="254" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-N7-3al" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                <rect key="frame" x="142" y="176" width="37" height="37"/>
                                 <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
                                     <rect key="frame" x="333" y="482" width="37" height="37"/>
                                 </variation>
                             </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" misplaced="YES" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
-                                <rect key="frame" x="0.0" y="504" width="0.0" height="0.0"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
+                                <rect key="frame" x="0.0" y="347" width="320" height="157"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="HdQ-Ha-BO1" secondAttribute="height" multiplier="375:184" id="PiP-gf-JcD"/>
                                 </constraints>
@@ -606,8 +602,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <rect key="frame" x="0.0" y="960" width="0.0" height="0.0"/>
                                 </variation>
                             </scrollView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
-                                <rect key="frame" x="0.0" y="42" width="320" height="462"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
+                                <rect key="frame" x="0.0" y="42" width="320" height="305"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>

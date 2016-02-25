@@ -44,6 +44,7 @@ class NewsDetailController: UIViewController {
             newsDate.text = news.dateStringShort
             if !news.isFull {
                 newsText.hidden = true
+                loader.center = newsText.center
                 loader.startAnimating()
                 self.log.debug("configure: fetch full item")
                 news.fetchFull({ (error) -> Void in

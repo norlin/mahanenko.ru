@@ -138,7 +138,7 @@ class News: FilterableItem {
             
             self.isFull = true
             
-            print("update news item: save context")
+            self.log.debug("update news item: save context")
             CoreDataStackManager.sharedInstance().saveContext()
             completion(error: nil)
         }
