@@ -1,6 +1,6 @@
 # Mahanenko.ru
 
-The app represents the main content (news and books) from http://mahanenko.ru via REST-api
+The app represents the main content (news and books) from http://mahanenko.ru via http-api with responses in JSON format
 
 ## Build & Run
 
@@ -13,7 +13,7 @@ Should work on any iOS device (iPhones & iPads)
 ### Expected common behaviour
 
 + In case of large screen width (iPad or large iPhone), the App's layoyt should behave as Split Screen View controller – with the Menu View on the left part
-+ With the first run, the App should use English language in case if system language selected to any of "en" llocales (en, en-US, en-*, ...)
++ With the first run, the App should use English language in case if system language selected to any of "en" locales (`en`, `en-US`, `en-*`)
 + For other locales App will use Russian language
 + With the second and next runs, app will use saved language depending on Language selector in Menu View (English or Russian)
 + On start, the App shows the Menu View and then automatically switch to the News list
@@ -30,14 +30,14 @@ Should work on any iOS device (iPhones & iPads)
 
 shows menu with 3 items
 
-1. News / Новости: opens the news list
-2. Books / Книги: opens the books list
-3. About / О программе: opens a view with app version & build number
+1. `News` / `Новости`: opens the news list
+2. `Books` / `Книги`: opens the books list
+3. `About` / `О программе`: opens a view with app version & build number
 
 There is language change button in the navigation bar.
 Could have 2 states:
-+ English: switch content to English language
-+ Русский: switch content to Russian language
++ `English`: switch content to English language
++ `Русский`: switch content to Russian language
 
 Language button behaviour:
 + Language should be saved between App launches
@@ -47,19 +47,19 @@ Language button behaviour:
 
 #### News / Новости
 
-+ Has a navigation button to go back to the menu
++ Has a navigation button to go back to the `Menu`
 + Shows a news list sorted by date (news on top, old on bottom)
 + list pull triggers the news update (fetch from server)
 + Each item have a date on top, then image and text (layout depends on screen size/orientation)
 + Item height depends on the content
-+ tap on item opens News Details view
++ tap on item opens `News Details` view
 + The view has a tags selector on the right navigation button
 + Tags selector shows the news tags list
 + Tag selection should update the news list to show only selected items
 
 #### News Detail
 
-+ Has a navigation button to go back to the News list
++ Has a navigation button to go back to the `News` list
 + Shows a news date on top (in a red line)
 + layout depends on screen size & orientation (in some cases I made it looks not so nice, say iPhone 5 + horizontal)
 + Shows news text; allows to scroll in case of long text
@@ -68,20 +68,20 @@ Language button behaviour:
 
 #### Books / Книги
 
-+ Has a navigation button to go back to the menu
++ Has a navigation button to go back to the `Menu`
 + Layout depends on screen size & orientation
 + list pull triggers the books update (fetch from server)
 + Minimal columns count should be 2, even on smallest screens
 + Item height depends on the title length (it could be in multiple lines for long titles)
 + Items content is aligned to top even in case of different heights
-+ tap on item opens Book Details view
++ tap on item opens `Book Details` view
 + The view has a Seria selector on the right navigation button
 + Seria selector shows the news tags list
 + Seria selection should update the news list to show only selected items
 
 #### Book Details
 
-+ Has a navigation button to go back to the Books list
++ Has a navigation button to go back to the `Books` list
 + Has the book title on top (could be multiple lines in case of long title)
 + Has book's image, seria title and description
 + Description text allows to scroll in case of long text
