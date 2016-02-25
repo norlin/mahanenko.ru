@@ -1,6 +1,6 @@
 # Mahanenko.ru
 
-The app represents the main content from http://mahanenko.ru website via REST-api
+The app represents the main content (news and books) from http://mahanenko.ru via REST-api
 
 ## Build & Run
 
