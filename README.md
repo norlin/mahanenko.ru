@@ -4,8 +4,6 @@ The app represents the main content (news and books) from http://mahanenko.ru vi
 
 ## Build & Run
 
-Please, use [udacity](https://github.com/norlin/mahanenko.ru/tree/udacity) branch for check.
-
 Should work on any iOS 9.0+ device (iPhones & iPads)
 
 No specific requirements. API does not requires any keys or passwords.
