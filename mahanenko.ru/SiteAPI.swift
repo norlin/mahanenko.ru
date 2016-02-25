@@ -118,10 +118,10 @@ class SiteAPI: HTTP {
         let systemLang = NSUserDefaults.standardUserDefaults().valueForKey("AppleLanguages")
         if let langs = systemLang {
             let preferredLang = langs[0] as! String
-            switch preferredLang {
-            case "en":
+            
+            if (preferredLang =~ "^en(-.*|$)") {
                 self.lang = .English
-            default:
+            } else {
                 self.lang = .Russian
             }
         } else {
