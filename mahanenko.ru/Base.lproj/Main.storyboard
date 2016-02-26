@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
@@ -373,12 +372,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
-                                            <rect key="frame" x="0.0" y="8" width="187" height="187"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" secondItem="I1E-W4-JnQ" secondAttribute="height" multiplier="1:1" id="IJo-Vh-ldp"/>
-                                            </constraints>
-                                        </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
                                             <rect key="frame" x="8" y="195" width="171" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
@@ -388,6 +381,12 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
                                             <rect key="frame" x="84" y="92" width="20" height="20"/>
                                         </activityIndicatorView>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
+                                            <rect key="frame" x="0.0" y="8" width="187" height="187"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="I1E-W4-JnQ" secondAttribute="height" multiplier="1:1" id="IJo-Vh-ldp"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
@@ -726,6 +725,87 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             </objects>
             <point key="canvasLocation" x="506.5" y="-630.5"/>
         </scene>
+        <!--Alert View Controller-->
+        <scene sceneID="Q1H-n2-N9K">
+            <objects>
+                <viewController storyboardIdentifier="AlertView" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="0PW-Bw-4K4" customClass="AlertViewController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1rf-KC-dkD"/>
+                        <viewControllerLayoutGuide type="bottom" id="jcN-wO-t1e"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="20u-1a-tL8">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Something goes wrong!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zG3-Tz-te9">
+                                <rect key="frame" x="100" y="0.0" width="400" height="600"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" priority="999" constant="400" id="xN2-47-85d"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qyM-FO-yYt">
+                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9qO-4m-rFk">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Uuq-3H-2Jz">
+                                            <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="lTh-Jg-tw7">
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="light"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkb-xR-uAe">
+                                            <rect key="frame" x="552" y="8" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="40" id="Wsw-uS-W07"/>
+                                                <constraint firstAttribute="width" constant="40" id="Zhv-di-IuQ"/>
+                                            </constraints>
+                                            <state key="normal" image="Close">
+                                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                            <connections>
+                                                <action selector="dismissButton:" destination="0PW-Bw-4K4" eventType="touchUpInside" id="Pcw-bD-CZT"/>
+                                            </connections>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailingMargin" secondItem="pkb-xR-uAe" secondAttribute="trailing" id="hbc-HZ-1TX"/>
+                                        <constraint firstItem="pkb-xR-uAe" firstAttribute="top" secondItem="9qO-4m-rFk" secondAttribute="topMargin" id="zTM-zr-mK8"/>
+                                    </constraints>
+                                </view>
+                                <blurEffect style="light"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="zG3-Tz-te9" firstAttribute="centerX" secondItem="20u-1a-tL8" secondAttribute="centerX" id="C2I-yz-fzn"/>
+                            <constraint firstItem="jcN-wO-t1e" firstAttribute="top" secondItem="qyM-FO-yYt" secondAttribute="bottom" id="HGw-Da-36J"/>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="zG3-Tz-te9" secondAttribute="trailing" constant="50" id="PSS-JB-VHM"/>
+                            <constraint firstItem="zG3-Tz-te9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="20u-1a-tL8" secondAttribute="leadingMargin" constant="50" id="ZuI-5n-VSM"/>
+                            <constraint firstItem="qyM-FO-yYt" firstAttribute="leading" secondItem="20u-1a-tL8" secondAttribute="leading" id="aVu-xT-C3P"/>
+                            <constraint firstItem="qyM-FO-yYt" firstAttribute="top" secondItem="1rf-KC-dkD" secondAttribute="bottom" id="hI5-aM-OAC"/>
+                            <constraint firstItem="jcN-wO-t1e" firstAttribute="top" secondItem="zG3-Tz-te9" secondAttribute="bottom" id="i8V-bv-IIR"/>
+                            <constraint firstItem="zG3-Tz-te9" firstAttribute="top" secondItem="20u-1a-tL8" secondAttribute="topMargin" id="jHO-1g-fEj"/>
+                            <constraint firstAttribute="trailing" secondItem="qyM-FO-yYt" secondAttribute="trailing" id="uxm-Bm-mLd"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <connections>
+                        <outlet property="dismissButton" destination="pkb-xR-uAe" id="SsP-9T-sZ7"/>
+                        <outlet property="label" destination="zG3-Tz-te9" id="kP7-Sq-Fdt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lYB-cQ-f5o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1168" y="-626"/>
+        </scene>
         <!--Detail Navigation-->
         <scene sceneID="r7l-gg-dq7">
             <objects>
@@ -745,6 +825,9 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             <point key="canvasLocation" x="-45.5" y="202.5"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Close" width="128" height="128"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="6S0-TO-JiA"/>
         <segue reference="jAt-8t-j1i"/>

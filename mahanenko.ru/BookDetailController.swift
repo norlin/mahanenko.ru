@@ -28,6 +28,7 @@ class BookDetailController: UIViewController {
     @IBOutlet weak var seriaLabelLeading: NSLayoutConstraint!
     @IBOutlet weak var seriaLabelMain: NSLayoutConstraint!
     @IBOutlet weak var summaryMain: NSLayoutConstraint!
+    var reloadButton: UIBarButtonItem!
     
     var imageViewConstraints:[NSLayoutConstraint]!
     var textModeState = false
@@ -68,6 +69,8 @@ class BookDetailController: UIViewController {
         bookImage.addGestureRecognizer(imageModeTap)
         imageViewConstraints = [seriaLabelLeading, seriaLabelMain, summaryMain]
         
+        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
+        
         self.configure()
     }
     
@@ -92,25 +95,37 @@ class BookDetailController: UIViewController {
                 mainLoader.startAnimating()
                 log.debug("book.fetchFull")
                 book.fetchFull({ (error) -> Void in
-                    if error != nil {
+                    if error == nil {
+                        self.navigationItem.rightBarButtonItem = nil
+                    } else {
                         self.log.error("fetchFull error: \(error)")
+                        self.navigationItem.rightBarButtonItem = self.reloadButton
                     }
                     
                     dispatch_async(dispatch_get_main_queue()){
                         self.log.debug("book full ready")
-                        self.updateBookItem()
+                        self.updateBookItem(error)
                         self.mainLoader.stopAnimating()
                     }
                 })
             } else {
-                self.updateBookItem()
+                self.updateBookItem(nil)
             }
         } else {
             log.warning("No news item found!")
         }
     }
     
-    func updateBookItem(){
+    func reloadDetails(sender: AnyObject) {
+        configure()
+    }
+    
+    func updateBookItem(error: NSError?){
+        if error != nil {
+            AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching book info\n\nPlease try to reload", comment: "Book details fetching error"))
+            return
+        }
+        
         guard let book = self.book else {
             // TODO: handle error
             return

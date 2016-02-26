@@ -59,7 +59,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
             filterOptions = nil
         }
         
-        filterOptions = UIAlertController(title: "Select item category", message: "", preferredStyle: .ActionSheet)
+        filterOptions = UIAlertController(title: NSLocalizedString("Select category", comment: "Items filter title"), message: "", preferredStyle: .ActionSheet)
         filterOptions?.modalPresentationStyle = .Popover
         var types = Set<String>()
         for item in items {

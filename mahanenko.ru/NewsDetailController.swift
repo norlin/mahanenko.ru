@@ -17,6 +17,7 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var loader: Loader!
+    var reloadButton: UIBarButtonItem!
     
     let imagesAspect:CGFloat = 184 / 375
     
@@ -35,6 +36,8 @@ class NewsDetailController: UIViewController {
         newsText.textContainerInset = view.layoutMargins
         view.bringSubviewToFront(loader)
         
+        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
+        
         self.configure()
     }
     
@@ -48,19 +51,22 @@ class NewsDetailController: UIViewController {
                 loader.startAnimating()
                 self.log.debug("configure: fetch full item")
                 news.fetchFull({ (error) -> Void in
-                    if error != nil {
+                    if error == nil {
+                        self.navigationItem.rightBarButtonItem = nil
+                    } else {
                         self.log.error("fetchFull error: \(error)")
+                        self.navigationItem.rightBarButtonItem = self.reloadButton
                     }
                     self.log.debug("configure: fetch done")
                     
                     dispatch_async(dispatch_get_main_queue()){
-                        self.updateNewsItem()
+                        self.updateNewsItem(error)
                         self.newsText.hidden = false
                         self.loader.stopAnimating()
                     }
                 })
             } else {
-                self.updateNewsItem()
+                self.updateNewsItem(nil)
             }
         } else {
             log.warning("No news item found!")
@@ -69,8 +75,12 @@ class NewsDetailController: UIViewController {
     
     var imageViews = [UIImageView]()
     
-    func updateNewsItem(){
+    func updateNewsItem(error: NSError?){
         log.notice("updateNewsItem")
+        if error != nil {
+            AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching news text\n\nPlease try to reload", comment: "News details fetching error"))
+            return
+        }
         guard let news = self.news else {
             return
         }
@@ -155,8 +165,12 @@ class NewsDetailController: UIViewController {
         }
     }
     
+    func reloadDetails(sender: AnyObject) {
+        configure()
+    }
+    
     override func viewDidLayoutSubviews() {
-        updateNewsItem()
+        updateNewsItem(nil)
     }
     
     var sharedContext: NSManagedObjectContext {

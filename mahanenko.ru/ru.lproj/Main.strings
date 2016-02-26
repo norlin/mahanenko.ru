@@ -63,3 +63,6 @@ P.S.: Встречаем новую обложку! Как Вам?";
 /* Class = "UILabel"; text = "Label"; ObjectID = "pWG-OT-ACf"; */
 "pWG-OT-ACf.text" = "Label";
 
+/* Class = "UILabel"; text = "Something goes wrong!"; ObjectID = "zG3-Tz-te9"; */
+"zG3-Tz-te9.text" = "Что-то пошло не так!";
+

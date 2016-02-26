@@ -11,9 +11,12 @@ import CoreData
 
 class NewsViewController: ItemsListViewController {
     override var log:Log { return Log(id: "NewsViewController") }
-        
     override var ROW_HEIGHT: CGFloat { return 40 }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+
     override func setFilterDelegate(){
         filterDelegate = NewsFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
@@ -77,13 +80,16 @@ class NewsViewController: ItemsListViewController {
     
     func update(force: Bool = false) {
         log.notice("update")
-        loader.startAnimating()
         
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
             
             api.getNewsList(){result, error in
                 self.log.debug("update: done")
+                if error != nil {
+                    self.finishUpdate()
+                    AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching news\n\nPlease try to refresh the list", comment: "News fetching error"))
+                }
                 
                 self.sharedContext.performBlock(){
                     CoreDataStackManager.sharedInstance().saveContext()
@@ -109,6 +115,7 @@ class NewsViewController: ItemsListViewController {
         }
         
         tableView.scrollEnabled = false
+        loader.startAnimating()
         update()
     }
     

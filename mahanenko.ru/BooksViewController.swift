@@ -12,7 +12,7 @@ import CoreData
 
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
-    
+
     override func setFilterDelegate(){
         filterDelegate = BookFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
     }
@@ -108,6 +108,10 @@ class BooksViewController: ItemsCollectionViewController {
             log.debug("update: fetch items")
             
             api.getBooksList(){result, error in
+                if error != nil {
+                    self.finishUpdate()
+                    AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching books\n\nPlease try to refresh the list", comment: "Books fetching error"))
+                }
                 self.sharedContext.performBlock(){
                     CoreDataStackManager.sharedInstance().saveContext()
                 }

@@ -51,6 +51,6 @@ class RefreshTableView: TableView {
     
     func addRefreshControl(){
         refreshControl = UIRefreshControl()
-        refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: "refresh control text"))
     }
 }
