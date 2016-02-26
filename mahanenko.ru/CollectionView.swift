@@ -41,7 +41,7 @@ class CollectionView: UICollectionView {
 
 class RefreshCollectionView: CollectionView {
     override var log:Log { return Log(id: "RefreshCollectionView") }
-    var refreshControl: RefreshControl? {
+    var refreshControl: UIRefreshControl? {
         didSet {
             if (refreshControl != nil){
                 self.addSubview(refreshControl!)
@@ -57,7 +57,7 @@ class RefreshCollectionView: CollectionView {
     
     func addRefreshControl(){
         log.notice("addRefreshControl")
-        refreshControl = RefreshControl()
+        refreshControl = UIRefreshControl()
         refreshControl!.attributedTitle = NSAttributedString(string: NSLocalizedString("Pull to refresh", comment: "refresh control text"))
         self.alwaysBounceVertical = true
     }
