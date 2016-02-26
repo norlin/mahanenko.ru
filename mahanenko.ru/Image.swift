@@ -59,16 +59,16 @@ class Image: NSManagedObject {
         dispatch_async(backgroundQueue) {
             if let imageData = NSData(contentsOfURL: imageURL!) {
                 if let image = UIImage(data: imageData) {
-                    self.image = image
-                    self.error = false
                     dispatch_async(dispatch_get_main_queue()){
+                        self.image = image
+                        self.error = false
                         completion(error: false, image: image)
                     }
                 }
             }
-            if self.image==nil {
-                self.handleError()
-                dispatch_async(dispatch_get_main_queue()){
+            dispatch_async(dispatch_get_main_queue()){
+                if self.image==nil {
+                    self.handleError()
                     completion(error: true, image: self.image!)
                 }
             }
