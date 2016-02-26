@@ -54,20 +54,15 @@ P.S.: Встречаем новую обложку! Как Вам?";
 /* Class = "UINavigationItem"; title = "Menu"; ObjectID = "Zdf-7t-Un8"; */
 "Zdf-7t-Un8.title" = "Меню";
 
-/* Class = "UILabel"; text = "Something wrong happened!\nPlease try to refresh"; ObjectID = "jhE-WJ-IZw"; */
-"jhE-WJ-IZw.text" = "Что-то пошло не так!
-Потяните вниз, чтобы обновить.";
-
 /* Class = "UINavigationItem"; title = "About"; ObjectID = "mOI-FS-AaM"; */
 "mOI-FS-AaM.title" = "О программе";
 
 /* Class = "UILabel"; text = "14 Янв в 16:52"; ObjectID = "mqD-SJ-Ek2"; */
 "mqD-SJ-Ek2.text" = "14 Янв в 16:52";
 
-/* Class = "UILabel"; text = "Something wrong happened!\nPlease try to refresh"; ObjectID = "oUz-Lj-MI7"; */
-"oUz-Lj-MI7.text" = "Что-то пошло не так!
-Потяните вниз, чтобы обновить.";
-
 /* Class = "UILabel"; text = "Label"; ObjectID = "pWG-OT-ACf"; */
 "pWG-OT-ACf.text" = "Label";
+
+/* Class = "UILabel"; text = "Something goes wrong!"; ObjectID = "zG3-Tz-te9"; */
+"zG3-Tz-te9.text" = "Что-то пошло не так!";
 

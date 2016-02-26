@@ -16,6 +16,27 @@
 /* refresh control text */
 "Pull to refresh" = "Потяните, чтобы обновить";
 
+/* Book details fetching error */
+"Something goes wrong while fetching book info
+
+Please try to reload" = "Что-то пошло не так при получении данных книги
+
+Попробуйте обновить";
+
+/* News fetching error */
+"Something goes wrong while fetching news
+
+Please try to refresh the list" = "Что-то пошло не так при получении новостей
+
+Попробуйте обновить список";
+
+/* News details fetching error */
+"Something goes wrong while fetching news text
+
+Please try to reload" = "Что-то пошло не так при получении текста новости
+
+Попробуйте обновить";
+
 /* menu section – User */
 "User" = "Пользователь";
 
