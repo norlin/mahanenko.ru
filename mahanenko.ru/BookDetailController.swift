@@ -95,8 +95,11 @@ class BookDetailController: UIViewController {
                 mainLoader.startAnimating()
                 log.debug("book.fetchFull")
                 book.fetchFull({ (error) -> Void in
-                    if error != nil {
+                    if error == nil {
+                        self.navigationItem.rightBarButtonItem = nil
+                    } else {
                         self.log.error("fetchFull error: \(error)")
+                        self.navigationItem.rightBarButtonItem = self.reloadButton
                     }
                     
                     dispatch_async(dispatch_get_main_queue()){
@@ -119,10 +122,9 @@ class BookDetailController: UIViewController {
     
     func updateBookItem(error: NSError?){
         if error != nil {
-            self.navigationItem.rightBarButtonItem = reloadButton
+            AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching book info\n\nPlease try to reload", comment: "Book details fetching error"))
             return
         }
-        self.navigationItem.rightBarButtonItem = nil
         
         guard let book = self.book else {
             // TODO: handle error

@@ -51,8 +51,11 @@ class NewsDetailController: UIViewController {
                 loader.startAnimating()
                 self.log.debug("configure: fetch full item")
                 news.fetchFull({ (error) -> Void in
-                    if error != nil {
+                    if error == nil {
+                        self.navigationItem.rightBarButtonItem = nil
+                    } else {
                         self.log.error("fetchFull error: \(error)")
+                        self.navigationItem.rightBarButtonItem = self.reloadButton
                     }
                     self.log.debug("configure: fetch done")
                     
@@ -75,10 +78,9 @@ class NewsDetailController: UIViewController {
     func updateNewsItem(error: NSError?){
         log.notice("updateNewsItem")
         if error != nil {
-            self.navigationItem.rightBarButtonItem = reloadButton
+            AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching news text\n\nPlease try to reload", comment: "News details fetching error"))
             return
         }
-        self.navigationItem.rightBarButtonItem = nil
         guard let news = self.news else {
             return
         }

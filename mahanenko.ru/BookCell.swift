@@ -32,6 +32,8 @@ class BookCellView: CollectionCellView {
             image.fetch(){(error, image) in
                 if (error){
                     self.bookImage.contentMode = UIViewContentMode.Center
+                } else {
+                    self.bookImage.contentMode = UIViewContentMode.ScaleAspectFit
                 }
                 self.bookImage.image = image
                 self.loader.stopAnimating()

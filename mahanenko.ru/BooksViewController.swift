@@ -12,7 +12,6 @@ import CoreData
 
 class BooksViewController: ItemsCollectionViewController {
     override var log:Log { return Log(id: "BooksViewController") }
-    @IBOutlet weak var errorLabel: UILabel!
 
     override func setFilterDelegate(){
         filterDelegate = BookFilter(onSetFilter: onSetFilter, onDataChanged: onDataChanged)
@@ -105,16 +104,14 @@ class BooksViewController: ItemsCollectionViewController {
     func update(force: Bool = false) {
         log.notice("update")
 
-        errorLabel.hidden = true
         if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
             
             api.getBooksList(){result, error in
-                if (error != nil) {
-                    self.errorLabel.hidden = false
-                    self.collectionView?.bringSubviewToFront(self.errorLabel)
+                if error != nil {
+                    self.finishUpdate()
+                    AlertViewController.showAlert(self, message: NSLocalizedString("Something goes wrong while fetching books\n\nPlease try to refresh the list", comment: "Books fetching error"))
                 }
-            
                 self.sharedContext.performBlock(){
                     CoreDataStackManager.sharedInstance().saveContext()
                 }

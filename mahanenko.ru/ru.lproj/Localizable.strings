@@ -13,6 +13,9 @@
 /* menu item – News */
 "News" = "Новости";
 
+/* refresh control text */
+"Pull to refresh" = "Потяните, чтобы обновить";
+
 /* menu section – User */
 "User" = "Пользователь";
 
