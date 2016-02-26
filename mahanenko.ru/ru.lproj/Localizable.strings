@@ -16,6 +16,9 @@
 /* refresh control text */
 "Pull to refresh" = "Потяните, чтобы обновить";
 
+/* Items filter title */
+"Select category" = "Выберите категорию";
+
 /* Book details fetching error */
 "Something goes wrong while fetching book info
 
