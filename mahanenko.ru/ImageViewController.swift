@@ -10,7 +10,8 @@ import UIKit
 
 class ImageScroll: UIScrollView {
     var imageMode = UIViewContentMode.ScaleAspectFill
-    var images: [Image]! {
+    var loaderStyle = UIActivityIndicatorViewStyle.Gray
+    var images = [Image]() {
         didSet {
             if images.count == 0 {
                 imageViews.removeAll()
@@ -53,8 +54,8 @@ class ImageScroll: UIScrollView {
             if let existingLoader = imageView.subviews.filter({ $0.isKindOfClass(Loader) }).first as? Loader {
                 loader = existingLoader
             } else {
-                loader = Loader(activityIndicatorStyle: .Gray)
-                self.addSubview(loader)
+                loader = Loader(activityIndicatorStyle: loaderStyle)
+                imageView.addSubview(loader)
             }
             
             imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * imageFrame.width, y: 0), size: imageFrame)
@@ -97,6 +98,7 @@ class ImageViewController: UIViewController {
         view.bringSubviewToFront(dismissButton)
         
         imagesScroll.imageMode = .ScaleAspectFit
+        imagesScroll.loaderStyle = .WhiteLarge
         imagesScroll.images = images
     }
     
