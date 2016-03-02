@@ -582,7 +582,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pPf-3Y-CSF" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
                                         <rect key="frame" x="142" y="234" width="37" height="37"/>
                                     </activityIndicatorView>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-aG-BIR">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-aG-BIR">
                                         <rect key="frame" x="0.0" y="165" width="320" height="300"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="g2m-1v-7ut"/>

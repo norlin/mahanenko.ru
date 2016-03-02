@@ -38,6 +38,7 @@ class NewsDetailController: UIViewController {
         
         reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
         
+        imagesScroll.scrollsToTop = false
         let tap = UITapGestureRecognizer(target: self, action: "showImages")
         imagesScroll.addGestureRecognizer(tap)
         
