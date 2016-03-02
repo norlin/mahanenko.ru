@@ -38,7 +38,6 @@ class AlertViewController: UIViewController {
     
     class func showAlert(sender: UIViewController, message: String) {
         if let alertViewController = sender.storyboard?.instantiateViewControllerWithIdentifier("AlertView") as? AlertViewController {
-//            alertViewController.transitionCoordinator()
             alertViewController.message = message
             sender.presentViewController(alertViewController, animated: true, completion: nil)
         }

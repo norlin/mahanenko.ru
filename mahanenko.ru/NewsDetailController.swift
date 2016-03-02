@@ -13,7 +13,7 @@ class NewsDetailController: UIViewController {
     let log = Log(id: "NewsDetailController")
     
     @IBOutlet weak var newsText: UITextView!
-    @IBOutlet weak var imagesScroll: UIScrollView!
+    @IBOutlet weak var imagesScroll: ImageScroll!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var textHeight: NSLayoutConstraint?
     @IBOutlet weak var loader: Loader!
@@ -37,6 +37,9 @@ class NewsDetailController: UIViewController {
         view.bringSubviewToFront(loader)
         
         reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
+        
+        let tap = UITapGestureRecognizer(target: self, action: "showImages")
+        imagesScroll.addGestureRecognizer(tap)
         
         self.configure()
     }
@@ -86,87 +89,42 @@ class NewsDetailController: UIViewController {
         }
         
         newsText.text = news.text?.string
-        newsText.sizeToFit()
-        if let height = textHeight {
-            height.constant = newsText.contentSize.height
-        }
-        newsText.layoutIfNeeded()
-        
-        let newsImages:[Image]
         
         if (news.hasImages) {
-            newsImages = news.images
+            imagesScroll.images = news.images
         } else if let preview = news.previewImage {
-            newsImages = [preview]
+            imagesScroll.images = [preview]
         } else {
-            newsImages = []
+            imagesScroll.images = []
         }
-        
-        if newsImages.count > 0 {
-            log.debug("updateNewsItem: fetch images")
 
-            let width = imagesScroll.frame.size.width
-            let height = width * imagesAspect
-            let imageFrame = CGSize(width: width, height: height)
-            imagesScroll.contentSize = CGSize(width: CGFloat(newsImages.count) * width, height: height)
-            
-            if (newsImages.count != imageViews.count) {
-                for imageView in imageViews {
-                    imageView.removeFromSuperview()
-                }
-                imageViews.removeAll()
-            }
-
-            for (index, image) in newsImages.enumerate() {
-                let imageView:UIImageView
-                let loader: Loader
-                if imageViews.count > index {
-                    imageView = imageViews[index]
-                } else {
-                    imageView = UIImageView()
-                    imageView.contentMode = .ScaleAspectFill
-                    imageViews.append(imageView)
-                    imagesScroll.addSubview(imageView)
-                }
-                if let existingLoader = imageView.subviews.filter({ $0.isKindOfClass(Loader) }).first as? Loader {
-                    loader = existingLoader
-                } else {
-                    loader = Loader(activityIndicatorStyle: .Gray)
-                    imagesScroll.addSubview(loader)
-                }
-                
-                imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
-                loader.center = imageView.center
-                
-                if (imageView.image != nil && imageView.image == image.image && !image.error) {
-                    continue
-                }
-                
-                loader.startAnimating()
-                image.fetch(){ (error, image) in
-                    if (error){
-                        imageView.contentMode = UIViewContentMode.Center
-                    }
-                    dispatch_async(dispatch_get_main_queue()){
-                        imageView.image = image
-                        loader.stopAnimating()
-                    }
-                }
-            }
-        
-        } else {
-            log.debug("updateNewsItem: hide images scroll")
-        }
-        imagesScroll.hidden = !(newsImages.count > 0)
-        textToImage.active = newsImages.count > 0
+        imagesScroll.hidden = imagesScroll.images.count == 0
+        textToImage.active = imagesScroll.images.count > 0
     }
     
     func reloadDetails(sender: AnyObject) {
         configure()
     }
     
+    func showImages(){
+        if imagesScroll.images.count == 0 {
+            return
+        }
+        
+        ImageViewController.showViewer(self, images: imagesScroll.images)
+    }
+    
     override func viewDidLayoutSubviews() {
-        updateNewsItem(nil)
+        super.viewDidLayoutSubviews()
+        
+        imagesScroll.frame.size.width = self.view.frame.width
+        
+        newsText.sizeToFit()
+        if let height = textHeight {
+            height.constant = newsText.contentSize.height
+        }
+        newsText.layoutIfNeeded()
+        imagesScroll.updateImages()
     }
     
     var sharedContext: NSManagedObjectContext {
