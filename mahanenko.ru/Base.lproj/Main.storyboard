@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
@@ -347,7 +346,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <navigationItem key="navigationItem" id="pu7-1L-OaJ"/>
                     <connections>
                         <outlet property="tableView" destination="Ac8-Q3-bdP" id="4yj-cy-GH0"/>
-                        <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail_old" id="Kjw-lH-kt3"/>
                         <segue destination="6BM-gX-HkN" kind="show" identifier="newsDetail" id="BXB-bC-Ffj"/>
                     </connections>
                 </tableViewController>
@@ -376,8 +374,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
-                                            <rect key="frame" x="9" y="195" width="171" height="27"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
+                                            <rect key="frame" x="8" y="195" width="171" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -388,8 +386,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                                 <rect key="frame" x="9" y="195" width="171" height="27"/>
                                             </variation>
                                         </label>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                            <rect key="frame" x="85" y="92" width="20" height="20"/>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                            <rect key="frame" x="84" y="92" width="20" height="20"/>
                                             <variation key="heightClass=compact" misplaced="YES">
                                                 <rect key="frame" x="85" y="92" width="20" height="20"/>
                                             </variation>
@@ -397,8 +395,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                                 <rect key="frame" x="85" y="92" width="20" height="20"/>
                                             </variation>
                                         </activityIndicatorView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
-                                            <rect key="frame" x="1" y="8" width="187" height="187"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
+                                            <rect key="frame" x="0.0" y="8" width="187" height="187"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="I1E-W4-JnQ" secondAttribute="height" multiplier="1:1" id="IJo-Vh-ldp"/>
                                             </constraints>
@@ -567,114 +565,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
             <point key="canvasLocation" x="1056.5" y="1050.5"/>
         </scene>
         <!--News Detail-->
-        <scene sceneID="z8A-Y8-RjY">
-            <objects>
-                <viewController id="Wmg-IZ-Eag" userLabel="News Detail" customClass="NewsDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jxU-h1-9YV"/>
-                        <viewControllerLayoutGuide type="bottom" id="8B0-IS-e3b"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="tCy-QI-5RJ">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="85f-aY-ROF" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
-                                <color key="backgroundColor" red="0.87450980392156863" green="0.27843137254901962" blue="0.22745098039215686" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="8oe-pJ-ZDZ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="ZVw-N7-3al" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="142" y="176" width="37" height="37"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="333" y="482" width="37" height="37"/>
-                                </variation>
-                            </activityIndicatorView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HdQ-Ha-BO1" userLabel="ImagesScroll">
-                                <rect key="frame" x="0.0" y="347" width="320" height="157"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="HdQ-Ha-BO1" secondAttribute="height" multiplier="375:184" id="PiP-gf-JcD"/>
-                                </constraints>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="PiP-gf-JcD"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="960" width="0.0" height="0.0"/>
-                                </variation>
-                            </scrollView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="8Ul-L4-Res">
-                                <rect key="frame" x="0.0" y="42" width="320" height="305"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="42" width="703" height="918"/>
-                                </variation>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZVw-N7-3al" firstAttribute="centerY" secondItem="8Ul-L4-Res" secondAttribute="centerY" id="2Lv-9a-rXy"/>
-                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="2Ty-Ug-WHv"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="5S5-9N-aXn"/>
-                            <constraint firstAttribute="trailing" secondItem="HdQ-Ha-BO1" secondAttribute="trailing" id="FZ3-1j-6Ml"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="HKz-W3-vvR"/>
-                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="top" secondItem="8Ul-L4-Res" secondAttribute="bottom" identifier="textToImages" id="PYX-bz-6Ub"/>
-                            <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="8Ul-L4-Res" secondAttribute="bottomMargin" priority="999" identifier="textToBottom" id="Q0x-7T-xIs"/>
-                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="top" secondItem="jxU-h1-9YV" secondAttribute="bottom" id="d0i-Vz-QL5"/>
-                            <constraint firstAttribute="trailing" secondItem="8Ul-L4-Res" secondAttribute="trailing" id="hQd-XJ-RMA"/>
-                            <constraint firstItem="HdQ-Ha-BO1" firstAttribute="width" secondItem="tCy-QI-5RJ" secondAttribute="width" multiplier="0.5" id="icE-cA-76N"/>
-                            <constraint firstItem="85f-aY-ROF" firstAttribute="width" secondItem="tCy-QI-5RJ" secondAttribute="width" multiplier="0.5" id="k3U-Aq-90y"/>
-                            <constraint firstItem="8Ul-L4-Res" firstAttribute="top" secondItem="85f-aY-ROF" secondAttribute="bottom" id="m0Z-m3-o49"/>
-                            <constraint firstItem="8Ul-L4-Res" firstAttribute="width" secondItem="tCy-QI-5RJ" secondAttribute="width" multiplier="0.5" id="mQL-cQ-hr1"/>
-                            <constraint firstAttribute="trailing" secondItem="85f-aY-ROF" secondAttribute="trailing" id="o9n-yL-Uj1"/>
-                            <constraint firstItem="ZVw-N7-3al" firstAttribute="centerX" secondItem="8Ul-L4-Res" secondAttribute="centerX" id="tw5-KQ-OT7"/>
-                            <constraint firstItem="8B0-IS-e3b" firstAttribute="top" secondItem="HdQ-Ha-BO1" secondAttribute="bottom" id="vMI-L9-dCG"/>
-                            <constraint firstItem="8Ul-L4-Res" firstAttribute="leading" secondItem="tCy-QI-5RJ" secondAttribute="leading" id="yuL-lK-TjL"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="k3U-Aq-90y"/>
-                                <exclude reference="mQL-cQ-hr1"/>
-                                <exclude reference="d0i-Vz-QL5"/>
-                                <exclude reference="icE-cA-76N"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact">
-                            <mask key="constraints">
-                                <include reference="k3U-Aq-90y"/>
-                                <exclude reference="o9n-yL-Uj1"/>
-                                <exclude reference="hQd-XJ-RMA"/>
-                                <include reference="mQL-cQ-hr1"/>
-                                <exclude reference="2Ty-Ug-WHv"/>
-                                <exclude reference="PYX-bz-6Ub"/>
-                                <include reference="d0i-Vz-QL5"/>
-                                <include reference="icE-cA-76N"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
-                    <connections>
-                        <outlet property="imagesScroll" destination="HdQ-Ha-BO1" id="feT-jr-S7V"/>
-                        <outlet property="loader" destination="ZVw-N7-3al" id="STb-qK-hv2"/>
-                        <outlet property="newsDate" destination="85f-aY-ROF" id="0Ij-Qz-QYv"/>
-                        <outlet property="newsText" destination="8Ul-L4-Res" id="sf5-Nk-b3G"/>
-                        <outlet property="textToImage" destination="PYX-bz-6Ub" id="3CP-Wo-9si"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="laO-RW-jdA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1056" y="202"/>
-        </scene>
-        <!--News Detail-->
         <scene sceneID="Iki-Pi-GlG">
             <objects>
                 <viewController id="6BM-gX-HkN" userLabel="News Detail" customClass="NewsDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
@@ -752,7 +642,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="72W-Sb-BTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1556" y="202"/>
+            <point key="canvasLocation" x="1056" y="201"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
