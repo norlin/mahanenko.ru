@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -20,15 +19,41 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchLogo" translatesAutoresizingMaskIntoConstraints="NO" id="xd4-oi-CVA">
                                 <rect key="frame" x="20" y="20" width="560" height="580"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="0sq-K3-UP7"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="0sq-K3-UP7"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=regular">
+                                    <mask key="constraints">
+                                        <include reference="0sq-K3-UP7"/>
+                                    </mask>
+                                </variation>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.98431372549999996" green="0.98431372549999996" blue="0.98431372549999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="xd4-oi-CVA" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" id="Io9-aZ-IRv"/>
+                            <constraint firstItem="xd4-oi-CVA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="P8C-nh-0Jb"/>
                             <constraint firstItem="xd4-oi-CVA" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" id="YDb-Cv-ZfZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="xd4-oi-CVA" secondAttribute="trailing" id="leU-Zi-iHK"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="xd4-oi-CVA" secondAttribute="bottom" id="zcW-qf-SYB"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="P8C-nh-0Jb"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=regular">
+                            <mask key="constraints">
+                                <exclude reference="Io9-aZ-IRv"/>
+                                <include reference="P8C-nh-0Jb"/>
+                                <exclude reference="leU-Zi-iHK"/>
+                            </mask>
+                        </variation>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
