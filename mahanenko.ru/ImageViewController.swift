@@ -9,7 +9,7 @@
 import UIKit
 
 class ImageScroll: UIScrollView {
-    let imagesAspect:CGFloat = 184 / 375
+    var imageMode = UIViewContentMode.ScaleAspectFill
     var images: [Image]! {
         didSet {
             if images.count == 0 {
@@ -27,10 +27,8 @@ class ImageScroll: UIScrollView {
             return
         }
         
-        let width = self.frame.size.width
-        let height = width * imagesAspect
-        let imageFrame = CGSize(width: width, height: height)
-        self.contentSize = CGSize(width: CGFloat(images.count) * width, height: height)
+        let imageFrame = self.frame.size
+        self.contentSize = CGSize(width: CGFloat(images.count) * imageFrame.width, height: imageFrame.height)
         let centerY = self.center.y
         
         if (images.count != imageViews.count) {
@@ -48,7 +46,7 @@ class ImageScroll: UIScrollView {
                 imageView = imageViews[index]
             } else {
                 imageView = UIImageView()
-                imageView.contentMode = .ScaleAspectFill
+                imageView.contentMode = imageMode
                 imageViews.append(imageView)
                 self.addSubview(imageView)
             }
@@ -59,7 +57,7 @@ class ImageScroll: UIScrollView {
                 self.addSubview(loader)
             }
             
-            imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
+            imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * imageFrame.width, y: 0), size: imageFrame)
             imageView.center.y = centerY
             loader.center = imageView.center
             
@@ -98,6 +96,7 @@ class ImageViewController: UIViewController {
         imagesScroll.backgroundColor = UIColor.clearColor()
         view.bringSubviewToFront(dismissButton)
         
+        imagesScroll.imageMode = .ScaleAspectFit
         imagesScroll.images = images
     }
     

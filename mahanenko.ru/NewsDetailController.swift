@@ -19,8 +19,6 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var loader: Loader!
     var reloadButton: UIBarButtonItem!
     
-    let imagesAspect:CGFloat = 184 / 375
-    
     var newsId: NSManagedObjectID? {
         didSet {
             if let id = newsId {

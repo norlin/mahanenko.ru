@@ -65,7 +65,7 @@ class BookDetailController: UIViewController {
         
         let textModeTap = UITapGestureRecognizer(target: self, action: "setTextMode")
         summary.addGestureRecognizer(textModeTap)
-        let imageModeTap = UITapGestureRecognizer(target: self, action: "switchMode")
+        let imageModeTap = UITapGestureRecognizer(target: self, action: "showImage")
         bookImage.addGestureRecognizer(imageModeTap)
         imageViewConstraints = [seriaLabelLeading, seriaLabelMain, summaryMain]
         
@@ -253,6 +253,15 @@ class BookDetailController: UIViewController {
             if (self.summary.frame.height < 21){
                 self.summary.alpha = 0
             }
+        }
+    }
+    
+    func showImage(){
+        guard let book = self.book else {
+            return
+        }
+        if let image = book.image3d {
+            ImageViewController.showViewer(self, images: [image])
         }
     }
     
