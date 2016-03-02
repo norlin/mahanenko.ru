@@ -709,20 +709,9 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="2k7-2w-bGm" secondAttribute="height" multiplier="375:184" id="Q5a-zY-kj4"/>
-                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="640" id="vGe-5m-VQz"/>
                                         </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="vGe-5m-VQz"/>
-                                            </mask>
-                                        </variation>
                                         <variation key="heightClass=compact" misplaced="YES">
                                             <rect key="frame" x="-61" y="42" width="1147" height="564"/>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular">
-                                            <mask key="constraints">
-                                                <include reference="vGe-5m-VQz"/>
-                                            </mask>
                                         </variation>
                                     </scrollView>
                                 </subviews>
@@ -730,6 +719,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="1Gq-ro-UKu"/>
                                     <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerY" secondItem="8cw-1y-Rew" secondAttribute="centerY" id="9Dd-r3-tv4"/>
                                     <constraint firstItem="B1j-aG-BIR" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="Jfg-Dk-pnI"/>
+                                    <constraint firstItem="B1j-aG-BIR" firstAttribute="top" secondItem="8cw-1y-Rew" secondAttribute="top" priority="999" constant="20" symbolic="YES" id="MLs-pj-CqE"/>
                                     <constraint firstItem="B1j-aG-BIR" firstAttribute="top" secondItem="2k7-2w-bGm" secondAttribute="bottom" constant="8" symbolic="YES" id="PBy-a5-dv1"/>
                                     <constraint firstItem="B1j-aG-BIR" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="ZA0-pt-HlE"/>
                                     <constraint firstAttribute="bottom" secondItem="B1j-aG-BIR" secondAttribute="bottom" id="bbw-Dd-ytZ"/>
@@ -738,20 +728,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstAttribute="trailing" secondItem="2k7-2w-bGm" secondAttribute="trailing" priority="999" id="lrC-of-lp6"/>
                                     <constraint firstAttribute="trailing" secondItem="B1j-aG-BIR" secondAttribute="trailing" id="r12-B8-00y"/>
                                     <constraint firstItem="2k7-2w-bGm" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="rb6-57-Xq7"/>
-                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="height" secondItem="8cw-1y-Rew" secondAttribute="height" id="vDE-Bs-vcN"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="height" relation="lessThanOrEqual" secondItem="8cw-1y-Rew" secondAttribute="height" id="vDE-Bs-vcN"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="vDE-Bs-vcN"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <exclude reference="eCf-WA-hL0"/>
-                                        <exclude reference="lrC-of-lp6"/>
-                                        <include reference="vDE-Bs-vcN"/>
-                                    </mask>
-                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
