@@ -16,6 +16,7 @@ class NewsDetailController: UIViewController {
     @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
+    @IBOutlet weak var textHeight: NSLayoutConstraint?
     @IBOutlet weak var loader: Loader!
     var reloadButton: UIBarButtonItem!
     
@@ -86,6 +87,9 @@ class NewsDetailController: UIViewController {
         }
         
         newsText.text = news.text?.string
+        if let height = textHeight {
+            height.constant = newsText.contentSize.height
+        }
         newsText.layoutIfNeeded()
         
         let newsImages:[Image]

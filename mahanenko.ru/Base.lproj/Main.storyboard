@@ -344,7 +344,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                     <navigationItem key="navigationItem" id="pu7-1L-OaJ"/>
                     <connections>
                         <outlet property="tableView" destination="Ac8-Q3-bdP" id="4yj-cy-GH0"/>
-                        <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail" id="Kjw-lH-kt3"/>
+                        <segue destination="Wmg-IZ-Eag" kind="show" identifier="newsDetail_old" id="Kjw-lH-kt3"/>
+                        <segue destination="6BM-gX-HkN" kind="show" identifier="newsDetail" id="BXB-bC-Ffj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Kj-VY-vaV" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -666,6 +667,105 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="laO-RW-jdA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056" y="202"/>
+        </scene>
+        <!--News Detail-->
+        <scene sceneID="Iki-Pi-GlG">
+            <objects>
+                <viewController id="6BM-gX-HkN" userLabel="News Detail" customClass="NewsDetailController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DuZ-3f-ab5"/>
+                        <viewControllerLayoutGuide type="bottom" id="cUZ-tw-81K"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="AFM-yH-krT">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cw-1y-Rew">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhA-AY-pWs" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
+                                        <color key="backgroundColor" red="0.87450980389999999" green="0.2784313725" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="42" id="Nt9-UL-lre"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2k7-2w-bGm" userLabel="ImagesScroll">
+                                        <rect key="frame" x="0.0" y="42" width="320" height="157"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2k7-2w-bGm" secondAttribute="height" multiplier="375:184" id="Q5a-zY-kj4"/>
+                                        </constraints>
+                                        <variation key="heightClass=compact">
+                                            <mask key="constraints">
+                                                <exclude reference="Q5a-zY-kj4"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="960" width="0.0" height="0.0"/>
+                                        </variation>
+                                    </scrollView>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-aG-BIR">
+                                        <rect key="frame" x="0.0" y="207" width="320" height="300"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="300" id="g2m-1v-7ut"/>
+                                        </constraints>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                        <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="42" width="703" height="918"/>
+                                        </variation>
+                                    </textView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pPf-3Y-CSF" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                        <rect key="frame" x="142" y="234" width="37" height="37"/>
+                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                            <rect key="frame" x="333" y="482" width="37" height="37"/>
+                                        </variation>
+                                    </activityIndicatorView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="1Gq-ro-UKu"/>
+                                    <constraint firstAttribute="trailing" secondItem="uhA-AY-pWs" secondAttribute="trailing" id="2Fl-Jr-AEb"/>
+                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="98h-LL-4SC"/>
+                                    <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerY" secondItem="8cw-1y-Rew" secondAttribute="centerY" id="9Dd-r3-tv4"/>
+                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="top" secondItem="8cw-1y-Rew" secondAttribute="top" id="Mcm-1z-0fV"/>
+                                    <constraint firstItem="B1j-aG-BIR" firstAttribute="top" secondItem="2k7-2w-bGm" secondAttribute="bottom" constant="8" symbolic="YES" id="PBy-a5-dv1"/>
+                                    <constraint firstItem="B1j-aG-BIR" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="ZA0-pt-HlE"/>
+                                    <constraint firstAttribute="bottom" secondItem="B1j-aG-BIR" secondAttribute="bottom" id="bbw-Dd-ytZ"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="eCf-WA-hL0"/>
+                                    <constraint firstAttribute="trailing" secondItem="2k7-2w-bGm" secondAttribute="trailing" id="lrC-of-lp6"/>
+                                    <constraint firstAttribute="trailing" secondItem="B1j-aG-BIR" secondAttribute="trailing" id="r12-B8-00y"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="top" secondItem="uhA-AY-pWs" secondAttribute="bottom" id="wZM-8E-Ulh"/>
+                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="xg7-ek-AFW"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="8cw-1y-Rew" firstAttribute="top" secondItem="DuZ-3f-ab5" secondAttribute="bottom" id="Q7h-7V-0HA"/>
+                            <constraint firstItem="8cw-1y-Rew" firstAttribute="leading" secondItem="AFM-yH-krT" secondAttribute="leading" id="c9b-EE-AwO"/>
+                            <constraint firstItem="cUZ-tw-81K" firstAttribute="top" secondItem="8cw-1y-Rew" secondAttribute="bottom" id="uJg-o4-eeV"/>
+                            <constraint firstAttribute="trailing" secondItem="8cw-1y-Rew" secondAttribute="trailing" id="vAO-XQ-pVw"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <connections>
+                        <outlet property="imagesScroll" destination="2k7-2w-bGm" id="Cja-y1-zvk"/>
+                        <outlet property="loader" destination="pPf-3Y-CSF" id="2Z6-Pf-NG6"/>
+                        <outlet property="newsDate" destination="uhA-AY-pWs" id="cX0-RT-knD"/>
+                        <outlet property="newsText" destination="B1j-aG-BIR" id="tgk-Cb-oja"/>
+                        <outlet property="textHeight" destination="g2m-1v-7ut" id="cAH-8X-R98"/>
+                        <outlet property="textToImage" destination="PBy-a5-dv1" id="lEf-fe-BO7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="72W-Sb-BTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1556" y="202"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
