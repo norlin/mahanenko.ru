@@ -25,6 +25,7 @@ class AlertViewController: UIViewController {
         self.view.addGestureRecognizer(tap)
 
         label.text = message
+        label.sizeToFit()
     }
     
     func dismiss(){

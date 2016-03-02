@@ -12,7 +12,6 @@ import CoreData
 class NewsDetailController: UIViewController {
     let log = Log(id: "NewsDetailController")
     
-    @IBOutlet weak var newsDate: NewsDateLabel!
     @IBOutlet weak var newsText: UITextView!
     @IBOutlet weak var imagesScroll: UIScrollView!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
@@ -45,7 +44,7 @@ class NewsDetailController: UIViewController {
     func configure(){
         log.notice("configure")
         if let news = self.news {
-            newsDate.text = news.dateStringShort
+            self.navigationItem.title = news.dateString
             if !news.isFull {
                 newsText.hidden = true
                 loader.center = newsText.center
@@ -87,6 +86,7 @@ class NewsDetailController: UIViewController {
         }
         
         newsText.text = news.text?.string
+        newsText.sizeToFit()
         if let height = textHeight {
             height.constant = newsText.contentSize.height
         }
@@ -101,7 +101,6 @@ class NewsDetailController: UIViewController {
         } else {
             newsImages = []
         }
-        let compact = self.traitCollection.verticalSizeClass == .Compact
         
         if newsImages.count > 0 {
             log.debug("updateNewsItem: fetch images")
@@ -110,7 +109,6 @@ class NewsDetailController: UIViewController {
             let height = width * imagesAspect
             let imageFrame = CGSize(width: width, height: height)
             imagesScroll.contentSize = CGSize(width: CGFloat(newsImages.count) * width, height: height)
-            let imgCenterY = imagesScroll.center.y
             
             if (newsImages.count != imageViews.count) {
                 for imageView in imageViews {
@@ -138,9 +136,6 @@ class NewsDetailController: UIViewController {
                 }
                 
                 imageView.frame = CGRect(origin: CGPoint(x: CGFloat(index) * width, y: 0), size: imageFrame)
-                if compact {
-                    imageView.center.y = imgCenterY
-                }
                 loader.center = imageView.center
                 
                 if (imageView.image != nil && imageView.image == image.image && !image.error) {
@@ -163,10 +158,7 @@ class NewsDetailController: UIViewController {
             log.debug("updateNewsItem: hide images scroll")
         }
         imagesScroll.hidden = !(newsImages.count > 0)
-
-        if (!compact) {
-            textToImage.active = newsImages.count > 0
-        }
+        textToImage.active = newsImages.count > 0
     }
     
     func reloadDetails(sender: AnyObject) {

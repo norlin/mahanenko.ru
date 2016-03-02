@@ -133,10 +133,12 @@ class BookDetailController: UIViewController {
         log.notice("updateBookItem")
         
         bookTitle.text = book.title
+        bookTitle.sizeToFit()
         let height = getTitleHeight()
         titleHeight.constant = height
         
         bookSeria.text = book.seria
+        bookSeria.sizeToFit()
         summary.attributedText = book.summary.attributedStringWith(Constants.TEXT_FONT)
         summary.sizeToFit()
         

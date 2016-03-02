@@ -24,6 +24,7 @@ class BookCellView: CollectionCellView {
         title.font = Constants.TITLE3_FONT
         
         title.text = item.title
+        title.sizeToFit()
         
         self.bookImage.hidden = true
         

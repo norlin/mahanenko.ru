@@ -36,6 +36,7 @@ class NewsCellView: TableCellView {
         
         newsDate.text = "\(item.dateString)"
         newsText.attributedText = item.getSummary().attributedStringWith(Constants.TEXT_FONT)
+        newsText.sizeToFit()
     }
     
 }

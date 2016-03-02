@@ -140,6 +140,9 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="Nbq-5t-3i8" secondAttribute="height" multiplier="326:184" id="54j-Og-JLX"/>
                                             </constraints>
+                                            <variation key="heightClass=compact" misplaced="YES">
+                                                <rect key="frame" x="0.0" y="39" width="96" height="55"/>
+                                            </variation>
                                             <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
                                                 <rect key="frame" x="0.0" y="39" width="736" height="416"/>
                                             </variation>
@@ -373,20 +376,38 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
-                                            <rect key="frame" x="8" y="195" width="171" height="27"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DTx-Mw-D9M">
+                                            <rect key="frame" x="9" y="195" width="171" height="27"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
+                                            <variation key="heightClass=compact" misplaced="YES">
+                                                <rect key="frame" x="9" y="195" width="171" height="27"/>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="9" y="195" width="171" height="27"/>
+                                            </variation>
                                         </label>
-                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                            <rect key="frame" x="84" y="92" width="20" height="20"/>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="qZ8-wF-tyI" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                            <rect key="frame" x="85" y="92" width="20" height="20"/>
+                                            <variation key="heightClass=compact" misplaced="YES">
+                                                <rect key="frame" x="85" y="92" width="20" height="20"/>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="85" y="92" width="20" height="20"/>
+                                            </variation>
                                         </activityIndicatorView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
-                                            <rect key="frame" x="0.0" y="8" width="187" height="187"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I1E-W4-JnQ">
+                                            <rect key="frame" x="1" y="8" width="187" height="187"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="I1E-W4-JnQ" secondAttribute="height" multiplier="1:1" id="IJo-Vh-ldp"/>
                                             </constraints>
+                                            <variation key="heightClass=compact" misplaced="YES">
+                                                <rect key="frame" x="1" y="8" width="187" height="187"/>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
+                                                <rect key="frame" x="1" y="8" width="187" height="187"/>
+                                            </variation>
                                         </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -444,9 +465,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <variation key="widthClass=compact" misplaced="YES">
                                             <rect key="frame" x="-19" y="10" width="38" height="37"/>
                                         </variation>
-                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="-15" y="10" width="37" height="37"/>
-                                        </variation>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pWG-OT-ACf">
                                         <rect key="frame" x="0.0" y="0.0" width="288" height="21"/>
@@ -475,9 +493,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                     <constraint firstItem="Cyx-Bu-DeK" firstAttribute="centerY" secondItem="Pyk-w8-K72" secondAttribute="centerY" id="yZJ-lF-3Mi"/>
                                     <constraint firstItem="Pyk-w8-K72" firstAttribute="leading" secondItem="teJ-o8-xhY" secondAttribute="leading" id="zIh-i5-uOU"/>
                                 </constraints>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="16" y="8" width="664" height="28"/>
-                                </variation>
                             </view>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="QUt-cw-7q3" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
                                 <rect key="frame" x="142" y="234" width="37" height="37"/>
@@ -490,9 +505,6 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="16" y="45" width="664" height="20"/>
-                                </variation>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Book Seria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5af-64-nlo">
                                 <rect key="frame" x="16" y="445" width="288" height="21"/>
@@ -502,18 +514,12 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="16" y="74" width="664" height="20"/>
-                                </variation>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" text="Book Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="60D-vJ-JWi">
                                 <rect key="frame" x="0.0" y="474" width="320" height="22"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="103" width="703" height="849"/>
-                                </variation>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -680,36 +686,14 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8cw-1y-Rew">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8cw-1y-Rew">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uhA-AY-pWs" userLabel="Date" customClass="NewsDateLabel" customModule="mahanenko_ru" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="42"/>
-                                        <color key="backgroundColor" red="0.87450980389999999" green="0.2784313725" blue="0.2274509804" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="42" id="Nt9-UL-lre"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2k7-2w-bGm" userLabel="ImagesScroll">
-                                        <rect key="frame" x="0.0" y="42" width="320" height="157"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="2k7-2w-bGm" secondAttribute="height" multiplier="375:184" id="Q5a-zY-kj4"/>
-                                        </constraints>
-                                        <variation key="heightClass=compact">
-                                            <mask key="constraints">
-                                                <exclude reference="Q5a-zY-kj4"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="960" width="0.0" height="0.0"/>
-                                        </variation>
-                                    </scrollView>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pPf-3Y-CSF" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
+                                        <rect key="frame" x="142" y="234" width="37" height="37"/>
+                                    </activityIndicatorView>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="B1j-aG-BIR">
-                                        <rect key="frame" x="0.0" y="207" width="320" height="300"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <rect key="frame" x="0.0" y="165" width="320" height="300"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="300" id="g2m-1v-7ut"/>
                                         </constraints>
@@ -717,32 +701,57 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                         <dataDetectorType key="dataDetectorTypes" link="YES"/>
-                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="42" width="703" height="918"/>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="613" width="1024" height="300"/>
                                         </variation>
                                     </textView>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="pPf-3Y-CSF" customClass="Loader" customModule="mahanenko_ru" customModuleProvider="target">
-                                        <rect key="frame" x="142" y="234" width="37" height="37"/>
-                                        <variation key="heightClass=regular-widthClass=regular" misplaced="YES">
-                                            <rect key="frame" x="333" y="482" width="37" height="37"/>
+                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" bounces="NO" alwaysBounceHorizontal="YES" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" delaysContentTouches="NO" canCancelContentTouches="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2k7-2w-bGm" userLabel="ImagesScroll">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="157"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="2k7-2w-bGm" secondAttribute="height" multiplier="375:184" id="Q5a-zY-kj4"/>
+                                            <constraint firstAttribute="width" relation="lessThanOrEqual" constant="640" id="vGe-5m-VQz"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="vGe-5m-VQz"/>
+                                            </mask>
                                         </variation>
-                                    </activityIndicatorView>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="-61" y="42" width="1147" height="564"/>
+                                        </variation>
+                                        <variation key="heightClass=regular-widthClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="vGe-5m-VQz"/>
+                                            </mask>
+                                        </variation>
+                                    </scrollView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="1Gq-ro-UKu"/>
-                                    <constraint firstAttribute="trailing" secondItem="uhA-AY-pWs" secondAttribute="trailing" id="2Fl-Jr-AEb"/>
-                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="98h-LL-4SC"/>
                                     <constraint firstItem="pPf-3Y-CSF" firstAttribute="centerY" secondItem="8cw-1y-Rew" secondAttribute="centerY" id="9Dd-r3-tv4"/>
-                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="top" secondItem="8cw-1y-Rew" secondAttribute="top" id="Mcm-1z-0fV"/>
+                                    <constraint firstItem="B1j-aG-BIR" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="Jfg-Dk-pnI"/>
                                     <constraint firstItem="B1j-aG-BIR" firstAttribute="top" secondItem="2k7-2w-bGm" secondAttribute="bottom" constant="8" symbolic="YES" id="PBy-a5-dv1"/>
                                     <constraint firstItem="B1j-aG-BIR" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="ZA0-pt-HlE"/>
                                     <constraint firstAttribute="bottom" secondItem="B1j-aG-BIR" secondAttribute="bottom" id="bbw-Dd-ytZ"/>
-                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="eCf-WA-hL0"/>
-                                    <constraint firstAttribute="trailing" secondItem="2k7-2w-bGm" secondAttribute="trailing" id="lrC-of-lp6"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" priority="999" id="eCf-WA-hL0"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="top" secondItem="8cw-1y-Rew" secondAttribute="top" id="lmo-L3-Sx2"/>
+                                    <constraint firstAttribute="trailing" secondItem="2k7-2w-bGm" secondAttribute="trailing" priority="999" id="lrC-of-lp6"/>
                                     <constraint firstAttribute="trailing" secondItem="B1j-aG-BIR" secondAttribute="trailing" id="r12-B8-00y"/>
-                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="top" secondItem="uhA-AY-pWs" secondAttribute="bottom" id="wZM-8E-Ulh"/>
-                                    <constraint firstItem="uhA-AY-pWs" firstAttribute="leading" secondItem="8cw-1y-Rew" secondAttribute="leading" id="xg7-ek-AFW"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="centerX" secondItem="8cw-1y-Rew" secondAttribute="centerX" id="rb6-57-Xq7"/>
+                                    <constraint firstItem="2k7-2w-bGm" firstAttribute="height" secondItem="8cw-1y-Rew" secondAttribute="height" id="vDE-Bs-vcN"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="vDE-Bs-vcN"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact">
+                                    <mask key="constraints">
+                                        <exclude reference="eCf-WA-hL0"/>
+                                        <exclude reference="lrC-of-lp6"/>
+                                        <include reference="vDE-Bs-vcN"/>
+                                    </mask>
+                                </variation>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -754,10 +763,10 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <connections>
                         <outlet property="imagesScroll" destination="2k7-2w-bGm" id="Cja-y1-zvk"/>
                         <outlet property="loader" destination="pPf-3Y-CSF" id="2Z6-Pf-NG6"/>
-                        <outlet property="newsDate" destination="uhA-AY-pWs" id="cX0-RT-knD"/>
                         <outlet property="newsText" destination="B1j-aG-BIR" id="tgk-Cb-oja"/>
                         <outlet property="textHeight" destination="g2m-1v-7ut" id="cAH-8X-R98"/>
                         <outlet property="textToImage" destination="PBy-a5-dv1" id="lEf-fe-BO7"/>
