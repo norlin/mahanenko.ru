@@ -28,7 +28,6 @@ class ImageScroll: UIScrollView {
         }
         
         let width = self.frame.size.width
-        print("update images \(width)")
         let height = width * imagesAspect
         let imageFrame = CGSize(width: width, height: height)
         self.contentSize = CGSize(width: CGFloat(images.count) * width, height: height)
