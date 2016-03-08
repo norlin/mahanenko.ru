@@ -82,44 +82,21 @@ class ImageScroll: UIScrollView {
 }
 
 class ImageViewController: UIViewController {
-    let log = Log(id: "ImageViewController")
-    var images: [Image]!
+    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
     
-    @IBOutlet weak var imagesScroll: ImageScroll!
-    @IBOutlet weak var dismissButton: UIButton!
+    var image: Image!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        log.notice("viewDidLoad")
-        
-        view.backgroundColor = UIColor.clearColor()
-        imagesScroll.backgroundColor = UIColor.clearColor()
-        view.bringSubviewToFront(dismissButton)
-        
-        imagesScroll.imageMode = .ScaleAspectFit
-        imagesScroll.loaderStyle = .WhiteLarge
-        imagesScroll.images = images
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        
-        imagesScroll.updateImages()
-    }
-    
-    func dismiss(){
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    @IBAction func dismissButton(sender: AnyObject) {
-        dismiss()
-    }
-    
-    class func showViewer(sender: UIViewController, images: [Image]) {
-        if let imageViewController = sender.storyboard?.instantiateViewControllerWithIdentifier("ImageView") as? ImageViewController {
-            imageViewController.images = images
-            sender.presentViewController(imageViewController, animated: true, completion: nil)
+        loader.startAnimating()
+        image.fetch(){ (error, image) in
+            if (error){
+                self.imageView.contentMode = UIViewContentMode.Center
+            }
+            dispatch_async(dispatch_get_main_queue()){
+                self.imageView.image = image
+                self.loader.stopAnimating()
+            }
         }
     }
 }

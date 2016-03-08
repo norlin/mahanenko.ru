@@ -76,7 +76,7 @@ Build: 123456</string>
                                 <rect key="frame" x="0.0" y="28" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OuN-Y8-sVB" id="A97-L8-HC3">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="369.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qvQ-jf-gl7" userLabel="Header View">
@@ -215,7 +215,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                                 <rect key="frame" x="0.0" y="398" width="320" height="370"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ROU-nL-CBg" id="Pjx-u5-igU">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="369.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-Mc-PmX" userLabel="Header View">
@@ -368,7 +368,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BookCell" id="fOr-Lh-DaK" customClass="BookCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="67" y="64" width="187" height="230"/>
+                                <rect key="frame" x="66.5" y="64" width="187" height="230"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="187" height="230"/>
@@ -558,6 +558,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <outlet property="titleHeight" destination="vWN-Rb-Fjl" id="wqq-2d-vsk"/>
                         <outlet property="titleImageGap" destination="wYo-Zr-jbV" id="XRk-na-T3a"/>
                         <outlet property="topView" destination="teJ-o8-xhY" id="WFe-wK-pmK"/>
+                        <segue destination="0T3-At-SU1" kind="presentation" id="gyu-qs-94C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7yc-gy-hzf" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -638,11 +639,77 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <outlet property="newsText" destination="B1j-aG-BIR" id="tgk-Cb-oja"/>
                         <outlet property="textHeight" destination="g2m-1v-7ut" id="cAH-8X-R98"/>
                         <outlet property="textToImage" destination="PBy-a5-dv1" id="lEf-fe-BO7"/>
+                        <segue destination="0T3-At-SU1" kind="presentation" id="Ub8-qL-Df2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="72W-Sb-BTj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1056" y="201"/>
+        </scene>
+        <!--Image Pages Controller-->
+        <scene sceneID="3k7-sB-OFP">
+            <objects>
+                <viewController storyboardIdentifier="ImagePagesController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="0T3-At-SU1" customClass="ImagePagesController" customModule="mahanenko_ru" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kcc-EB-jhH"/>
+                        <viewControllerLayoutGuide type="bottom" id="y8K-lp-0Ww"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hyi-7a-TGn">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="60b-j5-USW">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="p1i-Ji-5uD">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="548"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VcI-CB-emU">
+                                            <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
+                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="t1B-JG-aYm">
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            </view>
+                                            <vibrancyEffect>
+                                                <blurEffect style="dark"/>
+                                            </vibrancyEffect>
+                                        </visualEffectView>
+                                    </subviews>
+                                </view>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zDm-Ma-jOK">
+                                <rect key="frame" x="264" y="28" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="Sje-55-kqU"/>
+                                    <constraint firstAttribute="height" constant="40" id="V5Y-H1-OlV"/>
+                                </constraints>
+                                <state key="normal" image="Close">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="dismissButton:" destination="Mt8-wp-Sv1" eventType="touchUpInside" id="NVC-uz-unU"/>
+                                    <action selector="dismissButton:" destination="0T3-At-SU1" eventType="touchUpInside" id="u1D-C0-0mE"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="zDm-Ma-jOK" secondAttribute="trailing" id="I4N-GT-yRU"/>
+                            <constraint firstItem="y8K-lp-0Ww" firstAttribute="top" secondItem="60b-j5-USW" secondAttribute="bottom" id="XOq-Hq-rtJ"/>
+                            <constraint firstItem="60b-j5-USW" firstAttribute="top" secondItem="Kcc-EB-jhH" secondAttribute="bottom" id="YKK-Xo-B3a"/>
+                            <constraint firstItem="zDm-Ma-jOK" firstAttribute="top" secondItem="Kcc-EB-jhH" secondAttribute="bottom" constant="8" symbolic="YES" id="hD6-O0-h4T"/>
+                            <constraint firstAttribute="trailing" secondItem="60b-j5-USW" secondAttribute="trailing" id="rlZ-pR-wPa"/>
+                            <constraint firstItem="60b-j5-USW" firstAttribute="leading" secondItem="hyi-7a-TGn" secondAttribute="leading" id="uOI-br-bGq"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="dismissButton" destination="zDm-Ma-jOK" id="MPN-na-Rpu"/>
+                        <segue destination="Mt8-wp-Sv1" kind="presentation" id="kRS-bl-4Fa"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xs0-ym-wot" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1565" y="202"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="Nki-YV-4Qg">
@@ -669,7 +736,7 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="Arm-wq-HPj" style="IBUITableViewCellStyleDefault" id="WCw-Qf-5nD" customClass="TableCellView" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="114" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="113.5" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WCw-Qf-5nD" id="37f-cq-3Eg">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43.5"/>
@@ -792,69 +859,36 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
                         <viewControllerLayoutGuide type="bottom" id="bwq-FP-1Gi"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hAQ-Oe-2XN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3W1-qr-wZO">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="y40-TU-rMd">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="580"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <visualEffectView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hvu-6h-JNR">
-                                            <rect key="frame" x="0.0" y="-20" width="0.0" height="0.0"/>
-                                            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" id="eS4-rp-hpe">
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </view>
-                                            <vibrancyEffect>
-                                                <blurEffect style="light"/>
-                                            </vibrancyEffect>
-                                        </visualEffectView>
-                                    </subviews>
-                                </view>
-                                <blurEffect style="light"/>
-                            </visualEffectView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lB7-xe-DFx">
-                                <rect key="frame" x="540" y="40" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="eXD-OI-BZU"/>
-                                    <constraint firstAttribute="width" constant="40" id="pjy-hZ-ciI"/>
-                                </constraints>
-                                <state key="normal" image="Close">
-                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="dismissButton:" destination="Mt8-wp-Sv1" eventType="touchUpInside" id="XPN-8N-T5f"/>
-                                </connections>
-                            </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsVerticalScrollIndicator="NO" indicatorStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="e0C-HW-RvA" customClass="ImageScroll" customModule="mahanenko_ru" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zv4-PK-Kbu">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </scrollView>
+                            </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="59F-eA-JXY">
+                                <rect key="frame" x="142" y="265.5" width="37" height="37"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="e0C-HW-RvA" firstAttribute="leading" secondItem="hAQ-Oe-2XN" secondAttribute="leading" id="6Wv-0F-GgS"/>
-                            <constraint firstAttribute="trailing" secondItem="lB7-xe-DFx" secondAttribute="trailing" constant="20" id="8dd-Wa-lNH"/>
-                            <constraint firstItem="lB7-xe-DFx" firstAttribute="top" secondItem="EG8-jY-yNn" secondAttribute="bottom" constant="20" id="9Xu-aS-RPs"/>
-                            <constraint firstItem="bwq-FP-1Gi" firstAttribute="top" secondItem="e0C-HW-RvA" secondAttribute="bottom" id="HiF-Iq-G0A"/>
-                            <constraint firstAttribute="trailing" secondItem="3W1-qr-wZO" secondAttribute="trailing" id="OGH-SZ-9B3"/>
-                            <constraint firstItem="bwq-FP-1Gi" firstAttribute="top" secondItem="3W1-qr-wZO" secondAttribute="bottom" id="bgO-7M-AIx"/>
-                            <constraint firstItem="3W1-qr-wZO" firstAttribute="leading" secondItem="hAQ-Oe-2XN" secondAttribute="leading" id="dQl-qy-dav"/>
-                            <constraint firstAttribute="trailing" secondItem="e0C-HW-RvA" secondAttribute="trailing" id="fOp-Yb-p6h"/>
-                            <constraint firstItem="e0C-HW-RvA" firstAttribute="top" secondItem="hAQ-Oe-2XN" secondAttribute="top" id="hj8-8X-84R"/>
-                            <constraint firstItem="3W1-qr-wZO" firstAttribute="top" secondItem="EG8-jY-yNn" secondAttribute="bottom" id="jKV-5f-0A5"/>
+                            <constraint firstItem="zv4-PK-Kbu" firstAttribute="leading" secondItem="hAQ-Oe-2XN" secondAttribute="leading" id="38h-vc-PTY"/>
+                            <constraint firstItem="zv4-PK-Kbu" firstAttribute="top" secondItem="EG8-jY-yNn" secondAttribute="bottom" id="IBe-43-TWA"/>
+                            <constraint firstAttribute="trailing" secondItem="zv4-PK-Kbu" secondAttribute="trailing" id="X1B-Xe-Y3A"/>
+                            <constraint firstItem="bwq-FP-1Gi" firstAttribute="top" secondItem="zv4-PK-Kbu" secondAttribute="bottom" id="YZn-12-ehB"/>
+                            <constraint firstItem="59F-eA-JXY" firstAttribute="centerX" secondItem="hAQ-Oe-2XN" secondAttribute="centerX" id="l3K-1C-2S2"/>
+                            <constraint firstItem="59F-eA-JXY" firstAttribute="centerY" secondItem="hAQ-Oe-2XN" secondAttribute="centerY" id="mpt-bS-TBu"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <connections>
-                        <outlet property="dismissButton" destination="lB7-xe-DFx" id="YjF-uv-eVg"/>
-                        <outlet property="imagesScroll" destination="e0C-HW-RvA" id="Z6H-h5-ruG"/>
+                        <outlet property="imageView" destination="zv4-PK-Kbu" id="O4H-uE-G7T"/>
+                        <outlet property="loader" destination="59F-eA-JXY" id="U0j-gS-L1n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35x-4y-wan" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1629" y="222"/>
+            <point key="canvasLocation" x="2093" y="202"/>
         </scene>
         <!--Detail Navigation-->
         <scene sceneID="r7l-gg-dq7">
@@ -879,7 +913,8 @@ P.S.: Встречаем новую обложку! Как Вам?</string>
         <image name="Close" width="128" height="128"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="jAt-8t-j1i"/>
         <segue reference="6S0-TO-JiA"/>
+        <segue reference="jAt-8t-j1i"/>
+        <segue reference="gyu-qs-94C"/>
     </inferredMetricsTieBreakers>
 </document>

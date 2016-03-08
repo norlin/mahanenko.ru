@@ -110,7 +110,7 @@ class NewsDetailController: UIViewController {
             return
         }
         
-        ImageViewController.showViewer(self, images: imagesScroll.images)
+        ImagePagesController.showViewer(self, images: imagesScroll.images)
     }
     
     override func viewDidLayoutSubviews() {

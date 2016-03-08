@@ -261,7 +261,7 @@ class BookDetailController: UIViewController {
             return
         }
         if let image = book.image3d {
-            ImageViewController.showViewer(self, images: [image])
+            ImagePagesController.showViewer(self, images: [image])
         }
     }
     
