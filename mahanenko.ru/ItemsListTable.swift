@@ -12,7 +12,7 @@ import UIKit
 extension ItemsListViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return items.count// + 1
+        return items.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -39,8 +39,6 @@ extension ItemsListViewController {
         if indexPath.section < items.count {
             return
         }
-        
-        //tableView.reloadData()
     }
     
     func refresh(sender: AnyObject) {

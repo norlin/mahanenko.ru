@@ -48,6 +48,8 @@ class BookDetailController: UIViewController {
     var appeared = false
     var userAction = false
     
+    var viewer: ImagePagesController!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -151,6 +153,7 @@ class BookDetailController: UIViewController {
         })
         
         if let image = book.image3d {
+            viewer = ImagePagesController.makeViewer(self, images: [image])
             self.imageLoader.startAnimating()
             image.fetch() {(error, image) in
                 if (error){
@@ -257,12 +260,11 @@ class BookDetailController: UIViewController {
     }
     
     func showImage(){
-        guard let book = self.book else {
+        guard let viewer = self.viewer else {
             return
         }
-        if let image = book.image3d {
-            ImageViewController.showViewer(self, images: [image])
-        }
+        
+        self.presentViewController(viewer, animated: true, completion: nil)
     }
     
     var sharedContext: NSManagedObjectContext {

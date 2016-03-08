@@ -6,14 +6,6 @@
 //  Copyright © 2016 norlin. All rights reserved.
 //
 
-//
-//  TableView.swift
-//  mahanenko.ru
-//
-//  Created by norlin on 18/01/16.
-//  Copyright © 2016 norlin. All rights reserved.
-//
-
 import UIKit
 
 class CollectionView: UICollectionView {

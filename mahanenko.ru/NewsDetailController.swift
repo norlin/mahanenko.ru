@@ -13,10 +13,13 @@ class NewsDetailController: UIViewController {
     let log = Log(id: "NewsDetailController")
     
     @IBOutlet weak var newsText: UITextView!
-    @IBOutlet weak var imagesScroll: ImageScroll!
     @IBOutlet weak var textToImage: NSLayoutConstraint!
     @IBOutlet weak var textHeight: NSLayoutConstraint?
     @IBOutlet weak var loader: Loader!
+    @IBOutlet weak var imagesContainer: UIView!
+    
+    var dataSource:ImagePagesDelegate!
+    var pageController: UIPageViewController!
     var reloadButton: UIBarButtonItem!
     
     var newsId: NSManagedObjectID? {
@@ -27,18 +30,30 @@ class NewsDetailController: UIViewController {
         }
     }
     var news: News?
+    var viewer: ImagePagesController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imagesScroll.backgroundColor = UIColor.blackColor()
         newsText.textContainerInset = view.layoutMargins
         view.bringSubviewToFront(loader)
         
         reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
         
-        imagesScroll.scrollsToTop = false
         let tap = UITapGestureRecognizer(target: self, action: "showImages")
-        imagesScroll.addGestureRecognizer(tap)
+        imagesContainer.addGestureRecognizer(tap)
+        
+        dataSource = ImagePagesDelegate()
+        dataSource.imageMode = UIViewContentMode.ScaleAspectFill
+        addChildViewController(dataSource)
+    
+        pageController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+        
+        addChildViewController(pageController)
+        imagesContainer.addSubview(pageController.view)
+        
+        pageController.view.frame = imagesContainer.bounds
+        pageController.didMoveToParentViewController(self)
+        pageController.dataSource = dataSource
         
         self.configure()
     }
@@ -75,8 +90,6 @@ class NewsDetailController: UIViewController {
         }
     }
     
-    var imageViews = [UIImageView]()
-    
     func updateNewsItem(error: NSError?){
         log.notice("updateNewsItem")
         if error != nil {
@@ -90,15 +103,29 @@ class NewsDetailController: UIViewController {
         newsText.text = news.text?.string
         
         if (news.hasImages) {
-            imagesScroll.images = news.images
+            dataSource.images = news.images
         } else if let preview = news.previewImage {
-            imagesScroll.images = [preview]
+            dataSource.images = [preview]
         } else {
-            imagesScroll.images = []
+            dataSource.images = []
         }
+        
+        viewer = ImagePagesController.makeViewer(self, images: dataSource.images)
 
-        imagesScroll.hidden = imagesScroll.images.count == 0
-        textToImage.active = imagesScroll.images.count > 0
+        imagesContainer.hidden = dataSource.images.count == 0
+        textToImage.active = dataSource.images.count > 0
+        
+        guard let views = dataSource.imageViews else {
+            return
+        }
+        
+        pageController.setViewControllers([views[0]], direction: .Forward, animated: true) { done in
+            if done {
+                self.log.debug("views are set")
+            } else {
+                self.log.error("can't set view controllers")
+            }
+        }
     }
     
     func reloadDetails(sender: AnyObject) {
@@ -106,24 +133,23 @@ class NewsDetailController: UIViewController {
     }
     
     func showImages(){
-        if imagesScroll.images.count == 0 {
+        guard let viewer = self.viewer else {
             return
         }
         
-        ImageViewController.showViewer(self, images: imagesScroll.images)
+        self.presentViewController(viewer, animated: true, completion: nil)
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        imagesScroll.frame.size.width = self.view.frame.width
+        imagesContainer.frame.size.width = self.view.frame.width
         
         newsText.sizeToFit()
         if let height = textHeight {
             height.constant = newsText.contentSize.height
         }
         newsText.layoutIfNeeded()
-        imagesScroll.updateImages()
     }
     
     var sharedContext: NSManagedObjectContext {
