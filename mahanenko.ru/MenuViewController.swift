@@ -62,8 +62,6 @@ class MenuViewController: UITableViewController {
         
     }
 
-    // MARK: - Segues
-
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         log.notice("prepareForSegue")
         if segue.identifier == "showDetail" {
@@ -96,8 +94,6 @@ class MenuViewController: UITableViewController {
         }
     }
 
-    // MARK: - Table View
-
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return menu.list.count
     }
@@ -119,7 +115,6 @@ class MenuViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
         return false
     }
 
