@@ -1,3 +1,5 @@
+## Project abandoned since there is an "official" app appears.
+
 # Mahanenko.ru
 
 The app represents the main content (news and books) from http://mahanenko.ru via http-api with responses in JSON format
