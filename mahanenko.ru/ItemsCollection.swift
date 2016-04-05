@@ -19,14 +19,11 @@ extension ItemsCollectionViewController: UICollectionViewDelegateFlowLayout {
     }
 
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return items.count
-    }
-
-    
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.row < items.count {
-            return
+        if let sections = filterDelegate.fetchedResultsController.sections {
+            return sections[section].numberOfObjects
         }
+        
+        return 0
     }
     
     func refresh(sender: AnyObject) {

@@ -12,11 +12,20 @@ import UIKit
 extension ItemsListViewController {
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return items.count
+        if let sections = filterDelegate.fetchedResultsController.sections {
+            return sections.count
+        }
+        
+        return 0
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        if let sections = filterDelegate.fetchedResultsController.sections {
+            return sections[section].numberOfObjects
+        }
+        
+        return 0
+
     }
     
     override func tableView(tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
@@ -28,17 +37,7 @@ extension ItemsListViewController {
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         log.warning("heightForRowAtIndexPath is not defined")
         
-        if indexPath.section < items.count {
-            return ROW_HEIGHT + IMAGE_HEIGHT + 300
-        }
-        
-        return 41
-    }
-        
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if indexPath.section < items.count {
-            return
-        }
+        return ROW_HEIGHT + IMAGE_HEIGHT + 300
     }
     
     func refresh(sender: AnyObject) {

@@ -37,9 +37,9 @@ class NewsDetailController: UIViewController {
         newsText.textContainerInset = view.layoutMargins
         view.bringSubviewToFront(loader)
         
-        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
+        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(reloadDetails(_:)))
         
-        let tap = UITapGestureRecognizer(target: self, action: "showImages")
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showImages))
         imagesContainer.addGestureRecognizer(tap)
         
         dataSource = ImagePagesDelegate()

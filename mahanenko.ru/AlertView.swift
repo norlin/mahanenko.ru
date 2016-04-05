@@ -21,7 +21,7 @@ class AlertViewController: UIViewController {
         view.bringSubviewToFront(dismissButton)
         view.bringSubviewToFront(label)
         
-        tap = UITapGestureRecognizer(target: self, action: "dismiss")
+        tap = UITapGestureRecognizer(target: self, action: #selector(AlertViewController.dismiss))
         self.view.addGestureRecognizer(tap)
 
         label.text = message

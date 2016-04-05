@@ -65,13 +65,13 @@ class BookDetailController: UIViewController {
         
         view.backgroundColor = UIColor(patternImage: self.bgPattern)
         
-        let textModeTap = UITapGestureRecognizer(target: self, action: "setTextMode")
+        let textModeTap = UITapGestureRecognizer(target: self, action: #selector(setTextModeUser))
         summary.addGestureRecognizer(textModeTap)
-        let imageModeTap = UITapGestureRecognizer(target: self, action: "showImage")
+        let imageModeTap = UITapGestureRecognizer(target: self, action: #selector(showImage))
         bookImage.addGestureRecognizer(imageModeTap)
         imageViewConstraints = [seriaLabelLeading, seriaLabelMain, summaryMain]
         
-        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: "reloadDetails:")
+        reloadButton = UIBarButtonItem(barButtonSystemItem: .Refresh, target: self, action: #selector(reloadDetails(_:)))
         
         self.configure()
     }
@@ -192,7 +192,7 @@ class BookDetailController: UIViewController {
         }
     }
     
-    func setTextMode(){
+    func setTextModeUser(){
         userAction = true
         setTextMode(true)
     }

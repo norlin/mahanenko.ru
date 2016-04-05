@@ -27,8 +27,8 @@ class BooksViewController: ItemsCollectionViewController {
             let detailController = segue.destinationViewController as! BookDetailController
             if let selectedBooks = collectionView.indexPathsForSelectedItems() {
                 let selectedItem = selectedBooks[0]
-                let item = selectedItem.item
-                detailController.book = (items as! [Book])[item]
+                let item = filterDelegate.fetchedResultsController.objectAtIndexPath(selectedItem)
+                detailController.book = (item as! Book)
             }
         }
     }
@@ -36,7 +36,7 @@ class BooksViewController: ItemsCollectionViewController {
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("BookCell", forIndexPath: indexPath) as! BookCellView
         
-        let item = items[indexPath.row] as! Book
+        let item = filterDelegate.fetchedResultsController.objectAtIndexPath(indexPath) as! Book
         cell.configure(item)
         
         return cell
@@ -59,7 +59,8 @@ class BooksViewController: ItemsCollectionViewController {
         }
         
         let defaultSize = layout.itemSize
-        let textHeight = getTextHeight(items[indexPath.row], width: defaultSize.width)
+        let item = filterDelegate.fetchedResultsController.objectAtIndexPath(indexPath) as! Book
+        let textHeight = getTextHeight(item, width: defaultSize.width)
         
         return CGSize(width: defaultSize.width, height: defaultSize.height+textHeight)
     }
@@ -104,7 +105,7 @@ class BooksViewController: ItemsCollectionViewController {
     func update(force: Bool = false) {
         log.notice("update")
 
-        if (force || self.items.isEmpty) {
+        //if (force || self.items.isEmpty) {
             log.debug("update: fetch items")
             
             api.getBooksList(){result, error in
@@ -116,9 +117,9 @@ class BooksViewController: ItemsCollectionViewController {
                     CoreDataStackManager.sharedInstance().saveContext()
                 }
             }
-        } else {
-            log.debug("update: use stored items")
-        }
+        //} else {
+        //    log.debug("update: use stored items")
+        //}
 
     }
 

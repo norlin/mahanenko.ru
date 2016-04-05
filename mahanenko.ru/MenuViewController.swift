@@ -43,7 +43,7 @@ class MenuViewController: UITableViewController {
     
     func updateLangControl(){
         log.notice("updateLangControl")
-        let langSelect = UIBarButtonItem(title: api.oppositeLangName, style: .Plain, target: self, action: "switchLang:")
+        let langSelect = UIBarButtonItem(title: api.oppositeLangName, style: .Plain, target: self, action: #selector(MenuViewController.switchLang(_:)))
         self.navigationItem.rightBarButtonItem = langSelect
     }
     

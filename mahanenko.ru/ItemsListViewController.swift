@@ -31,7 +31,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         
         if filterDelegate == nil {
             setFilterDelegate()
-            filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+            filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: #selector(showFilter(_:)))
         }
         
         if loader == nil {
@@ -44,7 +44,6 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
         ready = true
     }
 
-    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
 
     override func viewDidLoad() {
@@ -54,7 +53,7 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
 
         if let table = tableView as? RefreshTableView {
             if let refreshControl = table.refreshControl {
-                refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+                refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
             }
         }
         
@@ -66,9 +65,9 @@ class ItemsListViewController: UITableViewController, DetailViewProtocol {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items.isEmpty) {
+        //if (items.isEmpty) {
             refresh(self)
-        }
+        //}
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

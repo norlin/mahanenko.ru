@@ -13,14 +13,6 @@ import CoreData
 class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
     let log = Log(id: "ItemsFilter")
     let api = SiteAPI.sharedInstance()
-    var items: [FilterableItem] {
-        if let objects = self.fetchedResultsController.sections?[0].objects as? [FilterableItem] {
-            return objects
-        }
-        
-        log.warning("no objects found?")
-        return []
-    }
     
     var filterOptions: UIAlertController?
     var selectedType: String!
@@ -62,7 +54,7 @@ class ItemsFilter: NSObject, NSFetchedResultsControllerDelegate {
         filterOptions = UIAlertController(title: NSLocalizedString("Select category", comment: "Items filter title"), message: "", preferredStyle: .ActionSheet)
         filterOptions?.modalPresentationStyle = .Popover
         var types = Set<String>()
-        for item in items {
+        for item in fetchedResultsController.fetchedObjects as! [FilterableItem] {
             types.unionInPlace(item.types)
         }
 

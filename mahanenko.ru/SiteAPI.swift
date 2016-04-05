@@ -159,8 +159,11 @@ class SiteAPI: HTTP {
                 if let list = result as? [[String: AnyObject]] {
                     self.log.debug("getNewsList: parsing results")
                     self.sharedContext.performBlock(){
-                        self.sharedContext
-                        for (item) in list {
+                        print("news items: \(list.count)")
+                        for (index, item) in list.enumerate() {
+                            if index < 3 {
+                                //continue
+                            }
                             if let newsItem = self.parseNewsItem(item) {
                                 news.append(newsItem)
                             }
@@ -198,11 +201,23 @@ class SiteAPI: HTTP {
                 }
                 
                 if let items = result as? [[String: AnyObject]] {
+                    guard items.count > 0 else {
+                        let error = HTTP.Error("SiteAPI.getNewsItem", code: 404, msg: "News item is not found")
+                        dispatch_async(dispatch_get_main_queue()){
+                            completion(result: nil, error: error)
+                        }
+                        return
+                    }
                     let item = items[0]
                     let newsUpdate = self.parseNewsItemFull(item)
                     
                     dispatch_async(dispatch_get_main_queue()){
                         completion(result: newsUpdate, error: nil)
+                    }
+                } else {
+                    let error = HTTP.Error("SiteAPI.getNewsItem", code: 404, msg: "Can't parse news item")
+                    dispatch_async(dispatch_get_main_queue()){
+                        completion(result: nil, error: error)
                     }
                 }
             }

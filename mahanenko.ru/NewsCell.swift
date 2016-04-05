@@ -21,7 +21,6 @@ class NewsCellView: TableCellView {
         
         self.bringSubviewToFront(loader)
         
-        self.newsImage.hidden = true
         if let image = item.previewImage {
             loader.startAnimating()
             image.fetch(){(error, image) in
@@ -30,7 +29,6 @@ class NewsCellView: TableCellView {
                 }
                 self.newsImage.image = image
                 self.loader.stopAnimating()
-                self.newsImage.hidden = false
             }
         }
         

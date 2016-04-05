@@ -25,7 +25,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         
         if filterDelegate == nil {
             setFilterDelegate()
-            filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: "showFilter:")
+            filterButton = UIBarButtonItem(title: filterDelegate.getTypeName(nil), style: .Plain, target: self, action: #selector(showFilter(_:)))
         }
         
         if loader == nil {
@@ -38,7 +38,6 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         ready = true
     }
 
-    var items: [FilterableItem] { return filterDelegate.items }
     var filterButton: UIBarButtonItem!
     
     var loader: Loader!
@@ -54,7 +53,7 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
         
         if let table = collectionView as? RefreshCollectionView {
             if let refreshControl = table.refreshControl {
-                refreshControl.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
+                refreshControl.addTarget(self, action: #selector(refresh(_:)), forControlEvents: UIControlEvents.ValueChanged)
             }
         }
 
@@ -63,9 +62,9 @@ class ItemsCollectionViewController: UICollectionViewController, DetailViewProto
     
     override func viewWillAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        if (items.isEmpty) {
+//        if (items.isEmpty) {
             refresh(self)
-        }
+//        }
     }
   
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
